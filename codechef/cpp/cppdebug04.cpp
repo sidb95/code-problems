@@ -14,7 +14,7 @@ public:
 	void decisionFunc(int a=0, int b=0) {
 		int ageAlice = a;
 		int ageBob = b;
-		cout << (minFunc(ageAlice, ageBob) ? "a" : "b") << endl
+		cout << (minFunc(ageAlice, ageBob) ? ageAlice : "b") << endl
 		return;
 	}
 };
