@@ -91,7 +91,6 @@ public:
     }
     
     void removeDuplicatesAuxTwo(Node* head, int* nums, int n) {
-        removeDuplicatesAuxOne(head, nums, n);
         Node* headA, *headB;
         headA = head;
         while (headA != nullptr) {
@@ -109,7 +108,7 @@ public:
         return;
     }
 
-    void removeDuplicates(Node* head) {
+    Node* removeDuplicates(Node* head) {
         int n, count = 0;
         int nums[100002];
         Node* head1;
@@ -126,6 +125,6 @@ public:
         sortedLinkedList(nums, n);
         removeDuplicatesAuxOne(head, nums, n);
         removeDuplicatesAuxTwo(head, nums, n);
-        return;
+        return head;
     }
 };
