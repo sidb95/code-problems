@@ -7,6 +7,7 @@ bhatoresiddharth@gmail.com
 
 #include <iostream>
 #include <vector>
+#include <sort.h>
 
 using namespace std;
 
@@ -18,87 +19,75 @@ struct Node {
         next = nullptr;
     }
 };
+void combine(vector<int>& nums, int i, int j);
 
-int* mergeSortAux(int* numArr, int n, int start, int end, int* retArr) {
-    retArr[0] = numArr[start];
-    int count = 1;
-    int mid = (start+(end-start)/2);
-    start++;
-    if(start >= end) {
-         return retArr;
-    }
-    int i=start, j=mid+1;
-    for(int i=start; i<=mid; i++) {
-        if(numArr[i] > numArr[j]) {
-            retArr[count] = numArr[j];
-            j++;
-        }
-        else {
-            retArr[count] = numArr[i];
-            i++;
-        }
-        count++;
-    }
-    if(count != n) {
-        while(count != n) {
-            if(i == mid) {        
-                retArr[count] = numArr[i];
-                count++;
-                i++;
-            }
-            else {
-                retArr[count] = numArr[j];
-                count++;
-                j++;
-            }
-        }
-    }
-    return retArr;
+
+void merge_sort(vector<int>& nums, int i, int j) {
+	if(j - i <= 0)
+		return;
+	merge_sort(nums, i,i+(j-i)/2);
+	merge_sort(nums, (i+(j-i)/2)+1, j);
+	combine(nums, i, j);
+	return;
 }
 
-int* mergeSort(int* numArr, int n, int start, int end) {
-    int* retArr;
-    retArr = (int*)malloc(sizeof(int)*(end-start+1));
-    if(start >= end) {
-        return numArr;
-    }
-    else {
-        int mid = (start+(end-start)/2);
-        retArr = mergeSortAux(numArr, n, start, mid, retArr); 
-        retArr = mergeSortAux(numArr, n, mid + 1, end, retArr);
-        retArr = mergeSort(retArr, n, start, end);
-    }
-    return retArr;
+void combine(vector<int>& nums, int i, int j) {
+	if(j - i <= 0)
+		return;
+	vector<int> ans;
+	int end1 = (i+(j-i)/2)+1;
+	int end2 = j+1;
+	int lptr = i, rptr = end1;
+	while(lptr != end1 && rptr != end2) {
+		if(nums[lptr] < nums[rptr]) {
+			ans.push_back(nums[lptr]);
+			lptr++;
+		}
+		else {
+			ans.push_back(nums[rptr]);
+			rptr++;
+		}
+	}
+	if(lptr == end1) {
+		while(rptr != end2) {
+			ans.push_back(nums[rptr]);
+			rptr++;
+		}
+	}
+	else if(rptr == end2) {
+		while(lptr != end1) {
+			ans.push_back(nums[lptr]);
+			lptr++;
+		}
+	}
+	for(int x=i;x<=j;x++)
+		nums[x] = ans[x-i];
+	return;
+} 
+
+int* mySort(int* nums, int n, int start, int end) {
+    merge_sort(nums, start, end);
+    return nums;
 }
 
-class LinkedList {
+class Solution {
 public:
     void sortedLinkedList(int* nums, int n) {
-        nums = mergeSort(nums, n, 0, n-1);
+        nums = mySort(nums, n, 0, n-1);
         return;
     }
     
-    void removeDuplicatesAuxOne(Node* head, int* nums, int n) {
-        int count = 0;
-        Node* headA;
-        headA = head;
-        while (headA != nullptr) {
-            headA->data = nums[count];
-            headA = headA->next;
-            count++;
-        }
-        return;
-    }
-    
-    void removeDuplicatesAuxTwo(Node* head, int* nums, int n) {
-        Node* headA, *headB;
+    void removeDuplicatesAltAux(Node* head) {
+        Node *headA, *headB;
         headA = head;
         while (headA != nullptr) {
             bool FLAG = false;
             headB = headA;
             headA = headA->next;
-            while (headA != nullptr && headA->data == headB->data) {
-                FLAG = true;
+            while ((headA != nullptr) && (headA->data == headB->data)) {
+                if (!FLAG) {
+                    FLAG = true;
+                }
                 headA = headA->next;
             }
             if (FLAG) {
@@ -108,23 +97,31 @@ public:
         return;
     }
 
+    void removeDuplicatesAux(Node* head, int* nums, int n) {
+        sortedLinkedList(nums, n);
+        Node* head1;
+        head1 = head;
+        for (int i=0; head1 != nullptr; i++) {
+            head1->data = nums[i];
+            head1 = head1->next;
+        }
+        removeDuplicatesAltAux(head);
+    }
+
     Node* removeDuplicates(Node* head) {
         int n, count = 0;
-        int nums[100002];
+        int* nums;
         Node* head1;
         head1 = head;
         nums[count] = head1->data;
         head1 = head1->next;
         count++;
-        while (head1->next != nullptr) {
-            nums[count] = head1->data;
+        while (head1 != nullptr) {
             head1 = head1->next;
             count++;
         }
         n = count;
-        sortedLinkedList(nums, n);
-        removeDuplicatesAuxOne(head, nums, n);
-        removeDuplicatesAuxTwo(head, nums, n);
+        removeDuplicatesAux(head, nums, n);
         return head;
     }
 };
