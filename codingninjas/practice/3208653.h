@@ -1,18 +1,55 @@
-#include <bits/stdc++.h> 
-/*Structure of the Node of the BST is as
-struct Node
-{
-    int data;
-    Node *left;
-    Node *right;
-
-    Node(int val) 
-    {
-        data = val;
-        left = right = NULL;
-    }
-};
+/*
+3208653
+bhatoresiddharth@gmail.com
+sidb95
+13 May 2024
 */
+
+void combine(vector<int>& nums, int i, int j);
+void merge_sort(vector<int>& nums, int i, int j);
+
+void merge_sort(vector<int>& nums, int i, int j) {
+	if(j - i <= 0)
+		return;
+	merge_sort(nums, i,i+(j-i)/2);
+	merge_sort(nums, (i+(j-i)/2)+1, j);
+	combine(nums, i, j);
+	return;
+}
+
+void combine(vector<int>& nums, int i, int j) {
+	if(j - i <= 0)
+		return;
+	vector<int> ans;
+	int end1 = (i+(j-i)/2)+1;
+	int end2 = j+1;
+	int lptr = i, rptr = end1;
+	while(lptr != end1 && rptr != end2) {
+		if(nums[lptr] < nums[rptr]) {
+			ans.push_back(nums[lptr]);
+			lptr++;
+		}
+		else {
+			ans.push_back(nums[rptr]);
+			rptr++;
+		}
+	}
+	if(lptr == end1) {
+		while(rptr != end2) {
+			ans.push_back(nums[rptr]);
+			rptr++;
+		}
+	}
+	else if(rptr == end2) {
+		while(lptr != end1) {
+			ans.push_back(nums[lptr]);
+			lptr++;
+		}
+	}
+	for(int x=i;x<=j;x++)
+		nums[x] = ans[x-i];
+	return;
+}
 
 void convertVector(vector<int>& V1, Node* root) {
     if (root == nullptr) {
@@ -44,8 +81,8 @@ int countCouples(Node* root1, Node* root2 , int x) {
     m = V1.size();
     convertVector(V2, root2);
     n = V2.size();
-    // sort(V1, 0, V1.length-1);
-    // sort(V2, 0, V2.length-1);
+    merge_sort(V1, 0, m-1);
+    merge_sort(V2, 0, n-1);
     int y;
     for (int i=0; i<m; i++) {
         y = x - V1[i];
@@ -57,6 +94,7 @@ int countCouples(Node* root1, Node* root2 , int x) {
             int mid = r + (t-r)/2;
             if (V2[mid] == y) {
                 retVal++;
+                break;
             }
             else if (V2[mid] < y) {
                 r = mid + 1;
@@ -64,9 +102,6 @@ int countCouples(Node* root1, Node* root2 , int x) {
             else {
                 t = mid - 1;
             }
-        }
-        if (V2[r] == y) {
-            retVal++;
         }
     }
     return retVal;
