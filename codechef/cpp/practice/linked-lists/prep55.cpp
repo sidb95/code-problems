@@ -2,7 +2,7 @@
 prep55
 sidb95
 bhatoresiddharth@gmail.com
-12 May 2024
+12, 13 May 2024
 */
 
 #include <iostream>
@@ -20,7 +20,7 @@ struct Node {
     }
 };
 void combine(vector<int>& nums, int i, int j);
-
+void merge_sort(vector<int>& nums, int i, int j);
 
 void merge_sort(vector<int>& nums, int i, int j) {
 	if(j - i <= 0)
@@ -66,7 +66,14 @@ void combine(vector<int>& nums, int i, int j) {
 } 
 
 int* mySort(int* nums, int n, int start, int end) {
-    merge_sort(nums, start, end);
+    vector<int> V1;
+    for (int i=0; i<n; i++) {
+        V1.push_back(nums[i]);
+    }
+    merge_sort(V1, start, end);
+    for (int i=0; i<n; i++) {
+        nums[i] = V1[i];
+    }
     return nums;
 }
 
