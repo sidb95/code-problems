@@ -12,19 +12,15 @@ public:
     
     int maximumEnergy(vector<int>& energy, int k) {
         int n = energy.size();
-        int sum[n], maxSum = INT_MIN;
-        for (int i=0; i<n; i++) {
-            if (i-k < 0) {
-                sum[i] = energy[i];
-                continue;
-            }
-            for (int j=i; j<n; j++) {
-                if ((sum[j-k] + energy[j]) > sum[j-k]) {
-                    sum[j] = sum[j-k] + energy[j];
-                }
-            }
+        int maxSum = INT_MIN;
+        vector<int> sum;
+        for (int l=0; l<k; l++) {
+            sum.push_back(energy[l]);
         }
-        for (int i=0; i<n; i++) {
+        for (int j=k; j<n; j++) {
+            sum.push_back(maxFunc(energy[j], sum[j-k] + energy[j]));
+        }
+        for (int i=n-1; i>n-1-k; i--) {
             maxSum = maxFunc(maxSum, sum[i]);
         }
         return maxSum;
