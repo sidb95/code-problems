@@ -14,9 +14,8 @@ long reverseBits(long n) {
         m /= 2;
         count++;
     }
-    long y = 0;
     long retAnswer = 0;
-    for (int i = n; i != 0; i /= 2) {
+    for (int i = n; count >= 0; i /= 2) {
         retAnswer += (i % 2) * pow(2, count-1);
         count--;
     }
