@@ -24,7 +24,6 @@ long long int calcAnswer(long long int n, long long int k, string num) {
                     productVar = 0;
                     break;
                 }
-                retAnswer = max(productVar, retAnswer);
                 productVar *= (num[i] - '0');
                 if (productVar == 0) {
                     posi = i + 1;
@@ -35,6 +34,7 @@ long long int calcAnswer(long long int n, long long int k, string num) {
             }
             posi += k;
             FLAG = false;
+            retAnswer = max(productVar, retAnswer);
         }
         else {
             if (posi < n) {
