@@ -1,5 +1,5 @@
 /*
-euler006
+euler007
 bhatoresiddharth@gmail.com
 sidb95
 21 May 2024
@@ -13,14 +13,15 @@ using namespace std;
 
 long long int SET_LIMIT_X = 100000;
 long long int X = 2;
+set <long long int> VIS;
 
 bool isPrime(long long int num, long long int limit);
 long long int calcAnswer(long long int n);
 
 bool isPrime(long long int num, long long int limit) {
     bool retAnswer = true;
+    bool prop = true;
     limit = ((limit % X) == 0) ? (limit - 1) : limit;
-    set <long long int> vis;
     long long int m;
     // returns false if numeric is divisible by 2  
     if ((num == 0) || (num == 1) || ((num % X) == 0)) {
@@ -36,13 +37,13 @@ bool isPrime(long long int num, long long int limit) {
                 break;
             }
             //
-            m = vis.size();
+            m = VIS.size();
             //
             if (m < SET_LIMIT_X) {
                 // if true, visit and mark nodes by multiples
-                if (vis.find(i) == (vis.end())) {
+                if (VIS.find(i) == (VIS.end())) {
                     for (long long int l = i; l <= limit; l += i) {
-                        vis.insert(l);
+                        VIS.insert(l);
                     }
                 }
             }
