@@ -14,8 +14,7 @@ using namespace std;
 
 long long int calcAnswer(long long int n, long long int k, string num) {
     long long int retAnswer = 0;
-    long long int lenNum = num.size();
-    long long int posi = 0, y;
+    long long int posi = 0;
     bool FLAG = true;
     long long int productVar = 1;
     while (posi < n) {
@@ -25,6 +24,7 @@ long long int calcAnswer(long long int n, long long int k, string num) {
                     productVar = 0;
                     break;
                 }
+                retAnswer = max(productVar, retAnswer);
                 productVar *= (num[i] - '0');
                 if (productVar == 0) {
                     posi = i + 1;
