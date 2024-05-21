@@ -1,7 +1,7 @@
 /*
 euler003
 bhatoresiddharth@gmail.com
-20 May 2024
+20, 21 May 2024
 */
 
 #include <iostream>
