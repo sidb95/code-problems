@@ -9,9 +9,20 @@ sidb95
 
 using namespace std;
 
+/*
+ checks whether the num is prime or not
+*/
 bool isPrime(long long int num, long long int limit);
+/*
+ calculates the number divisible by every num from 1 to n.
+*/
 long long int calcAnswer(long long int n);
-
+/*
+ helper function for ```calcAnswer```
+*/
+long long int calcAnswerAux(set <int>& primes, set <int>& nonprimes, 
+long long int n);
+//
 bool isPrime(long long int num, long long int limit) {
     bool retAnswer = true;
     limit = ((limit % X) == 0) ? (limit - 1) : limit;
@@ -47,23 +58,32 @@ bool isPrime(long long int num, long long int limit) {
     return retAnswer;
 }
 
-
+long long int calcAnswerAux(set <int>& primes, set <int>& nonprimes, 
+long long int n) {
+    
+}
+//
 long long int calcAnswer(long long int n) {
     if (n == 1) {
         return 1;
     }
     set <int> primes;
+    set <int> nonprimes;
     long long int product = 1;
     for (int i = 2; i <= n; i++) {
         if (isPrime(i)) {
             primes.insert(i);
         }
     }
-    set <int>::iterator itr1;
-    for (itr1 = primes.begin(); itr1 != primes.end(); itr1++) {
-        product *= (*itr1);
+    for (int i = 2; i <= n; i++) {
+        if (primes.find(i) == primes.end()) {
+            nonprimes.insert(i);
+        }
     }
-    
+    return calcAnswerAux(primes, nonprimes, n);
+    // int len1 = primes.size();
+    // int len2 = nonprimes.size();
+
 }
 
 int main(){
