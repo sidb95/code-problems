@@ -35,11 +35,17 @@ long long int finalCalc(long long int n, set <int>& placed,
 long long int product, set<int>& primes, set<int>& nonprimes);
 //
 /*
+check for product divisibility
+*/
+//
+bool checkAuxHelper(long long int product, set<int>& placed);
+//
+/*
 check for divisibility by nonprime np1
 */
 //
-void checkDivisibleReturnNPAux(long long int product, set <int> nonprimes, 
-set <int>& placed, long long int k);
+void checkDivisible(long long int product, set <int>& placed, 
+long long int k);
 //
 /*
  helper function for ```calcAnswer```
@@ -70,7 +76,7 @@ bool isPrime(long long int num, long long int limit) {
             m = vis.size();
             //
             if (m < SET_LIMIT_X) {
-// if true, visit and mark nodes by multiples
+                // if true, visit and mark nodes by multiples
                 if (vis.find(i) == (vis.end())) {
                     for (long long int l = i; l <= limit; l += i) {
                         vis.insert(l);
@@ -83,9 +89,23 @@ bool isPrime(long long int num, long long int limit) {
     return retAnswer;
 }
 
-void checkDivisibleReturnNPAux(long long int product, set <int> nonprimes, 
-set <int>& placed, long long int k) {
-    
+bool checkAuxHelper(long long int product, set<int>& placed) {
+    set <int>::iterator itr1;
+    long long int k;
+    for (itr1 = placed.begin(); itr1 != placed.end(); itr1++) {
+        k = (*itr1);
+        if ((product % k) != 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void checkDivisible(long long int product, set <int>& placed, long long int k) {
+    if ((product % k) != 0) {
+        placed.insert(k);
+    }
+    return;
 }
 
 long long int finalCalc(long long int n, set <int>& placed, 
@@ -95,16 +115,16 @@ long long int product, set<int>& primes, set <int>& nonprimes) {
         return product;
     }
     set <int>::iterator itr1;
-    bool propn1 = false;
-    int k;
+    bool propn1;
+    long long int k;
     long long int answer;
     //
     for (itr1 = placed.begin(); itr1 != placed.end(); itr1++) {
         k = (*itr1);
-        propn1 = ((checkDivisibleReturnNPAux(product * k, nonprimes) == -1));
+        answer = product * k;
+        propn1 = checkAuxHelper(answer, placed);
         if (propn1) {
-            answer = product * k;
-            break;
+            return answer;
         }
     }
     return answer;
@@ -121,21 +141,12 @@ long long int n) {
         product *= (*itr1);
     }
     //
-    bool FLAG1 = true;
-    bool FLAG2 = true;
-    long long int k = 1;
+    long long int k;
     set <int> placed;
-    long long int num1;
-    // 1-10: primes :- 2, 3, 5, 7
-    // 1-10: non primes :- 1, 4, 6, 8, 9
-    // calculate the one prime/non-prime that
-    // does not divide product of primes
-    // i.e. ```product```
-    while (FLAG1) {
-        for (itr2 = nonprimes.begin(); itr2 != nonprimes.end(); itr2++) {
-            k = (*itr2);
-            checkDivisibleReturnNPAux(product, nonprimes, placed, k);
-        }
+    //
+    for (itr2 = nonprimes.begin(); itr2 != nonprimes.end(); itr2++) {
+        k = (*itr2);
+        checkDivisible(product, placed, k);
     }
     return finalCalc(n, placed, product, primes, nonprimes);
 }
@@ -144,19 +155,22 @@ long long int calcAnswer(long long int n) {
     if (n == 1) {
         return 1;
     }
+    //
     set <int> primes;
     set <int> nonprimes;
-    long long int product = 1;
+    // set primes
     for (int i = 2; i <= n; i++) {
         if (isPrime(i, pow(i, 0.5))) {
             primes.insert(i);
         }
     }
+    // set non primes
     for (int i = 2; i <= n; i++) {
         if (primes.find(i) == primes.end()) {
             nonprimes.insert(i);
         }
     }
+    //
     return calcAnswerAux(primes, nonprimes, n);
 }
 
