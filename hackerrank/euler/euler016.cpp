@@ -32,10 +32,10 @@ string calcAnswerAux2(string s, long long int z) {
     long long int carry = 0;
     string answer = "";
     //
-    for (int i = len1 - 1; i >= 0; i -= 1) {
+    for (long long int i = len1 - 1; i >= 0; i -= 1) {
         sum = 0;
         // at position i
-        for (int j = 0; j < z; j += 1) {
+        for (long long int j = 0; j < z; j += 1) {
             sum += s[i];
         }
         // unit place digit calculation
@@ -59,12 +59,16 @@ string calcAnswerAux(long long int N, long long int x, long long int y) {
     }
     else {
         long long int z = pow(2, y);
-        string answer;
         string str = powerTwoSixty;
-        for (long long int i = 0; i < x-1; i++) {
+        for (long long int i = 0; i < x - 1; i += 1) {
             str = calcAnswerAux2(str, twoPower60);
         }
-        str = calcAnswerAux2(str, z);
+        cout << "str = " << str << endl;
+        string str1 = "";
+        for (long long int i = 0; i < str.size(); i++) {
+            str1 += str[i];
+        }
+        str = calcAnswerAux2(str1, z);
         return str;
     }
 }
