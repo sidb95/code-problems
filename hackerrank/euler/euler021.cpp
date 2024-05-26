@@ -35,13 +35,15 @@ vector <long long int>& summation, long long int sum) {
         long long int sumA = summation[N];
         //
         if (summation[sumA] == N) {
-            if (S1.find(sumA) == S1.end()) {
-                sum += sumA;
-                S1.insert(sum);
-            }
-            if (S1.find(N) == S1.end()) {
-                sum += N;
-                S1.insert(N);
+            if (N != sumA) {
+                if (S1.find(sumA) == S1.end()) {
+                    sum += sumA;
+                    S1.insert(sum);
+                }
+                if (S1.find(N) == S1.end()) {
+                    sum += N;
+                    S1.insert(N);
+                }
             }
         }
         //
