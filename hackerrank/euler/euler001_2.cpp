@@ -12,85 +12,10 @@ sidb95
 
 using namespace std;
 
-long long int SET_LIMIT = 100000;
+long long int SET_LIMIT;
+long long int SET_LIMIT_1 = 1000000;
 
-pair<long long int, long long int> assignerFunc(long long int n, long long int lastNum, long long int maxNum, long long int a, long long int b) {
-    pair<long long int, long long int> retAnswer;
-    long long int posi, posj;
-    // maxNum is greater than n, case 1
-    if (maxNum > n) {
-        // posi calc, case 1
-        if ((n % a) == 0) {
-            posi = n;
-        }
-        else if (((n + 1) % a) == 0) {
-            posi = n + 1;
-        }
-        else if (((n + 2) % a) == 0) {
-            posi = n + 2;
-        }
-        else {
-            posi = a;
-        }
-        // posj calc, case 1
-        if ((n % b) == 0) {
-            posj = n;
-        }
-        else if (((n + 1) % b) == 0) {
-            posj = n + 1;
-        }
-        else if (((n + 2) % b) == 0) {
-            posj = n + 2;
-        }
-        else if (((n + 3) % b) == 0) {
-            posj = n + 3;
-        }
-        else if (((n + 4) % b) == 0) {
-            posj = n + 4;
-        }
-        else {
-            posj = b;
-        }
-    }
-    else if (maxNum == n){
-        if (lastNum == -1) {
-            lastNum = 1;
-        }
-        if ((lastNum % a) == 0) {
-            posi = lastNum;
-        }
-        else if (((lastNum + 1) % a) == 0) {
-            posi = lastNum + 1;
-        }
-        else if (((lastNum + 2) % a) == 0) {
-            posi = lastNum + 2;
-        }
-        else {
-            posi = a;
-        }
-        if ((lastNum % b) == 0) {
-            posj = lastNum;
-        }
-        else if (((lastNum + 1) % b) == 0) {
-            posj = lastNum + 1;
-        }
-        else if (((lastNum + 2) % b) == 0) {
-            posj = lastNum + 2;
-        }
-        else if (((lastNum + 3) % b) == 0) {
-            posj = lastNum + 3;
-        }
-        else if (((lastNum + 4) % b) == 0) {
-            posj = lastNum + 4;
-        }
-        else {
-            posj = b;
-        }
-    }
-    retAnswer = make_pair(posi, posj);
-    return retAnswer;
-}
-
+// sum of digits of N
 int sumOfDigits(long long int N) {
     int answer = 0;
     while (N != 0) {
@@ -100,31 +25,126 @@ int sumOfDigits(long long int N) {
     return answer;
 }
 
+// if num is divisible by 3
 bool divisibilityCheck3(long long int N) {
     int n = sumOfDigits(N);
     return (n % 3) == 0;
 }
 
-long long int sumMultiples(long long int n, set <long long int>& VIS, long long int maxNum, long long int lastNum, long long int a, long long int b) {
+bool divisibilityCheck5(long long int N) {
+    return ((N % 10) == 0) || ((N % 10) == 5);
+}
+
+//
+pair<int, int> assignerFunc(long long int n, long long int lastNum, long long int maxNum) {
+    pair<int, int> retAnswer;
+    int posi, posj;
+    // maxNum is greater than n, case 1
+    if (maxNum > n) {
+        // posi calc, case 1
+        if (divisibilityCheck3(n)) {
+            posi = n;
+        }
+        else if ((divisibilityCheck3(n + 1))) {
+            posi = n + 1;
+        }
+        else if ((divisibilityCheck3(n + 2))) {
+            posi = n + 2;
+        }
+        else {
+            posi = 3;
+        }
+        // posj calc, case 1
+        if (divisibilityCheck5(n)) {
+            posj = n;
+        }
+        else if (divisibilityCheck5(n + 1)) {
+            posj = n + 1;
+        }
+        else if (divisibilityCheck5(n + 2)) {
+            posj = n + 2;
+        }
+        else if (divisibilityCheck5(n + 3)) {
+            posj = n + 3;
+        }
+        else if (divisibilityCheck5(n + 4) ) {
+            posj = n + 4;
+        }
+        else {
+            posj = 5;
+        }
+    }
+    else if (maxNum == n){
+        if (lastNum == -1) {
+            lastNum = 1;
+        }
+        if (divisibilityCheck3(lastNum)) {
+            posi = lastNum;
+        }
+        else if ((divisibilityCheck3(lastNum + 1)) ) {
+            posi = lastNum + 1;
+        }
+        else if ((divisibilityCheck3(lastNum + 2)) ) {
+            posi = lastNum + 2;
+        }
+        else {
+            posi = 3;
+        }
+        if (divisibilityCheck5(lastNum) ) {
+            posj = lastNum;
+        }
+        else if ((divisibilityCheck5(lastNum + 1)) ) {
+            posj = lastNum + 1;
+        }
+        else if ((divisibilityCheck5(lastNum + 2)) ) {
+            posj = lastNum + 2;
+        }
+        else if ((divisibilityCheck5(lastNum + 3)) ) {
+            posj = lastNum + 3;
+        }
+        else if ((divisibilityCheck5(lastNum + 4))) {
+            posj = lastNum + 4;
+        }
+        else {
+            posj = 5;
+        }
+    }
+    retAnswer = make_pair(posi, posj);
+    return retAnswer;
+}
+
+//
+long long int sumMultiples(long long int n, set <int>& VIS, long long int maxNum, long long int lastNum) {
+    //
+    long long int sum = 0;
     // edge cases
     if((n == 1) || (n == 2)) {
         return 0;
     }
+    // looping till SET_LIMIT
+    if (n < SET_LIMIT_1) {
+        for (int i = 3; i < n; i++) {
+            if (divisibilityCheck3(i) || divisibilityCheck5(i)) {
+                sum += i;
+                VIS.insert(i);        
+            }
+        }
+        return sum;
+    }
+
     //
-    long long int posi, posj;
+    int posi, posj;
     // calc posi posj
-    pair<long long int, long long int> p;
-    p = assignerFunc(n, lastNum, maxNum, a, b);
+    pair<int, int> p;
+    p = assignerFunc(n, lastNum, maxNum);
     //
     posi = p.first;
     posj = p.second;
     //
-    long long int sum = 0;
+    int m = VIS.size();
+    int k;
     //
-    long long int m = VIS.size();
-    long long int k;
-    //
-    set <long long int>::iterator itrVis;
+    set <int>::iterator itrVis;
     // summing up the largest non-conflicting summation
     for (itrVis = VIS.begin(); itrVis != VIS.end(); itrVis++) {
         k = (*itrVis);
@@ -136,7 +156,7 @@ long long int sumMultiples(long long int n, set <long long int>& VIS, long long 
         }
     }
     // summing up (if not returned), multiples of a,
-    for (long long int i = posi; i < n; i += a) {
+    for (int i = posi; i < n; i += 3) {
         sum += i;
         // exclude those i that are large in size 
         if (SET_LIMIT >= m) {
@@ -145,7 +165,7 @@ long long int sumMultiples(long long int n, set <long long int>& VIS, long long 
         }
     }
     // summing up the new multiples of ```b < n```
-    for (long long int j = posj; j < n; j += b) {
+    for (int j = posj; j < n; j += 5) {
         if (!divisibilityCheck3(j)) {
             sum += j;
             // exclude those j that are large in size 
@@ -162,15 +182,16 @@ long long int sumMultiples(long long int n, set <long long int>& VIS, long long 
 int main(){
     int t;
     cin >> t;
-    set <long long int> VIS;
+    set <int> VIS;
+    SET_LIMIT = VIS.max_size();
     long long int maxNum = -1, lastNum;
     for(int a0 = 0; a0 < t; a0++){
         int n;
         cin >> n;
         lastNum = maxNum;
-        long long int x = n, a = 3, b = 5;
+        long long int x = n;
         maxNum = max(maxNum, x);
-        cout << sumMultiples(x, VIS, maxNum, lastNum, a, b) << endl;
+        cout << sumMultiples(x, VIS, maxNum, lastNum) << endl;
     }
     return 0;
 }
