@@ -14,9 +14,7 @@ vector <int> SET_DAYS = {
     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
-long long int calcAnswer(long long int Y1, int M1, int D1, long long int Y2, 
-int M2, int D2, int m, int d);
-
+// checks if the year is leap year
 bool isLeapYear(long long int Y) {
     int febDays;
     if ((year % 100) == 0) {
@@ -36,38 +34,35 @@ bool isLeapYear(long long int Y) {
     return (febDays == 29);
 }
 
-int noLeapYears(long long int Y1, long long int Y2) {
-    int year;
-    int answer = 0;
-    for (year = Y1; year <= Y2; year += 1) {
-        if (isLeapYear(year)) {
-            answer += 1;
-        }
-    }
-    return answer;
-}
-
 // returns number of days till date from the
 // start of the year
 int calcDays2(long long int Y, int M, int D) {
     int answer = 0;
-    for (int i = 1; i <= M - 1; i++) {
-        if (i == 2) {
-            if (isLeapYear(Y)) {
-                answer += 29;
+    bool FLAG = true;
+    // adds number of days per month
+    for (int i = 1; i < M; i++) {
+        if (i > 2) {
+            if (FLAG) {
+                if (isLeapYear(Y)) {
+                    answer += 29;
+                }
+                else {
+                    answer += SET_DAYS[1];
+                }
+                FLAG = false;
             }
-            else {
-                answer += SET_DAYS[1];
-            }
-        }
-        else {
             answer += SET_DAYS[i - 1];
         }
+        else if (i == 1) {
+            if (M != 1) {
+                answer += SET_DAYS[0];
+            }
+        }
     }
-    answer += D;
-    return answer;
+    return answer += (D - 1);
 }
 
+// return (0, 6), set member for the given date
 int dayThisDate(long long int Y, int M, int D) {
     long long int days = 0;
     for (long long int year = 1900; year < Y; year += 1) {
@@ -77,6 +72,7 @@ int dayThisDate(long long int Y, int M, int D) {
     return (days + 1) % 7;
 }
 
+// answer to the question taking two dates
 int noMonthlySunday(long long int Y1, int M1, int D1, long long int Y2, int M2, 
 int D2) {
     answer = 0;
