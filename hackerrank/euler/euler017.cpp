@@ -14,6 +14,7 @@ using namespace std;
 
 class Solution {
 public:
+    // string sets needed
     vector <string> words1 = {
         "Trillion", "Billion", "Million", "Thousand", "Hundred"
     };
@@ -25,32 +26,38 @@ public:
         "Nine", "Eight", "Seven", "Six", "Five", "Four", "Three", "Two", "One", 
         "Zero"
     };
-    
-    /*
-        Calculates the integer number N in words.
-    */
-    
+    vector<string> words4 = {
+        "Nineteen", "Eighteen", "Seventeen", "Sixteen", "Fifteen", "Fourteen",
+        "Thirteen", "Twelve", "Eleven"    
+    }; 
+
+    // adding the units digit place
     void calcAnswerAux1(string& answer, vector<int>& digits) {
-        if (digits[0] == 0) {
-            // pass
-        }
-        else {
             answer += words3[9 - digits[0]];
-        }
         return;
     }
     
     //
     void calcAnswerAux2(string& answer, vector<int>& digits) {
-        if (digits[1] == 0) {
-            answer += " ";
-            calcAnswerAux1(answer, digits);
+        if (digits[0] == 0) {
+            if (digits[1] == 0) {
+                // pass
+            }
+            else {
+                if (digits[1] == 1) {
+                    answer += words2[8];
+                }
+            }
         }
-        else {
-            answer += " ";
-            answer += words2[9 - digits[1]];
-            answer += " ";
-            calcAnswerAux1(answer, digits);
+        else {    
+            if (digits[1] == 1) {
+                answer += words4[9 - digits[0]];
+            }
+            else {
+                answer += words2[9 - digits[1]];
+                answer += " ";
+                calcAnswerAux1(answer, digits);
+            }
         }
         return;                                      
     }
@@ -231,6 +238,7 @@ public:
                 answer += " ";
                 answer += words1[1];
                 answer += " ";
+                calcAnswerAux11(answer, digits);
             }
         }
         else if (m == 9) {
