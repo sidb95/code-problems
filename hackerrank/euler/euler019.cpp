@@ -10,7 +10,7 @@ sidb95
 
 using namespace std;
 
-vector <long long int> SET_DAYS = {
+vector <int> SET_DAYS = {
     31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31
 };
 
@@ -41,58 +41,102 @@ int calcDays2(long long int Y, int M, int D) {
     bool FLAG = true;
     // adds number of days per month
     for (int i = 1; i < M; i++) {
-        if (i > 2) {
-            if (FLAG) {
-                if (isLeapYear(Y)) {
-                    answer += 29;
-                }
-                else {
-                    answer += SET_DAYS[1];
-                }
-                FLAG = false;
-            }
-            answer += SET_DAYS[i - 1];
-        }
-        else if (i == 1) {
+        if (i == 1) {
             if (M != 1) {
                 answer += SET_DAYS[0];
             }
         }
+        else if (i == 2) {
+            if (M != 2) {
+                answer += (isLeapYear(Y))? 29 : 28;
+            }
+        }
+        else {
+            answer += SET_DAYS[i - 1];
+        }
     }
-    return answer += (D);
+    answer += (D);
+    return answer;
 }
 
 // return (0, 6), set member for the given date
-int dayThisDate(long long int Y, int M, int D) {
+bool dateSunday(long long int Y, int M, int D) {
     long long int days = 0;
     for (long long int year = 1900; year < Y; year += 1) {
-        days += calcDays2(year, 12, 31);
+        if (isLeapYear(year)) {
+            days += 366;
+        }
+        else {
+            days += 365;
+        }
     }
     days += calcDays2(Y, M, D);
-    return (days + 1) % 7;
+    return ((days) % 7 == 0);
+}
+//
+// helper function to ```noMonthlySunday```
+
+//return answer partly calc b/w ```Y1```, ```Y2```
+int noMonthlySundayAux1(long long int Y1, long long int Y2) {
+    int answer = 0;
+    for (int year = Y1 + 1; year < Y2; year += 1) {
+        for (int month = 1; month <= 12; month += 1) {
+            if (dateSunday(year, month, 1)) {
+                answer += 1;
+            }
+        }
+    }
+    return answer;
+}
+
+// return answer partly where calc ```Y1```
+int noMonthlySundayAux2(long long int Y1, int M1, int D1, bool FLAG, 
+int M2) {
+    int answer = 0;
+    for (int i = M1; i <= (!(FLAG)? M2 : 12); i += 1) {
+        if (i == M1) {
+            if (D1 == 1) {
+                if (dateSunday(Y1, M1, 1)) {
+                    answer += 1;
+                }
+            }
+        }
+        else {
+            if (dateSunday(Y1, i, 1)) {
+                answer += 1;
+            }
+        }
+    }
+    return answer;
+}
+
+// return answer partly where we calc ```Y2```
+int noMonthlySundayAux3(long long int Y2, int M2, int D2, bool FLAG) {
+    int answer = 0;
+    if (FLAG) {
+        for (int i = 1; i <= M2; i += 1) {
+            if (i == M2) {
+                if (dateSunday(Y2, i, 1)) {
+                    answer += 1;
+                }
+            }
+            else {
+                if (dateSunday(Y2, i, 1)) {
+                    answer += 1;
+                }
+            }
+        }
+    }
+    return answer;
 }
 
 // answer to the question taking two dates
 int noMonthlySunday(long long int Y1, int M1, int D1, long long int Y2, int M2, 
 int D2) {
     int answer = 0;
-    for (int year = Y1 + 1; year < Y2; year += 1) {
-        for (int month = 1; month <= 12; month += 1) {
-            if (dayThisDate(year, month, 1) == 0) {
-                answer += 1;
-            }
-        }
-    }
-    for (int i = ((M1 == 1)? 2 : M1); i <= 12; i += 1) {
-        if (dayThisDate(Y1, i, 1) == 0) {
-            answer += 1;
-        }
-    }
-    for (int i = ((M2 == 1)? 2 : M2); i <= M2; i += 1) {
-        if (dayThisDate(Y2, i, 1) == 0) {
-            answer += 1;
-        }
-    }
+    answer += noMonthlySundayAux1(Y1, Y2) + 
+    noMonthlySundayAux2(Y1, M1, D1, !(Y1 == Y2), M2);
+    answer += noMonthlySundayAux3(Y2, M2, D2, !(Y1 == Y2));
     return answer;
 }
 
