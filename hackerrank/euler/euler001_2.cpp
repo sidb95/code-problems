@@ -1,20 +1,11 @@
-/*
-euler001
-bhatoresiddharth@gmail.com
-sidb95
-22, 26 May 2024
-*/
-
 #include <iostream>
-#include <set>
 #include <math.h>
-#include <algorithm>
 #include <vector>
 #include <map>
 
 using namespace std;
 
-map < int, vector <int > > M1;
+map < int, vector < long long int > > M1;
 
 // sum of digits of N
 int sumOfDigits(long long int N) {
@@ -28,7 +19,7 @@ int sumOfDigits(long long int N) {
 
 // if num is divisible by 3
 bool divisibilityCheck3(long long int N) {
-    int n = sumOfDigits(N);
+    long long int n = sumOfDigits(N);
     return (n % 3) == 0;
 }
 // if num is divisible by 5
@@ -36,9 +27,9 @@ bool divisibilityCheck5(long long int N) {
     return ((N % 10) == 0) || ((N % 10) == 5);
 }
 //
-long long int sumMultiplesAux1A(long long int n, long long int sum, 
-bool FLAG) {
-    for (long long int l2 = 3; l2 < n; l2 += 3) {
+long long int sumMultiplesAux1A(long long int n, long long int i, 
+long long int sum, bool FLAG) {
+    for (long long int l2 = i; l2 < n; l2 += 3) {
         if (FLAG) {
             M1[3].push_back(l2);
         }
@@ -47,9 +38,9 @@ bool FLAG) {
     return sum;
 }
 //
-long long int sumMultiplesAux1B(long long int n, long long int sum, 
-bool FLAG) {
-    for (long long int l2 = 5; l2 < n; l2 += 5) {
+long long int sumMultiplesAux1B(long long int n, long long int i,  
+long long int sum, bool FLAG) {
+    for (long long int l2 = i; l2 < n; l2 += 5) {
         if (!divisibilityCheck3(l2)) {
             if (FLAG) {
                 M1[5].push_back(l2);
@@ -60,32 +51,50 @@ bool FLAG) {
     return sum;
 }
 //
-long long int sumMultiplesAux2(long long int n, long long int maxNum, 
-long long int sum) {
+long long int sumMultiplesAux2A(int n, long long int sum) {
+    int i = 0;
     int m = M1[3].size();
-    //
-    bool propn1 = true;
-    propn1 = (m < maxNum);
-    //
-    for (int i = 0; i < (propn1? m : maxNum); i++) {
-        sum += M1[3][i];
+    while (i < m) {
+        if (M1[3][i] < n) {
+            sum += M1[3][i];
+        }
+        i += 1;
     }
+    return sum;
+}
+//
+long long int sumMultiplesAux2B(int n, long long int sum) {
+    int i = 0;
+    int q = M1[5].size();
+    while (i < q) {
+        if (M1[5][i] < n) {
+            sum += M1[5][i];
+        }
+        i += 1;
+    }
+    return sum;
+}
+//
+long long int sumMultiplesAux2(long long int n, long long int lastNum, 
+long long int maxNum, long long int sum) {
+    int m = M1[3].size();
     int q = M1[5].size();
     //
-    bool propn2 = true;
-    propn2 = (q < maxNum);
+    bool propn1;
+    propn1 = (M1[3][m - 1] < maxNum);
+    bool propn2;
+    propn2 = (M1[5][q - 1] < maxNum);
     //
-    for (int i = 0; i < (propn2? q : maxNum); i++) {
-        sum += M1[5][i];
-    }
+    sum = sumMultiplesAux2A(n, sum);
+    //
+    sum = sumMultiplesAux2B(n, sum);
     // if condition holds or not
     if (propn1) {
         long long int posi = ((divisibilityCheck3(m)? m : 
         divisibilityCheck3(m + 1)? (m + 1) : (m + 2)));
-        for (int i = posi; i < n; i += 3) {
-            sum += i;
-            M1[3].push_back(i);
-        }
+        //
+        sum = sumMultiplesAux1A(n, posi, sum, true);
+        //
     }
     // if condition holds or not
     if (propn2) {
@@ -93,39 +102,38 @@ long long int sum) {
         (divisibilityCheck5((q + 1))? (q + 1) : 
         (divisibilityCheck5(q + 2))? (q + 2) :
         (divisibilityCheck5(q + 3))? (q + 3) : (q + 4));
-        for (int i = posj; i < n; i += 5) {
-            if (!divisibilityCheck3(i)) {
-                sum += i;
-            }
-        }
+        //
+        sum = sumMultiplesAux1B(n, posj, sum, true);
     }
     return sum;
 }
 //
 long long int sumMultiplesAux3(long long int n, long long int maxNum, 
 long long int sum) {
-    int m = M1[3].size();
-    if (m > maxNum) {
-        for (int i = 0; M1[3][i] < n; i += 1) {
-            sum += M1[3][i];
-        }    
+    for (int i = 0; M1[3][i] < n; i += 1) {
+        sum += M1[3][i];
     }
-    int q = M1[5].size();
+    //
     for (int i = 0; M1[5][i] < n; i += 1) {
         sum += M1[5][i];
     }
+    //
     return sum;
 }
 //
 long long int sumMultiplesAux(long long int n, long long lastNum, 
-long long int maxNum, long long int sum) {
+long long int maxNum, bool propnA, long long int sum) {
+    // edge cases
+    if((n == 1) || (n == 2)) {
+        return sum;
+    }
     //
-    if (lastNum == -1) {
-        sum = sumMultiplesAux1A(n, sum, true);
-        sum = sumMultiplesAux1B(n, sum, true);
+    if (propnA) {
+        sum = sumMultiplesAux1A(n, 3, sum, true);
+        sum = sumMultiplesAux1B(n, 5, sum, true);
     }
     else if (lastNum < maxNum) {
-        sum = sumMultiplesAux2(n, maxNum, sum);
+        sum = sumMultiplesAux2(n, lastNum, maxNum, sum);
     }
     else if (lastNum == maxNum) {
         sum = sumMultiplesAux3(n, maxNum, sum);
@@ -140,12 +148,8 @@ long long int sumMultiples(long long int n, long long int lastNum,
 long long int maxNum) {
     //
     long long int sum = 0;
-    // edge cases
-    if((n == 1) || (n == 2)) {
-        return sum;
-    }
     // first time in this function
-    sum = sumMultiplesAux(n, lastNum, maxNum, sum);
+    sum = sumMultiplesAux(n, lastNum, maxNum, (lastNum == -1), sum);
     //
     return sum;
 }
