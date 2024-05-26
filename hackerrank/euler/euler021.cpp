@@ -9,23 +9,29 @@ May 26 2024
 #include <iostream>
 #include <set>
 #include <math.h>
+#include <unordered_map>
 
 using namespace std;
 
 long long int SET_LIMIT = 10000;
 
-long long int sumAmicablePairsAux(long long int N) {
+long long int sumAmicablePairsAux(long long int N, 
+unordered_map <long long int>& summation) {
+    if (summation.find(N) != summation.end()) {
+        return summation[N];
+    }
     long long int sum = 0;
     for (long long int i = 1; i < N; i += 1) {
         if ((N % i) == 0) {
             sum += i;
         }
     }
+    summation[N] = sum;
     return sum;
 }
 
 long long int sumAmicablePairs(long long int N, set <long long int>& S1, 
-long long int sum) {
+unordered_map <long long int>& summation, long long int sum) {
     //
     if (N == 0) {
         return sum;
@@ -45,7 +51,7 @@ long long int sum) {
                 }
             }
         }
-        return sumAmicablePairs(N-1, S1, sum);
+        return sumAmicablePairs(N-1, S1, summation, sum);
     }
 }
 
@@ -56,7 +62,8 @@ int main() {
         long long int N;
         cin >> N;
         set <long long int> S1;
-        cout << sumAmicablePairs(N, S1, 0) << endl;
+        unordered_map <long long int, long long int> ul1;
+        cout << sumAmicablePairs(N, S1, ul1, 0) << endl;
     }
     return 0;
 }

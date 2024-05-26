@@ -7,52 +7,49 @@ sidb95
 
 #include <vector>
 #include <iostream>
-#include <algorithm>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
-long long int calcAnswer(string s, long long int m, long long int k) {
-    long long int answer = 0;
-    for (long long int i = 0; i < m; i++) {
-        answer += (s[i] - 'A' + 1);
+string calcAnswerAux(int N, unordered_map<long long int, string>& UM1) {
+    int m = UM1.size();
+    if (N > m) {
+        long long int sum = 0;
+        for (int i = 1; i < N; i += 1) {
+            if ((N % i) == 0) {
+                sum += i;
+            }
+            if (sum > N) {
+                UM1[N] = "YES";
+                return "YES";
+            }
+        }
     }
-    return answer * k;
+    else {
+        return UM1[N];
+    }
+    UM1[N] = "NO";
+    return "NO";
 }
-bool sortAux(string strA, string strB) {
-    return strA < strB;
-} 
+
+string calcAnswer(long long int N, 
+unordered_map <long long int, string>& UM1) {
+    if (N > 28123) {
+        return "YES";       
+    }
+    else {
+        return calcAnswerAux(N, UM1);
+    }
+}
+
 int main() {
-    long long int N, n;
-    cin >> N;
-    map <string, long long int> M1;
-    vector <string> VS1;
-    for (n = 0; n < N; n += 1) {
-        string s;
-        cin >> s;
-        M1[s] = (n + 1);
-        VS1.push_back(s);
-    }
-    long long int Q;
-    cin >> Q;
-    vector <string> V1;
-    //
-    for (n = 0; n < Q; n += 1) {
-        string s;
-        cin >> s;
-        V1.push_back(s);
-    }
-    //
-    sort(VS1.begin(), VS1.end(), sortAux);
-    //
-    map <string, long long int>::iterator itr1;
-    //
-    long long int m = V1.size();
-    for (long long int i = 0; i < Q; i += 1) {
-        string q = V1[i];
-        itr1 = M1.find(q);
-        long long int k = (*itr1).second;
-        cout << (calcAnswer(q, q.size(), k)) << endl;
+    int t, T;
+    cin >> T;
+    unordered_map <long long int, string> UM1;
+    for (int t = 0; t < T; t++) {
+        int N;
+        cin >> N;
+        cout << calcAnswer(N, UM1) << endl;
     }
     return 0;
 }
