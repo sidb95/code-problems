@@ -2,31 +2,17 @@
 euler001
 bhatoresiddharth@gmail.com
 sidb95
-22 May 2024
+22, 26 May 2024
 */
 
 #include <iostream>
 #include <set>
 #include <math.h>
+#include <algorithm>
 
 using namespace std;
 
 long long int SET_LIMIT = 100000;
-
-// function to sum up the multiples
-long long int sumMultiples(long long int n, set <long long int>& VIS, long long int maxNum, long long int lastNum, long long int a, long long int b);
-//
-// assign ```posi``` and ```posj```
-pair<long long int, long long int> assignerFunc(long long int n, long long int lastNum, long long int maxNum, long long int a, long long int b);
-
-// max between a and b
-long long int myMax(long long int a, long long int b);
-
-
-long long int myMax(long long int a, long long int b) {
-    return (a > b) ? a : b;
-}
-
 
 pair<long long int, long long int> assignerFunc(long long int n, long long int lastNum, long long int maxNum, long long int a, long long int b) {
     pair<long long int, long long int> retAnswer;
@@ -105,6 +91,20 @@ pair<long long int, long long int> assignerFunc(long long int n, long long int l
     return retAnswer;
 }
 
+int sumOfDigits(long long int N) {
+    int answer = 0;
+    while (N != 0) {
+        answer += (N % 10);
+        N /= 10;
+    }
+    return answer;
+}
+
+bool divisibilityCheck3(long long int N) {
+    int n = sumOfDigits(N);
+    return (n % 3) == 0;
+}
+
 long long int sumMultiples(long long int n, set <long long int>& VIS, long long int maxNum, long long int lastNum, long long int a, long long int b) {
     // edge cases
     if((n == 1) || (n == 2)) {
@@ -146,7 +146,7 @@ long long int sumMultiples(long long int n, set <long long int>& VIS, long long 
     }
     // summing up the new multiples of ```b < n```
     for (long long int j = posj; j < n; j += b) {
-        if ((j % 3) != 0) {
+        if (!divisibilityCheck3(j)) {
             sum += j;
             // exclude those j that are large in size 
             if (SET_LIMIT >= m) {
@@ -168,8 +168,8 @@ int main(){
         int n;
         cin >> n;
         lastNum = maxNum;
-        maxNum = myMax(maxNum, n);
         long long int x = n, a = 3, b = 5;
+        maxNum = max(maxNum, x);
         cout << sumMultiples(x, VIS, maxNum, lastNum, a, b) << endl;
     }
     return 0;
