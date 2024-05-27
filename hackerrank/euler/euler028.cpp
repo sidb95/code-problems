@@ -12,15 +12,14 @@ using namespace std;
 long long int LIMIT = (1000000007);
 
 long long int calcAnswer(long long int N) {
-    long long int sum = 0;
-    long long int num1;
-    //
-    for (long long int i = 1; i < N; i += 2) {
-        num1 = (i * i);
-        sum += (4 * num1);
-        //
-        sum  += (i + 1) * (6);
+    if (N == 1) {
+        return 1;
     }
+    long long int sum = 0;
+    long long int k = (N - 1) / 2;
+    sum += (4 * (((N) * (N - 1) * (N - 2)) / 6));
+    sum += 6 * ((((N - 1) * (N - 1))) / 4);
+    sum += 6 * (k);
     sum += (N * N);
     sum = (sum % LIMIT);
     return sum;
