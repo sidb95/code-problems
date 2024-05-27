@@ -38,62 +38,61 @@ string calcAnswerAux(string s, int i, int j) {
 
 void calcAnswer(string s, set <string>& S1, long long int N, int count) {
     int m = S.size();
-    // long long int num1 = factorial(m);
     //
-    bool FLAG2 = true;
-    bool FLAG3 = true;
+    bool FLAG = true;
     //
-    if (!FLAG2) {
-        string s1 = S;
-        int l = 0;
-        while (FLAG3) {
-            for (int r = 0; r < m; r += 1) {
-                char c1 = s1[l];
-                char c2 = S[r];
-                s1[l] = c2;
-                for (int q = 0; q < m; q += 1) {
-                    if (q != l) {
-                        s1[q] = S[q];
-                    }
-                    else {
-                        s1[r] = c1; 
-                    }
+    string s1 = S;
+    int l = 0;
+    // while condition FLAG3?
+    while (FLAG) {
+        // l is fixed
+        for (int r = 0; r < m; r += 1) {
+            char c1 = s1[l];
+            char c2 = S[r];
+            s1[l] = c2;
+            for (int q = 0; q < m; q += 1) {
+                if (q != l) {
+                    s1[q] = S[q];
                 }
-                for (int i = 0; i < m; i += 1) {
-                    if (i != r) {
-                        if (s1[i] > s1[l]) {
-                            char c =  s1[i];
-                            s1[i] = s1[l];
-                            if (l != (m - 1)) {
-                                s1[i + 1] = c;
-                            }
-                            else {
-                                for (int j = i + 1; j < l; j += 1) {
-                                    if (j != (m - 1)) {
-                                        s1 = swap(s1, j, j + 1);
-                                    }
+                else {
+                    s1[r] = c1; 
+                }
+            }
+            for (int i = 0; i < m; i += 1) {
+                if (i != r) {
+                    if (s1[i] > s1[l]) {
+                        char c =  s1[i];
+                        s1[i] = s1[l];
+                        if (l != (m - 1)) {
+                            s1[i + 1] = c;
+                        }
+                        else {
+                            for (int j = i + 1; j < l; j += 1) {
+                                if (j != (m - 1)) {
+                                    s1 = swap(s1, j, j + 1);
                                 }
                             }
                         }
                     }
                 }
-                calcAnswer(s1, S1, N, count);
-                count += 1;
-                //
-                if (count >= N) {
-                    S1.insert(s1);
-                    FLAG3 = false;
-                    break;
-                }
             }
-            l += 1;
-            if (l == m) {
-                FLAG3 = false;
+            calcAnswer(s1, S1, N, count);
+            count += 1;
+            if (count >= N) {
+                S1.insert(s1);
+                FLAG = false;
+                break;
             }
         }
-        if (!FLAG3) {
-            return;
+        //
+        l += 1;
+        if (l == m) {
+            FLAG = false;
         }
+    }
+    // condition FLAG3?
+    if (!FLAG) {
+        return;
     }
     //
     return;
@@ -122,6 +121,7 @@ int main() {
                     break;
                 }
             }
+            FLAG = false;
         }
         cout << str1 << endl;
     }
