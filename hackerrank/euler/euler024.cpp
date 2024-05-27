@@ -8,16 +8,14 @@ sidb95
 #include <iostream>
 #include <string>
 #include <math.h>
-#include <set>
-#include <unordered_map>
+#include <vector>
 
 using namespace std;
 
 string S = "abcdefghijklm";
 string Y = "mlkjihgfedcba";
 
-unordered_map< int, string > um1;
-long int SET_LIMIT;
+int SET_LIMIT = 100000;
 
 string swap(string s, int i, int j) {
     char c = s[i];
@@ -28,7 +26,7 @@ string swap(string s, int i, int j) {
 
 // one greater lexicographical
 string greaterLexicographical1(string s, int m, long int N, 
-unordered_map <int, string>& um1) {
+vector <string>& v1) {
     if (s == Y) {
         return s;
     }
@@ -42,38 +40,31 @@ unordered_map <int, string>& um1) {
                 }
                 s = swap(s, i, i - 1);
                 count += 1;
-                n = um1.size();
+                n = v1.size();
                 if (n < SET_LIMIT) {
-                    um1[count] = s;
+                    v1.push_back(s);
                 }
                 if (count == N) {
                     break;
                 }
             }
         }
-        n = um1.size();
-        if (n < SET_LIMIT) {
-            um1[N] = s;
-        }
         return s;
     }
     return s;
 }
 
-string calcAnswer(long int N, unordered_map< int, string >& um1) {
+string calcAnswer(long int N, vector<string>& v1) {
     string s = S;
-    if (N == 1) {
-        um1[1] = s;
-        return s;
-    }
-    if(um1.find(N) != um1.end()) {
-        return um1[N];
+    int n = v1.size();
+    if (N < n) {
+        return v1[N-1];
     }
     else {
         int m = s.size();
         // setting s
-        // taking one lexicographical greater than s
-        s = greaterLexicographical1(s, m, N, um1);
+        // taking ```N - 1``` lexicographical greater than s
+        s = greaterLexicographical1(s, m, N, v1);
     }
     return s;
 }
@@ -84,9 +75,10 @@ int main() {
     for (t = 0; t < T; t += 1) {
         long int N;
         cin >> N;
-        SET_LIMIT = um1.max_size();
+        //
+        vector<string> v1 = {S};
         // prints the answer
-        cout << calcAnswer(N, um1) << endl;
+        cout << calcAnswer(N, v1) << endl;
     }
     return 0;
 }
