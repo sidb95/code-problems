@@ -8,18 +8,21 @@ sidb95
 #include <iostream>
 #include <string>
 #include <math.h>
+#include <set>
 
 using namespace std;
 
 string S = "abcdefghijklm";
 
+/*
 long long int factorial(int n) {
-    int answer = 1;
+    long long int answer = 1;
     for (int i = 2; i <= n; i += 1) {
         answer *= i;
     }
     return answer;
 }
+*/
 
 string swap(string s, int i, int j) {
     char c = s[i];
@@ -33,62 +36,52 @@ string calcAnswerAux(string s, int i, int j) {
     return s;
 }
 
-pair<string, int> calcAnswer(string s, long long int N, int count) {
+void calcAnswer(string s, set <string>& S1, long long int N, int count) {
     int m = S.size();
-    long long int num1 = factorial(m);
+    // long long int num1 = factorial(m);
     //
-    bool FLAG1 = true;
     bool FLAG2 = true;
     bool FLAG3 = true;
     //
-    pair <string, int> p = {S, -1};
-    //
-    int j, k = 0;
-    int i = 0;
-    //
-    while (FLAG1) {
-        for (j = i; j < m - 1; j += 1) {
-            //
-            count++;
-            if (count == N) {
-                FLAG1 = false;
-                break;
-            }
-            //
-            s = calcAnswerAux(s, j, j + 1);
-        }
-        //
-        if (k == (m - 1)) {
-            FLAG2 = false;  
-        }
-        //
-        else if (FLAG1) {
-            s = S;
-        }
-        //
-        if (i == m - 1) {
-            i = k + 1;
-            k += 1;
-        }
-        else {
-            i += 1;
-        }
-        //
-    }
-    if (!FLAG1) {
-        return make_pair(s, count);
-    }
     if (!FLAG2) {
-        string s1 = "";
+        string s1 = S;
         int l = 0;
         while (FLAG3) {
-            for (int r = 0; r < (m); r += 1) {
-                s1[l] = S[r];
-                for (int q = 1; q < m; q += 1) {
-                    s1[q] = S[q];
+            for (int r = 0; r < m; r += 1) {
+                char c1 = s1[l];
+                char c2 = S[r];
+                s1[l] = c2;
+                for (int q = 0; q < m; q += 1) {
+                    if (q != l) {
+                        s1[q] = S[q];
+                    }
+                    else {
+                        s1[r] = c1; 
+                    }
                 }
-                p = calcAnswer(s1, N, count);
-                if (p.second >= N) {
+                for (int i = 0; i < m; i += 1) {
+                    if (i != r) {
+                        if (s1[i] > s1[l]) {
+                            char c =  s1[i];
+                            s1[i] = s1[l];
+                            if (l != (m - 1)) {
+                                s1[i + 1] = c;
+                            }
+                            else {
+                                for (int j = i + 1; j < l; j += 1) {
+                                    if (j != (m - 1)) {
+                                        s1 = swap(s1, j, j + 1);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                calcAnswer(s1, S1, N, count);
+                count += 1;
+                //
+                if (count >= N) {
+                    S1.insert(s1);
                     FLAG3 = false;
                     break;
                 }
@@ -99,11 +92,11 @@ pair<string, int> calcAnswer(string s, long long int N, int count) {
             }
         }
         if (!FLAG3) {
-            return p;
+            return;
         }
     }
     //
-    return p;
+    return;
 }
 
 int main() {
@@ -112,7 +105,25 @@ int main() {
     for (t = 0; t < T; t++) {
         long long int N;
         cin >> N;
-        cout << calcAnswer(S, N, 0).first << endl;
+        set <string> S1;
+        calcAnswer(S, S1, N, 0);
+        //
+        bool FLAG = true;
+        //
+        int count = 0;
+        string str1 = S;
+        set <string>::iterator itr1;
+        while (FLAG) {
+            for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
+                str1 = (*itr1);
+                count++;
+                if (count == N) {
+                    FLAG = false;
+                    break;
+                }
+            }
+        }
+        cout << str1 << endl;
     }
     return 0;
 }
