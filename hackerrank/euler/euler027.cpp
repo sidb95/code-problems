@@ -55,16 +55,16 @@ bool isPrime(long long int num, long long int limit) {
 Returns pair in question
 */
 // main helper function 1
-pair <int, int> mainFuncAux1(int N) {
+pair <long long int, long long int> mainFuncAux1(long long int N) {
     //
-    int maxA, maxB;
-    int maxPrimes = 0;
+    long long int maxA, maxB;
+    long long int maxPrimes = 0;
     //
-    pair <int, int> p1;
+    pair <long long int, long long int> p1;
     // iterating i for a
-    for (int i = N; i >= (-1 * N); i -= 1) {
+    for (long long int i = N; i >= (-1 * N); i -= 1) {
         // iterating i for j
-        for (int j = N; j >= (-1 * N); j -= 1) {
+        for (long long int j = N; j >= (-1 * N); j -= 1) {
             //
             p1 = make_pair(i, j);
             //
@@ -90,37 +90,20 @@ pair <int, int> mainFuncAux1(int N) {
             //
             bool FLAG = true;
             //
-            int count = 0;
+            long long int count = 0;
             //
+            long long int n = 0;
             // iterating n
-            for (int n = 0; FLAG; n += 1) {
+            while (FLAG) {
                 //
                 // occur frequent
-                int num2 = (n * n);
-                int num3 = (i * n);
+                long long int num2 = (n * n);
+                long long int num3 = (i * n);
                 // occur frequent
-                int modB1 = (j % num2);
-                int modB2 = (num2 % j);
                 //
                 // calc ```x```
-                int x = (num2 + num3 + j);
-                //
-                // edge cases of ```a n j```
-                if (i == n) {
-                    if ((j % 2) == 0) {
-                        continue;
-                    }
-                }
-                else if (j == n) {
-                    break;
-                }
-                else if (i == j) {
-                    if ((modB2) == 0) {
-                        continue;
-                    }
-                    if ((modB1) == 0) {
-                        continue;
-                    }
+                long long int x = (num2 + num3 + j);
+                if (i == j) {
                     if (((num2) % (n + 1)) == 0) {
                         continue;
                     }
@@ -128,26 +111,21 @@ pair <int, int> mainFuncAux1(int N) {
                 else if (j == 0) {
                     break;
                 }
-                else if (i == 0) {
-                    if (modB2 == 0) {
-                        continue;
-                    }
-                    if (modB1 == 0) {
-                        continue;
-                    }
-                }
                 if (!isPrime(x, pow(x, 0.5))) {
                     FLAG = false;
                 }
                 if (FLAG) {
                     count += 1;
                 }
+                n += 1;
             }
             //
-            if (maxPrimes < count) {
-                maxPrimes = count;
-                maxA = i;
-                maxB = j;
+            if (!FLAG) {
+                if (maxPrimes < count) {
+                    maxPrimes = count;
+                    maxA = i;
+                    maxB = j;
+                }
             }
             //
         }
@@ -159,7 +137,7 @@ pair <int, int> mainFuncAux1(int N) {
 int main() {
     int N;
     cin >> N;
-    pair <int, int> p1;
+    pair <long long int, long long int> p1;
     p1 = mainFuncAux1(N);
     cout << p1.first << " " << p1.second << endl;
     return 0;
