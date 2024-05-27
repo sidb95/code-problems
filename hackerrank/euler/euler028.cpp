@@ -7,16 +7,22 @@ sidb95
 
 #include <iostream>
 
-using namespace std
+using namespace std;
+
+long long int LIMIT = (1000000007);
 
 long long int calcAnswer(long long int N) {
     long long int sum = 0;
+    long long int num1;
+    //
     for (long long int i = 1; i < N; i += 2) {
-        long long int num1 = (i * i);
-        for (long long int j = 0; j < 4; j += 1) {
-            sum  += (num1 + ((i + 1) * j));
-        }
+        num1 = (i * i);
+        sum += (4 * num1);
+        //
+        sum  += (i + 1) * (6);
     }
+    sum += (N * N);
+    sum = (sum % LIMIT);
     return sum;
 }
 
