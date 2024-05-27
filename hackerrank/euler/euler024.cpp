@@ -9,20 +9,15 @@ sidb95
 #include <string>
 #include <math.h>
 #include <set>
+#include <unordered_map>
 
 using namespace std;
 
 string S = "abcdefghijklm";
+string Y = "mlkjihgfedcba";
 
-/*
-long long int factorial(int n) {
-    long long int answer = 1;
-    for (int i = 2; i <= n; i += 1) {
-        answer *= i;
-    }
-    return answer;
-}
-*/
+unordered_map< long int, string > um1;
+long int SET_LIMIT = um1.max_size();
 
 string swap(string s, int i, int j) {
     char c = s[i];
@@ -31,99 +26,57 @@ string swap(string s, int i, int j) {
     return s;
 }
 
-string calcAnswerAux(string s, int i, int j) {
-    s = swap(s, i, j);
+// one greater lexicographical
+string greaterLexicographical1(string s, int m, long int N) {
+    if (s == Y) {
+        return s;
+    }
+    else {
+        long int count = 1;
+        while (count != N) {
+            for (int i = m - 1; i >= 1; i -= 1) {
+                while (s[i] < s[i - 1]) {
+                    continue;
+                }
+                s = swap(s, i, i - 1);
+                count += 1;
+                um1[count] = s;
+                if (count == N) {
+                    break;
+                }
+            }
+        }
+        return s;
+    }
     return s;
 }
 
-void calcAnswer(string s, set <string>& S1, long long int N, int count) {
-    int m = S.size();
-    //
-    bool FLAG = true;
-    //
-    string s1 = S;
-    int l = 0;
-    // while condition FLAG3?
-    while (FLAG) {
-        // l is fixed
-        for (int r = 0; r < m; r += 1) {
-            char c1 = s1[l];
-            char c2 = S[r];
-            s1[l] = c2;
-            for (int q = 0; q < m; q += 1) {
-                if (q != l) {
-                    s1[q] = S[q];
-                }
-                else {
-                    s1[r] = c1; 
-                }
-            }
-            for (int i = 0; i < m; i += 1) {
-                if (i != r) {
-                    if (s1[i] > s1[l]) {
-                        char c =  s1[i];
-                        s1[i] = s1[l];
-                        if (l != (m - 1)) {
-                            s1[i + 1] = c;
-                        }
-                        else {
-                            for (int j = i + 1; j < l; j += 1) {
-                                if (j != (m - 1)) {
-                                    s1 = swap(s1, j, j + 1);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            calcAnswer(s1, S1, N, count);
-            count += 1;
-            if (count >= N) {
-                S1.insert(s1);
-                FLAG = false;
-                break;
-            }
-        }
-        //
-        l += 1;
-        if (l == m) {
-            FLAG = false;
-        }
+string calcAnswer(long int N) {
+    string s = S;
+    if (N == 1) {
+        um1[1] = s;
+        return s;
     }
-    // condition FLAG3?
-    if (!FLAG) {
-        return;
+    if(um1.find(N) != um1.end()) {
+        return um1[N];
     }
-    //
-    return;
+    else {
+        int m = s.size();
+        // setting s
+        // taking one lexicographical greater than s
+        s = greaterLexicographical1(s, m, N);
+    }
+    return s;
 }
 
 int main() {
     int t, T;
     cin >> T;
-    for (t = 0; t < T; t++) {
-        long long int N;
+    for (t = 0; t < T; t += 1) {
+        long int N;
         cin >> N;
-        set <string> S1;
-        calcAnswer(S, S1, N, 0);
-        //
-        bool FLAG = true;
-        //
-        int count = 0;
-        string str1 = S;
-        set <string>::iterator itr1;
-        while (FLAG) {
-            for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
-                str1 = (*itr1);
-                count++;
-                if (count == N) {
-                    FLAG = false;
-                    break;
-                }
-            }
-            FLAG = false;
-        }
-        cout << str1 << endl;
+        // prints the answer
+        cout << calcAnswer(N) << endl;
     }
     return 0;
 }
