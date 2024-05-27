@@ -51,106 +51,116 @@ bool isPrime(long long int num, long long int limit) {
     return retAnswer;
 }
 //
-int calcAnswer(int a, int b, int n) {
+/*
+Returns pair in question
+*/
+// main helper function 1
+pair <int, int> mainFuncAux1(int N) {
     //
-    bool FLAG = true;
-    //
-    int count = 0;
-    //
-    // iterating n
-    for (int n = 0; FLAG; n += 1) {
-        //
-        // occur frequent
-        int num2 = (n * n);
-        int num3 = (a * n);
-        // occur frequent
-        int modB1 = (b % num2);
-        int modB2 = (num2 % b);
-        // calc ```x```
-        int x = (num2 + num3 + b);
-        // edge cases of a, n, b
-        if (a == n) {
-            if ((b % 2) == 0) {
-                continue;
-            }
-        }
-        else if (b == n) {
-            break;
-        }
-        else if (a == b) {
-            if ((modB2) == 0) {
-                continue;
-            }
-            if ((modB1) == 0) {
-                continue;
-            }
-            if (((num2) % (n + 1)) == 0) {
-                continue;
-            }
-        }
-        else if (b == 0) {
-            break;
-        }
-        else if (a == 0) {
-            if (modB2 == 0) {
-                continue;
-            }
-            if (modB1 == 0) {
-                continue;
-            }
-        }
-        if (!isPrime(x, pow(x, 0.5))) {
-            FLAG = false;
-        }
-        if (FLAG) {
-            count += 1;
-        }
-    }
-    return count;
-}
-//
-pair <int, int> mainAuxFunc(int a, int b, int N, long long int num1) {
     int maxA, maxB;
-    int count = calcAnswer(a, b, N);
-    int maxP = 0;
-    // condition holds, changes req a b
-    if (maxP < count) {
-        maxP = count;
-        maxA = a;
-        maxB = b;
-    }
+    int maxPrimes = 0;
     //
-    return make_pair(maxA, maxB);
+    pair <int, int> p1;
+    // iterating i for a
+    for (int i = N; i >= (-1 * N); i -= 1) {
+        // iterating i for j
+        for (int j = N; j >= (-1 * N); j -= 1) {
+            //
+            p1 = make_pair(i, j);
+            //
+            long long int num1 = (i * i) - (4 * j);
+            //
+            bool propn2 = (num1 >= 0);
+            //
+            double fl1 = pow(num1, 0.5);
+            long long int num2 = pow(num1, 0.5);
+            //
+            bool propn1 = (to_string(fl1) == to_string(num2));
+            //
+            if (propn1) {
+                if (propn2) {
+                    if (((-1 * i) + (num2)) % 2 == 0) {
+                        continue;
+                    }
+                    if ((((-1 * i) - (num2)) % 2) == 0) {
+                        continue;
+                    }
+                }
+            }
+            //
+            bool FLAG = true;
+            //
+            int count = 0;
+            //
+            // iterating n
+            for (int n = 0; FLAG; n += 1) {
+                //
+                // occur frequent
+                int num2 = (n * n);
+                int num3 = (i * n);
+                // occur frequent
+                int modB1 = (j % num2);
+                int modB2 = (num2 % j);
+                //
+                // calc ```x```
+                int x = (num2 + num3 + j);
+                //
+                // edge cases of ```a n j```
+                if (i == n) {
+                    if ((j % 2) == 0) {
+                        continue;
+                    }
+                }
+                else if (j == n) {
+                    break;
+                }
+                else if (i == j) {
+                    if ((modB2) == 0) {
+                        continue;
+                    }
+                    if ((modB1) == 0) {
+                        continue;
+                    }
+                    if (((num2) % (n + 1)) == 0) {
+                        continue;
+                    }
+                }
+                else if (j == 0) {
+                    break;
+                }
+                else if (i == 0) {
+                    if (modB2 == 0) {
+                        continue;
+                    }
+                    if (modB1 == 0) {
+                        continue;
+                    }
+                }
+                if (!isPrime(x, pow(x, 0.5))) {
+                    FLAG = false;
+                }
+                if (FLAG) {
+                    count += 1;
+                }
+            }
+            //
+            if (maxPrimes < count) {
+                maxPrimes = count;
+                maxA = i;
+                maxB = j;
+            }
+            //
+        }
+    }
+    p1 = make_pair(maxA, maxB);
+    return p1;
 }
 //
 int main() {
     int N;
     cin >> N;
-    int a, b;
-    //
     pair <int, int> p1;
-    // iterating i for a
-    for (int i = N; i >= (-1 * N); i -= 1) {
-        // iterating i for b
-        for (int j = N; j >= (-1 * N); j -= 1) {
-            b = j;
-            a = i;
-            //
-            long long int num1 = (a * a) - (4 * b);
-            //
-            double rNumFloat = pow(num1, 0.5);
-            long long int rNumInt = pow(num1, 0.5);
-            //
-            bool propn1 = (to_string(rNumFloat) == to_string(rNumInt));
-            // propn: continue with another value of b
-            if (propn1) {
-                continue;
-            }
-            //
-            p1 = mainAuxFunc(a, b, N, num1);
-            //
-        }
-    }
+    p1 = mainFuncAux1(N);
     cout << p1.first << " " << p1.second << endl;
     return 0;
 }
