@@ -51,7 +51,7 @@ bool isPrime(long long int num, long long int limit) {
     return retAnswer;
 }
 //
-void calcAnswer(int a, int b, int n) {
+int calcAnswer(int a, int b, int n) {
     //
     bool FLAG = true;
     //
@@ -99,7 +99,7 @@ void calcAnswer(int a, int b, int n) {
                 continue;
             }
         }
-        if (!isPrime(x)) {
+        if (!isPrime(x, pow(x, 0.5))) {
             FLAG = false;
         }
         if (FLAG) {
@@ -109,15 +109,26 @@ void calcAnswer(int a, int b, int n) {
     return count;
 }
 //
+pair <int, int> mainAuxFunc(int a, int b, int N, long long int num1) {
+    int maxA, maxB;
+    int count = calcAnswer(a, b, N);
+    int maxP = 0;
+    // condition holds, changes req a b
+    if (maxP < count) {
+        maxP = count;
+        maxA = a;
+        maxB = b;
+    }
+    //
+    return make_pair(maxA, maxB);
+}
+//
 int main() {
     int N;
     cin >> N;
     int a, b;
     //
-    int maxNumPrimes = 0;
-    int maxA = 0;
-    int maxB = 0;
-    //
+    pair <int, int> p1;
     // iterating i for a
     for (int i = N; i >= (-1 * N); i -= 1) {
         // iterating i for b
@@ -126,8 +137,8 @@ int main() {
             a = i;
             //
             long long int num1 = (a * a) - (4 * b);
-            double rNumFloat = pow(num1, 0.5);
             //
+            double rNumFloat = pow(num1, 0.5);
             long long int rNumInt = pow(num1, 0.5);
             //
             bool propn1 = (to_string(rNumFloat) == to_string(rNumInt));
@@ -135,13 +146,9 @@ int main() {
             if (propn1) {
                 continue;
             }
-            int count = calcAnswer(a, b, N);
-            // condition holds, changes req a b
-            if (maxNumPrimes < count) {
-                maxNumPrimes = count;
-                maxA = a;
-                maxB = b;
-            }
+            //
+            p1 = mainAuxFunc(a, b, N, num1);
+            //
         }
     }
     cout << p1.first << " " << p1.second << endl;
