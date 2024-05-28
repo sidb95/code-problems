@@ -38,10 +38,39 @@ public:
             }
         }
     }
+    //
+    // last digits from calcAuxm th function
+    void calcAnswerAuxA3(string& answer, vector <int>& digits, int m) {
+        int count = answer.size();
+        calcAnswerIA(answer, count);
+        answer += words3[9 - digits[m - 1]];
+        answer += " ";
+        answer += words1[4];
+        answer += " ";
+        if (digits[m - 2] == 1) {
+            if (digits[m - 3] == 0) {
+                answer += words2[8];
+            }
+            else {
+                answer += words4[9 - digits[m - 3]];
+            }
+        }
+        else {
+            answer += words2[9 - digits[m - 3]];
+            answer += " ";
+            //
+            if (digits[3] != 0) {
+                answer += words3[9 - digits[m - 3]];
+            }
+        }
+        return;
+    }
+    
     // adding the units digit place
-    void calcAnswerAux1(string& answer, vector<int>& digits, bool FLAG = true) {
+    void calcAnswerAux1(string& answer, vector<int>& digits, 
+    bool FLAG = true) {
         if (FLAG && (digits[0] == 0)) {
-            // pass
+            answer += words3[9];
         }
         else {
             answer += words3[9 - digits[0]];
@@ -55,7 +84,7 @@ public:
         if (FLAG && (digits[1] == 0)) {
             // pass
         }
-        else {
+        if (!FLAG) {
             int count = answer.size();
             calcAnswerIA(answer, count);
             if (digits[0] == 0) {
@@ -81,12 +110,7 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
-            answer += words3[9 - digits[2]];
-            answer += " ";
-            answer += words1[4];
-            calcAnswerAux2(answer, digits, false);
+            calcAnswerAuxA3(answer, digits, 3);
         }
         return;
     }
@@ -143,16 +167,18 @@ public:
     //
     void calcAnswerAux6(string& answer, vector<int>& digits) {
         if (digits[5] == 0) {
-            calcAnswerAux5(answer, digits);
+            // pass
         }
         else {
+            //
+            calcAnswerAuxA3(answer, digits, 6);
+            //
             int count = answer.size();
+            //
             calcAnswerIA(answer, count);
-            answer += words3[9 - digits[5]];
-            answer += " ";
-            calcAnswerAux2(answer, digits, false);
-            answer += " ";
+            //
             answer += words1[3];
+            //
             calcAnswerAux3(answer, digits, false);   
         }
         return;
@@ -194,33 +220,6 @@ public:
         return;
     }
     //
-    void calcAnswerAuxA1(string& answer, vector<int>& digits, int m) {
-        if (m == 8) {
-            calcAnswerAux8(answer, digits);
-        }
-        else if (m == 7) {
-            calcAnswerAux7(answer, digits);
-        }
-        else if (m == 6) {
-            calcAnswerAux6(answer, digits);
-        }
-        else if (m == 5) {
-            calcAnswerAux5(answer, digits);
-        }
-        else if (m == 4) {
-            calcAnswerAux4(answer, digits);
-        }
-        else if (m == 3) {
-            calcAnswerAux3(answer, digits);
-        }
-        else if (m == 2) {
-            calcAnswerAux2(answer, digits);
-        }
-        else if (m == 1) {
-            calcAnswerAux1(answer, digits);
-        }
-        return;
-    }
     //
     void calcAnswerAux10(string& answer, vector<int>& digits) {
         if(digits[8] == 0) {
@@ -290,6 +289,34 @@ public:
             digits.push_back(0);
         }
         return digits;
+    }
+    //
+    void calcAnswerAuxA1(string& answer, vector<int>& digits, int m) {
+        if (m == 8) {
+            calcAnswerAux8(answer, digits);
+        }
+        else if (m == 7) {
+            calcAnswerAux7(answer, digits);
+        }
+        else if (m == 6) {
+            calcAnswerAux6(answer, digits);
+        }
+        else if (m == 5) {
+            calcAnswerAux5(answer, digits);
+        }
+        else if (m == 4) {
+            calcAnswerAux4(answer, digits);
+        }
+        else if (m == 3) {
+            calcAnswerAux3(answer, digits);
+        }
+        else if (m == 2) {
+            calcAnswerAux2(answer, digits);
+        }
+        else if (m == 1) {
+            calcAnswerAux1(answer, digits);
+        }
+        return;
     }
     //
     string calcAnswerAuxA2(string& answer, vector<int>& digits, 
