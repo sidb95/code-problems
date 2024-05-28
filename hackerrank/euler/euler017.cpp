@@ -2,7 +2,7 @@
 euler017
 bhatoresiddharth@gmail.com
 sidb95
-25 May 2024
+25, 28 May 2024
 */
 
 #include <string>
@@ -30,7 +30,14 @@ public:
         "Nineteen", "Eighteen", "Seventeen", "Sixteen", "Fifteen", "Fourteen",
         "Thirteen", "Twelve", "Eleven"    
     }; 
-
+    //
+    void calcAnswerIA(string& answer, int n) {
+        if (n > 0) {
+            if (answer[n-1] != ' ') {
+                answer += " ";
+            }
+        }
+    }
     // adding the units digit place
     void calcAnswerAux1(string& answer, vector<int>& digits) {
             answer += words3[9 - digits[0]];
@@ -68,7 +75,8 @@ public:
             calcAnswerAux2(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[2]];
             answer += " ";
             answer += words1[4];
@@ -82,7 +90,8 @@ public:
             calcAnswerAux3(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[3]];
             answer += " ";
             answer += words1[3];
@@ -96,7 +105,8 @@ public:
             calcAnswerAux4(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[5]];
             answer += " ";
             answer += words2[9 - digits[4]];
@@ -111,7 +121,8 @@ public:
             calcAnswerAux5(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[5]];
             answer += " ";
             answer += words1[2];
@@ -126,7 +137,8 @@ public:
             calcAnswerAux6(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);            
             answer += words2[9 - digits[6]];
             answer += " ";
             answer += words1[2];
@@ -142,7 +154,8 @@ public:
             calcAnswerAux7(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[7]];
             answer += " ";
             answer += words1[4];
@@ -187,12 +200,14 @@ public:
     //
     void calcAnswerAux10(string& answer, vector<int>& digits) {
         if(digits[8] == 0) {
-                answer += " ";
-                answer += words1[1];
-                calcAnswerAux8(answer, digits);
-            }
+            int n = answer.size();
+            calcAnswerIA(answer, n);
+            answer += words1[1];
+            calcAnswerAux8(answer, digits);
+        }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words3[9 - digits[8]];
             answer += " ";
             answer += words1[1];
@@ -205,22 +220,27 @@ public:
             calcAnswerAux10(answer, digits);
         }
         else {
-            answer += " ";
+            int n = answer.size();
+            calcAnswerIA(answer, n);
             answer += words2[9 - digits[9]];
             answer += " ";
             calcAnswerAux10(answer, digits);   
         }
     }
     //
-    string calcAnswer(int n) {
-        string answer = "";
-        vector <int> digits;
+    vector<int> makeDigits(vector <int>& digits, int n) {
         int n1 = n;
         while (n1 != 0) {
             digits.push_back(n1 % 10);
             n1 /= 10;
         }
-        long long int m = digits.size();
+        if (n == 0) {
+            digits.push_back(0);
+        }
+        return digits;
+    }
+    //
+    string calcAnswerAuxA(string& answer, vector<int>& digits, int n, int m) {
         if (m == 12) {
             answer += words3[8];
             answer += " ";
@@ -250,6 +270,16 @@ public:
         else {
             calcAnswerAux9(answer, digits, m);
         }
+        return answer;
+    }
+    //
+    string calcAnswer(int n) {
+        string answer = "";
+        vector <int> digits;
+        digits = makeDigits(digits, n);        
+        int m = digits.size();
+        calcAnswerAuxA(answer, digits, n, m);
+        // verify(n, answer);
         return answer;
     }
 };
