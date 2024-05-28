@@ -57,13 +57,11 @@ public:
     */
     //
     void calcAnswerAuxA1(string& answer, vector <int>& digits, int m) {
-        if (digits.size() == 1) {
-            if (digits[m - 1] == 0) {
-                answer += words3[9];
-            }
-            else {
-                answer += words3[9 - digits[m - 1]];
-            }
+        if (digits[m - 1] == 0) {
+            answer += words3[9];
+        }
+        else {
+            answer += words3[9 - digits[m - 1]];
         }
         return;
     }
@@ -123,7 +121,7 @@ public:
                 //
                 calcAnswerIA(answer, answer.size());
                 if (digits[m - 3] != 0) {
-                    answer += words3[digits[m - 3]];
+                    answer += words3[9 - digits[m - 3]];
                 }
             }
             else { // ```digits``` at ```m - 2``` is non-zero
@@ -197,59 +195,38 @@ public:
     
     //
     void calcAnswerAux2(string& answer, vector<int>& digits) {
-        if (digits[1] == 0) {
-            // pass
-        }
-        else {
-            //
-            calcAnswerAuxA2(answer, digits, 2);
-        }
-        return;                                      
+        //
+        calcAnswerAuxA2(answer, digits, 2);
     }
     
     //
     void calcAnswerAux3(string& answer, vector<int>& digits) {
-        if (digits[2] == 0) {
-            // pass
-        }
-        else {
-            calcAnswerAuxA3(answer, digits, 3);
-        }
-        return;
+        calcAnswerAuxA3(answer, digits, 3);
     }
     //
     void calcAnswerAux4(string& answer, vector<int>& digits) {
-        if (digits[3] == 0) {
-            // pass
-        }
-        else {
-            //
-            calcAnswerAuxA1(answer, digits, 4);
-            //
-            calcAnswerIA(answer, answer.size());
-            //
-            answer += words1[3];
-            //
-            calcAnswerAuxA3(answer, digits, 3);
-        }
-        return;
+        //
+        calcAnswerAuxA1(answer, digits, 4);
+        //
+        calcAnswerIA(answer, answer.size());
+        //
+        answer += words1[3];
+        //
+        calcAnswerAuxA3(answer, digits, 3);
+        
     }
     
     void calcAnswerAux5(string& answer, vector<int>& digits) {
-        if (digits[4] == 0) {
-            // pass
-        }
-        else {
-            //
-            calcAnswerAuxA2(answer, digits, 5);
-            //
-            //
-            calcAnswerIA(answer, answer.size());
-            //
-            answer += words1[3];
-            //
-            calcAnswerAuxA3(answer, digits, 3);
-        }
+        //
+        calcAnswerAuxA2(answer, digits, 5);
+        //
+        //
+        calcAnswerIA(answer, answer.size());
+        //
+        answer += words1[3];
+        //
+        calcAnswerAuxA3(answer, digits, 3);
+        //
         return;
     }
     //
@@ -257,55 +234,51 @@ public:
         //
         calcAnswerAuxA3(answer, digits, 6);
         //
+        bool FLAG = true;
+        //
+        if (digits[5] == 0) {
+            if (digits[6] == 0) {
+                if (digits[4] == 0) {
+                    FLAG = false;
+                }
+            }
+        }
+        //
         calcAnswerIA(answer, answer.size());
         //
-        answer += words1[3];
+        if (FLAG) {
+            answer += words1[3];
+        }
         //
         calcAnswerAuxA3(answer, digits, 3);
     }
     //
     void calcAnswerAux6(string& answer, vector<int>& digits) {
-        if (digits[5] == 0) {
-            // pass
-        }
-        else {
-            //
-            calcAnswerAuxB2(answer, digits);
-        }
-        return;
+        //
+        calcAnswerAuxB2(answer, digits);
     }
     //
     //
     void calcAnswerAux7(string& answer, vector<int>& digits) {
-        if (digits[6] == 0) {
-            calcAnswerAux6(answer, digits);
-        }
-        else {
-            //
-            calcAnswerAuxA1(answer, digits, 7);
-            //
-            calcAnswerIA(answer, answer.size());
-            answer += words1[2];
-            //
-            calcAnswerAuxB2(answer, digits);
-        }
-        return;
+        //
+        calcAnswerAuxA1(answer, digits, 7);
+        //
+        calcAnswerIA(answer, answer.size());
+        answer += words1[2];
+        //
+        calcAnswerAuxB2(answer, digits);
     }
     //
     void calcAnswerAux8(string& answer, vector<int>& digits) {
-        if (digits[7] == 0) {
-            // pass
-        }
-        else {
-            //
-            calcAnswerAuxA2(answer, digits, 8);
-            //
-            calcAnswerIA(answer, answer.size());
-            //
-            answer += words1[2];
-            //
-            calcAnswerAuxB2(answer, digits);
-        }
+        //
+        calcAnswerAuxA2(answer, digits, 8);
+        //
+        calcAnswerIA(answer, answer.size());
+        //
+        answer += words1[2];
+        //
+        calcAnswerAuxB2(answer, digits);
+        //
         return;
     }
     //
@@ -316,10 +289,21 @@ public:
         //
         calcAnswerAuxA3(answer, digits, 9);
         //
+        bool FLAG = true;
+        //
+        if (digits[8] == 0) {
+            if (digits[7] == 0) {
+                if (digits[6] == 0) {
+                    FLAG = false;
+                }
+            }
+        }
         //
         calcAnswerIA(answer, answer.size());
         //
-        answer += words1[2];
+        if (FLAG) {
+            answer += words1[2];
+        }
         //
         calcAnswerAuxB2(answer, digits);
     }
