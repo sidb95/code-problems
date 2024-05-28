@@ -8,13 +8,15 @@ sidb95
 #include <iostream>
 #include <string>
 #include <math.h>
-#include <vector>
+#include <set>
 
 using namespace std;
 
 string S = "abcdefghijklm";
 string Y = "mlkjihgfedcba";
-
+/*
+12 <- m wandered 1, l wandered 1
+*/
 int SET_LIMIT = 100000;
 
 string swap(string s, int i, int j) {
@@ -24,9 +26,8 @@ string swap(string s, int i, int j) {
     return s;
 }
 
-// one greater lexicographical
-string greaterLexicographical1(string s, int m, long int N, 
-vector <string>& v1) {
+//N greater lexicographical
+string greaterLexicographical1(string s, int m, long int N) {
     if (s == Y) {
         return s;
     }
