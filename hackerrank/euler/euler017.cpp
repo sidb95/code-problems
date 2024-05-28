@@ -39,42 +39,54 @@ public:
         }
     }
     // adding the units digit place
-    void calcAnswerAux1(string& answer, vector<int>& digits) {
+    void calcAnswerAux1(string& answer, vector<int>& digits, bool FLAG = true) {
+        if (FLAG && (digits[0] == 0)) {
+            // pass
+        }
+        else {
             answer += words3[9 - digits[0]];
+        }
         return;
     }
     
     //
-    void calcAnswerAux2(string& answer, vector<int>& digits) {
-        
-        if (digits[1] == 0) {
+    void calcAnswerAux2(string& answer, vector<int>& digits, 
+    bool FLAG = true) {
+        if (FLAG && (digits[1] == 0)) {
             // pass
         }
         else {
-            int n = answer.size();
-            calcAnswerIA(answer, n);
+            int count = answer.size();
+            calcAnswerIA(answer, count);
             if (digits[0] == 0) {
                 answer += words2[8];
             }
             else {
-                answer += words4[9 - digits[1]];
+                if (digits[1] == 1) {
+                    answer += words4[9 - digits[0]];
+                }
+                else {
+                    answer += words2[9 - digits[1]];
+                    calcAnswerAux1(answer, digits, false);
+                }
             }
         }
         return;                                      
     }
     
     //
-    void calcAnswerAux3(string& answer, vector<int>& digits) {
-        if (digits[2] == 0) {
-            calcAnswerAux2(answer, digits);
+    void calcAnswerAux3(string& answer, vector<int>& digits, 
+    bool FLAG = true) {
+        if (FLAG && (digits[2] == 0)) {
+            // pass
         }
         else {
-            int n = answer.size();
-            calcAnswerIA(answer, n);
+            int count = answer.size();
+            calcAnswerIA(answer, count);
             answer += words3[9 - digits[2]];
             answer += " ";
             answer += words1[4];
-            calcAnswerAux2(answer, digits);
+            calcAnswerAux2(answer, digits, false);
         }
         return;
     }
@@ -138,9 +150,10 @@ public:
             calcAnswerIA(answer, count);
             answer += words3[9 - digits[5]];
             answer += " ";
-            answer += words1[2];
+            calcAnswerAux2(answer, digits, false);
             answer += " ";
-            calcAnswerAux5(answer, digits);   
+            answer += words1[3];
+            calcAnswerAux3(answer, digits, false);   
         }
         return;
     }
@@ -239,6 +252,34 @@ public:
         }
     }
     //
+    void calcAnswerAux11(string& answer, vector <int>& digits) {
+        if (digits[10] == 0) {
+            // pass
+        }
+        else {
+            if (digits[10] == 1) {
+                if (digits[9] == 0) {
+                    answer += words2[8];
+                }
+                else {
+                    answer += words4[9 - digits[9]];
+                }
+            }
+            else {
+                answer += words2[9 - digits[10]];
+                answer += " ";
+                if (digits[9] != 0) {
+                    answer += words3[9 - digits[9]];
+                }
+            }
+            int count = answer.size();
+            calcAnswerIA(answer, count);
+            answer += words1[1];
+            calcAnswerAux9(answer, digits);
+        }
+        return;
+    }
+    //
     vector<int> makeDigits(vector <int>& digits, long long int n) {
         long long int n1 = n;
         while (n1 != 0) {
@@ -259,7 +300,14 @@ public:
             answer += words1[0];
         }
         else if (m > 9) {
-            if (m == 11) {
+            if (m == 12) {
+                answer += words3[9 - digits[11]];
+                answer += " ";
+                answer += words1[4];
+                answer += " ";
+                calcAnswerAux11(answer, digits);
+            }
+            else if (m == 11) {
                 answer += words3[9 - digits[m - 1]];
                 answer += " ";
                 answer += words1[4];
