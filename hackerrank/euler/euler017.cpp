@@ -76,7 +76,7 @@ int main() {
     return 0;
 }
 
-class SolutionHelperAux::SolutionHelper {
+class SolutionAuxHelper::SolutionHelper {
 public:
     //
     void calcAnswerAuxA1(string& answer, vector<int>& digits, int m) {
