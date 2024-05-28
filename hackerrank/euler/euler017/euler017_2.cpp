@@ -67,8 +67,6 @@ public:
     // last two digits calc (in words)
     void calcAnswerAuxA2(string& answer, vector <int>& digits, int m) {
         //
-        calcAnswerIA(answer, answer.size());
-        //
         if (digits[m - 1] == 1) {
             calcAnswerIA(answer, answer.size());
             if (digits[m - 2] == 0) {
@@ -85,7 +83,6 @@ public:
             }
             else { // ```digits``` at ```m - 1``` not {0, 1}
                 //
-                calcAnswerIA(answer, answer.size());                
                 // ```digits``` at ```m - 2``` zero
                 if (digits[m - 2] == 0) {
                     answer += words2[9 - digits[m - 1]];
@@ -95,7 +92,7 @@ public:
                     //
                     answer += " ";
                     //
-                    answer += words3[9 - digits[0]];
+                    answer += words3[9 - digits[m - 2]];
                 }
             }
         }
@@ -104,8 +101,6 @@ public:
     //
     // last digits from calcAuxm th function
     void calcAnswerAuxA3(string& answer, vector <int>& digits, int m) {
-        //;
-        calcAnswerIA(answer, answer.size());
         // when ```digits``` at ```m - 1``` is non-zero
         if (digits[m - 1] != 0) {
             answer += words3[9 - digits[m - 1]];
@@ -145,7 +140,6 @@ public:
             }
         }
         else { // // ```digits``` at ```m - 1``` is zero
-            
             calcAnswerIA(answer, answer.size());
             // ```digits``` at ```m - 2``` is  zero
             if (digits[m - 2] == 0) {
@@ -153,10 +147,8 @@ public:
                     answer += words3[9 - digits[m - 3]];
                 }
             }
-            // ```digits``` at ```m - 2``` is non - zero
-            else {
+            else { // ```digits``` at ```m - 2``` is non - zero
                 //
-                calcAnswerIA(answer, answer.size());
                 if (digits[m - 2] == 1) {
                     if (digits[m - 3] == 0) {
                         answer += words2[8];
@@ -167,6 +159,9 @@ public:
                 }
                 else { // ```digits``` at ```m - 2``` is not 1
                     answer += words2[9 - digits[m - 2]];
+                    //
+                    answer += " ";
+                    //
                     if (digits[m - 3] != 0) {
                         answer += words3[9 - digits[m - 3]];
                     }
@@ -232,16 +227,16 @@ public:
         bool FLAG = true;
         //
         if (digits[5] == 0) {
-            if (digits[6] == 0) {
-                if (digits[4] == 0) {
+            if (digits[4] == 0) {
+                if (digits[3] == 0) {
                     FLAG = false;
                 }
             }
         }
         //
-        calcAnswerIA(answer, answer.size());
         //
         if (FLAG) {
+            calcAnswerIA(answer, answer.size());
             answer += words1[3];
         }
         //
@@ -280,7 +275,7 @@ public:
     //
     void calcAnswerAuxB1(string& answer, vector <int>& digits) {
         //
-        calcAnswerIA(answer, answer.size());
+        
         //
         calcAnswerAuxA3(answer, digits, 9);
         //
@@ -294,9 +289,10 @@ public:
             }
         }
         //
-        calcAnswerIA(answer, answer.size());
+        
         //
         if (FLAG) {
+            calcAnswerIA(answer, answer.size());
             answer += words1[2];
         }
         //
