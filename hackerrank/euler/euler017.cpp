@@ -39,6 +39,102 @@ public:
         }
     }
     //
+    //
+    vector<int> makeDigits(vector <int>& digits, long long int n) {
+        long long int n1 = n;
+        while (n1 != 0) {
+            digits.push_back(n1 % 10);
+            n1 /= 10;
+        }
+        if (n == 0) {
+            digits.push_back(0);
+        }
+        return digits;
+    }
+    //
+    string calcAnswer(long long int n) {
+        string answer = "";
+        vector <int> digits;
+        digits = makeDigits(digits, n);        
+        int m = digits.size();
+        calcAnswerAuxA2(answer, digits, n);
+        // verify(n, answer);
+        return answer;
+    }
+};
+
+int main() {
+    int t;
+    int T;
+    cin >> T;
+    for (t = 0; t < T; t++) {
+        long long int n;
+        cin >> n;
+        Solution mySol;
+        cout << mySol.calcAnswer(n) << endl;
+    }
+    return 0;
+}
+
+class SolutionHelperAux::SolutionHelper {
+public:
+    //
+    void calcAnswerAuxA1(string& answer, vector<int>& digits, int m) {
+        if (m == 12) {
+            calcAnswerAux12(answer, digits);
+        }
+        else if (m  == 11) {
+            calcAnswerAux11(answer, digits);
+        }
+        if (m == 10) {
+            calcAnswerAux10(answer, digits);
+        }
+        else if (m == 9) {
+            calcAnswerAux9(answer, digits);
+        }
+        else if (m == 8) {
+            calcAnswerAux8(answer, digits);
+        }
+        else if (m == 7) {
+            calcAnswerAux7(answer, digits);
+        }
+        else if (m == 6) {
+            calcAnswerAux6(answer, digits);
+        }
+        else if (m == 5) {
+            calcAnswerAux5(answer, digits);
+        }
+        else if (m == 4) {
+            calcAnswerAux4(answer, digits);
+        }
+        else if (m == 3) {
+            calcAnswerAux3(answer, digits);
+        }
+        else if (m == 2) {
+            calcAnswerAux2(answer, digits);
+        }
+        else if (m == 1) {
+            calcAnswerAux1(answer, digits);
+        }
+        return;
+    }
+    //
+    string calcAnswerAuxA2(string& answer, vector<int>& digits, 
+    long long int n) {
+        if (digits.size() == 13) {
+            answer += words3[8];
+            answer += " ";
+            answer += words1[0];
+        }
+        else if (digits.size() == 0) {
+            // pass
+        }
+        else {
+            calcAnswerAuxA1(answer, digits, digits.size());
+        }
+        return answer;
+    }
+
     // last digits from calcAuxm th function
     void calcAnswerAuxA3(string& answer, vector <int>& digits, int m) {
         int count = answer.size();
@@ -69,8 +165,11 @@ public:
         }
         return;
     }
-    
-    // adding the units digit place
+};
+
+class SolutionHelper::Solution {
+public:
+// adding the units digit place
     void calcAnswerAux1(string& answer, vector<int>& digits, 
     bool FLAG = true) {
         if (FLAG && (digits[0] == 0)) {
@@ -91,16 +190,30 @@ public:
         else {
             int count = answer.size();
             calcAnswerIA(answer, count);
-            if (digits[0] == 0) {
-                answer += words2[8];
-            }
-            else {
-                if (digits[1] == 1) {
-                    answer += words4[9 - digits[0]];
+            //
+            if (digits[1] == 1) {
+                count = answer.size();
+                calcAnswerIA(answer, count);
+                if (digits[0] == 0) {
+                    answer += words2[8];
                 }
                 else {
+                    answer += words4[9 - digits[0]];
+                }
+            }
+            else {
+                count = answer.size();
+                calcAnswerIA(answer, count);
+                if (digits[0] == 0) {
                     answer += words2[9 - digits[1]];
-                    calcAnswerAux1(answer, digits, false);
+                }
+                else {
+                    
+                    answer += words2[9 - digits[1]];
+                    //
+                    answer += " ";
+                    //
+                    answer += words3[9 - digits[0]];
                 }
             }
         }
@@ -114,6 +227,8 @@ public:
             // pass
         }
         else {
+            int count = answer.size();
+            calcAnswerIA(answer, count);
             answer += words3[9 - digits[2]];
             answer += " ";
             answer += words1[4];
@@ -177,11 +292,12 @@ public:
             // pass
         }
         else {
+            int count = answer.size();
+            calcAnswerIA(answer, count);
             //
             calcAnswerAuxA3(answer, digits, 6);
             //
-            int count = answer.size();
-            //
+            count = answer.size();
             calcAnswerIA(answer, count);
             //
             answer += words1[3];
@@ -252,10 +368,12 @@ public:
         else {
             int count = answer.size();
             calcAnswerIA(answer, count);
+            // hundreds' millions
             answer += words3[9 - digits[8]];
             answer += " ";
-            answer += words1[1];
+            answer += words1[4];
             answer += " ";
+            //
             if (digits[7] == 1) {
                 count = answer.size();
                 calcAnswerIA(answer, count);
@@ -278,7 +396,13 @@ public:
                     answer += words3[9 - digits[6]];
                 }
             }
+            //
+            count = answer.size();
+            calcAnswerIA(answer, count);
+            answer += words1[2];
+            calcAnswerAux6(answer, digits);
         }
+        return;
     }
     //
     void calcAnswerAux10(string& answer, vector<int>& digits) {
@@ -288,10 +412,12 @@ public:
         else {
             int n = answer.size();
             calcAnswerIA(answer, n);
-            answer += words2[9 - digits[9]];
+            answer += words3[9 - digits[9]];
             answer += " ";
-            calcAnswerAux10(answer, digits);   
+            answer += words1[1];
+            calcAnswerAux9(answer, digits);   
         }
+        return;
     }
     //
     void calcAnswerAux11(string& answer, vector <int>& digits) {
@@ -322,117 +448,54 @@ public:
         return;
     }
     //
-    vector<int> makeDigits(vector <int>& digits, long long int n) {
-        long long int n1 = n;
-        while (n1 != 0) {
-            digits.push_back(n1 % 10);
-            n1 /= 10;
+    void calcAnswerAux12(string& answer, vector <int>& digits) {
+        if (digits[11] == 0) {
+            // pass
         }
-        if (n == 0) {
-            digits.push_back(0);
-        }
-        return digits;
-    }
-    //
-    void calcAnswerAuxA1(string& answer, vector<int>& digits, int m) {
-        if (m == 9) {
+        else {
+            int count = answer.size();
+            calcAnswerIA(answer, count);
+            answer += words3[9 - digits[11]];
+            answer += " ";
+            answer += words1[4];
+            // if 11th digit is 1
+            if (digits[10] == 1) {
+                if (digits[9] == 0) {
+                    count = answer.size();
+                    calcAnswerIA(answer, count);
+                    answer += words2[8];
+                }
+                else {
+                    count = answer.size();
+                    calcAnswerIA(answer, count);
+                    answer += words4[9 - digits[8]];
+                }
+            }
+            else {  // if 11th digit is not 1
+                // if 10th digit is 0
+                if (digits[9] == 0) {
+                    count = answer.size();
+                    calcAnswerIA(answer, count);
+                    answer += words2[9 - digits[9]];
+                }
+                else {
+                    count = answer.size();
+                    calcAnswerIA(answer, count);
+                    answer += words2[9 - digits[9]];
+                    //
+                    answer += " ";
+                    //
+                    answer += words3[9 - digits[8]];
+                }
+            }
+            count = answer.size();
+            calcAnswerIA(answer, count);
+            // calc answer done till billions' place
+            //
+            // add billion to the answer
+            answer += words1[1];
             calcAnswerAux9(answer, digits);
-        }
-        else if (m == 8) {
-            calcAnswerAux8(answer, digits);
-        }
-        else if (m == 7) {
-            calcAnswerAux7(answer, digits);
-        }
-        else if (m == 6) {
-            calcAnswerAux6(answer, digits);
-        }
-        else if (m == 5) {
-            calcAnswerAux5(answer, digits);
-        }
-        else if (m == 4) {
-            calcAnswerAux4(answer, digits);
-        }
-        else if (m == 3) {
-            calcAnswerAux3(answer, digits);
-        }
-        else if (m == 2) {
-            calcAnswerAux2(answer, digits);
-        }
-        else if (m == 1) {
-            calcAnswerAux1(answer, digits);
         }
         return;
     }
-    //
-    string calcAnswerAuxA2(string& answer, vector<int>& digits, 
-    long long int n, int m) {
-        if (m == 13) {
-            answer += words3[8];
-            answer += " ";
-            answer += words1[0];
-        }
-        else if (m > 9) {
-            if (m == 12) {
-                answer += words3[9 - digits[11]];
-                answer += " ";
-                answer += words1[4];
-                answer += " ";
-                calcAnswerAux11(answer, digits);
-            }
-            else if (m == 11) {
-                answer += words3[9 - digits[m - 1]];
-                answer += " ";
-                answer += words1[4];
-                calcAnswerAux10(answer, digits);
-            }
-            else if (m == 10) {
-                if (digits[9] == 1) {
-                    if (digits[8] == 0) {
-                        answer += words2[8];
-                    }
-                    else {
-                        answer += words4[9 - digits[8]];
-                    }
-                }
-                else {
-                    answer += words2[9 - digits[m - 1]];
-                    answer += " ";
-                    answer += words3[9 - digits[m - 2]];
-                    answer += " ";
-                }
-                int count = answer.size();
-                calcAnswerIA(answer, count);
-                answer += words1[1];
-                calcAnswerAux8(answer, digits);
-            }
-        }
-        else {
-            calcAnswerAuxA1(answer, digits, m);
-        }
-        return answer;
-    }
-    //
-    string calcAnswer(long long int n) {
-        string answer = "";
-        vector <int> digits;
-        digits = makeDigits(digits, n);        
-        int m = digits.size();
-        calcAnswerAuxA2(answer, digits, n, m);
-        // verify(n, answer);
-        return answer;
-    }
 };
-
-int main() {
-    int t;
-    int T;
-    cin >> T;
-    for (t = 0; t < T; t++) {
-        long long int n;
-        cin >> n;
-        Solution mySol;
-        cout << mySol.calcAnswer(n) << endl;
-    }
-    return 0;
-}
