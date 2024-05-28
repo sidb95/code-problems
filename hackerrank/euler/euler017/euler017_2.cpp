@@ -57,12 +57,7 @@ public:
     */
     //
     void calcAnswerAuxA1(string& answer, vector <int>& digits, int m) {
-        if (digits[m - 1] == 0) {
-            answer += words3[9];
-        }
-        else {
-            answer += words3[9 - digits[m - 1]];
-        }
+        answer += words3[9 - digits[m - 1]];
         return;
     }
     //
