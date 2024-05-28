@@ -51,11 +51,68 @@ public:
         return digits;
     }
     //
+    /*
+        ```calcAnswerAuxA1```
+        Sorts the last digit (units digit)
+    */
+    //
+    void calcAnswerAuxA1(string& answer, vector <int>& digits, int m) {
+        if (digits.size() == 1) {
+            if (digits[m - 1] == 0) {
+                answer += words3[9];
+            }
+            else {
+                answer += words3[9 - digits[m - 1]];
+            }
+        }
+        return;
+    }
+    //
+    /*
+    For the last two digits, evaluates answer string
+    */
+    // last two digits calc (in words)
+    void calcAnswerAuxA2(string& answer, vector <int>& digits, int m) {
+        //
+        calcAnswerIA(answer, answer.size());
+        //
+        if (digits[m - 1] == 1) {
+            calcAnswerIA(answer, answer.size());
+            if (digits[m - 2] == 0) {
+                answer += words2[8];
+            }
+            else {
+                answer += words4[9 - digits[m - 2]];
+            }
+        }
+        else {
+            calcAnswerIA(answer, answer.size());
+            if (digits[m - 1] == 0) {
+                answer += words3[9 - digits[m - 2]];
+            }
+            else { // ```digits``` at ```m - 1``` not {0, 1}
+                //
+                calcAnswerIA(answer, answer.size());                
+                // ```digits``` at ```m - 2``` zero
+                if (digits[m - 2] == 0) {
+                    answer += words2[9 - digits[m - 1]];
+                }
+                else { // ```digits``` at m - 2 non-zero 
+                    answer += words2[9 - digits[m - 1]];
+                    //
+                    answer += " ";
+                    //
+                    answer += words3[9 - digits[0]];
+                }
+            }
+        }
+        return;
+    }
     //
     // last digits from calcAuxm th function
     void calcAnswerAuxA3(string& answer, vector <int>& digits, int m) {
-        int count = answer.size();
-        calcAnswerIA(answer, count);
+        //;
+        calcAnswerIA(answer, answer.size());
         // when ```digits``` at ```m - 1``` is non-zero
         if (digits[m - 1] != 0) {
             answer += words3[9 - digits[m - 1]];
@@ -63,15 +120,15 @@ public:
             answer += words1[4];
             //
             if (digits[m - 2] == 0) {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[m - 3] != 0) {
                     answer += words3[digits[m - 3]];
                 }
             }
             else { // ```digits``` at ```m - 2``` is non-zero
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[m - 2] == 1) {
                     if (digits[m - 3] == 0) {
                         answer += words2[8];
@@ -95,8 +152,8 @@ public:
             }
         }
         else { // // ```digits``` at ```m - 1``` is zero
-            count = answer.size();
-            calcAnswerIA(answer, count);
+            
+            calcAnswerIA(answer, answer.size());
             // ```digits``` at ```m - 2``` is  zero
             if (digits[m - 2] == 0) {
                 if (digits[m - 3] != 0) {
@@ -105,8 +162,8 @@ public:
             }
             // ```digits``` at ```m - 2``` is non - zero
             else {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[m - 2] == 1) {
                     if (digits[m - 3] == 0) {
                         answer += words2[8];
@@ -150,12 +207,12 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             //
             if (digits[1] == 1) {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[0] == 0) {
                     answer += words2[8];
                 }
@@ -164,8 +221,8 @@ public:
                 }
             }
             else {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[0] == 0) {
                     answer += words2[9 - digits[1]];
                 }
@@ -189,8 +246,8 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[2]];
             answer += " ";
             answer += words1[4];
@@ -204,13 +261,13 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[3]];
             answer += " ";
             answer += words1[3];
             //
-            calcAnswerAuxA3(answer, digits, 4);
+            calcAnswerAuxA3(answer, digits, 3);
         }
         return;
     }
@@ -220,8 +277,7 @@ public:
             // pass
         }
         else {
-            int n = answer.size();
-            calcAnswerIA(answer, n);
+            calcAnswerIA(answer, answer.size());
             if (digits[4] == 1) {
                 if (digits[3] == 0) {
                     answer += words2[8];
@@ -242,8 +298,8 @@ public:
                 }
             }
             //
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             answer += words1[3];
             //
             calcAnswerAux3(answer, digits);
@@ -256,17 +312,17 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             //
             calcAnswerAuxA3(answer, digits, 6);
             //
-            count = answer.size();
-            calcAnswerIA(answer, count);
+            
+            calcAnswerIA(answer, answer.size());
             //
             answer += words1[3];
             //
-            calcAnswerAux3(answer, digits);
+            calcAnswerAuxA3(answer, digits, 3);
         }
         return;
     }
@@ -276,8 +332,7 @@ public:
             calcAnswerAux6(answer, digits);
         }
         else {
-            int n = answer.size();
-            calcAnswerIA(answer, n);
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[6]];
             answer += " ";
             answer += words1[2];
@@ -292,8 +347,8 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             // getting 10s digit words
             if (digits[7] == 1) {
                 if (digits[6] == 0) {
@@ -314,8 +369,8 @@ public:
                 }
             }
             //
-            count = answer.size();
-            calcAnswerIA(answer, count);
+            
+            calcAnswerIA(answer, answer.size());
             //
             answer += words1[2];
             //
@@ -330,8 +385,8 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             // hundreds' millions
             answer += words3[9 - digits[8]];
             answer += " ";
@@ -339,8 +394,8 @@ public:
             answer += " ";
             //
             if (digits[7] == 1) {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                
+                calcAnswerIA(answer, answer.size());
                 if (digits[6] == 0) {
                     answer += words2[8];
                 }
@@ -349,8 +404,8 @@ public:
                 }
             }
             else {
-                count = answer.size();
-                calcAnswerIA(answer, count);
+                //
+                calcAnswerIA(answer, answer.size());
                 if (digits[6] == 0) {
                     answer += words2[9 - digits[7]];
                 }
@@ -361,8 +416,8 @@ public:
                 }
             }
             //
-            count = answer.size();
-            calcAnswerIA(answer, count);
+            
+            calcAnswerIA(answer, answer.size());
             answer += words1[2];
             calcAnswerAux6(answer, digits);
         }
@@ -374,8 +429,7 @@ public:
             // pass
         }
         else {
-            int n = answer.size();
-            calcAnswerIA(answer, n);
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[9]];
             answer += " ";
             answer += words1[1];
@@ -404,8 +458,8 @@ public:
                     answer += words3[9 - digits[9]];
                 }
             }
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            //;
+            calcAnswerIA(answer, answer.size());
             answer += words1[1];
             calcAnswerAux9(answer, digits);
         }
@@ -417,34 +471,34 @@ public:
             // pass
         }
         else {
-            int count = answer.size();
-            calcAnswerIA(answer, count);
+            ;
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[11]];
             answer += " ";
             answer += words1[4];
             // if 11th digit is 1
             if (digits[10] == 1) {
                 if (digits[9] == 0) {
-                    count = answer.size();
-                    calcAnswerIA(answer, count);
+                    
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[8];
                 }
                 else {
-                    count = answer.size();
-                    calcAnswerIA(answer, count);
+                    
+                    calcAnswerIA(answer, answer.size());
                     answer += words4[9 - digits[8]];
                 }
             }
             else {  // if 11th digit is not 1
                 // if 10th digit is 0
                 if (digits[9] == 0) {
-                    count = answer.size();
-                    calcAnswerIA(answer, count);
+                    
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[9 - digits[9]];
                 }
                 else {
-                    count = answer.size();
-                    calcAnswerIA(answer, count);
+                    
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[9 - digits[9]];
                     //
                     answer += " ";
@@ -452,8 +506,8 @@ public:
                     answer += words3[9 - digits[8]];
                 }
             }
-            count = answer.size();
-            calcAnswerIA(answer, count);
+            
+            calcAnswerIA(answer, answer.size());
             // calc answer done till billions' place
             //
             // add billion to the answer
