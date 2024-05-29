@@ -15,79 +15,78 @@ public:
     ~SolutionM1() {
         Sa1.clear();
     }
-
-    long long int calcAnswerAuxC1(long long int k, long long int N, 
-    long long int answer, set <long long int> Sb1) {
-        //
-        while (k < N) {
-            if (Sa1.find(N - k) != Sa1.end()) {
-                answer += calcAnswer(N - k, answer);
-            }
-            k += k;
-        }
-        return answer;
-    } 
     //
-    long long int calcAnswerAuxB2(long long int k, long long int N, 
-    long long int answer, set <long long int> Sb1) {
-        // if all of one type
-        long long int m = (N % k);
-        if ((m == 0)) {
-            answer += 1;
-        }
-        else { // if there is offset
-            //
-            set <long long int>::iterator itr;
-            //
-            itr = Sa1.find(m);
-            //
-            // ```N % k``` calc since not in Sa1
-            // calcs if max k taken
-            //
-            if (itr == Sa1.end()) {
-                Sa1.insert(m);
-                answer += calcAnswer(m, answer);
-            }
-            else { // if ```N % k``` calc, incerement
-                answer += (*itr);
-            }
-        }
-        //
-        if (N > k) {
-            answer += calcAnswerAuxC1(k, N, answer, Sb1);
-        }
-        //
-        return (answer);
-    }
     // N in S1
     bool calcAnswerAuxB1(long long int N) {
         return (S1.find(N) == S1.end());
     }
     //
+    long long int calcAnswerAuxC1(long long int k, long long int N, 
+    set <long long int> Sb1) {
+        //
+        long long int retAnswer = 0;
+        //
+        while (k < N) {
+            if (Sa1.find(N - k) != Sa1.end()) {
+                retAnswer += calcAnswer(N - k, 1);
+            }
+            k += k;
+        }
+        return retAnswer;
+    } 
+    //
+    long long int calcAnswerAuxB2(long long int k, long long int N, 
+    set <long long int> Sb1) {
+        long long int retAnswer = 0;
+        // if all of one type
+        long long int m = (N % k);
+        //
+        set <long long int>::iterator itr;
+        //
+        itr = Sa1.find(m);
+        //
+        // ```N % k``` calc since not in Sa1
+        // calcs if max k taken
+        //
+        if (itr == Sa1.end()) {
+            Sa1.insert(m);
+            retAnswer += calcAnswer(m, 1);
+        }
+        else { // if ```N % k``` calc, incerement
+            retAnswer += (*itr);
+        }
+        //
+        if (N > k) {
+            retAnswer += calcAnswerAuxC1(k, N, Sb1);
+        }
+        //
+        return (retAnswer);
+    }
+    //
     long long int calcAnswerAuxA2(long long int k, long long int N, 
-    long long int answer, set <long long int> Sb1){
+    set <long long int> Sb1){
         //
-        answer += 1;
+        long long int retAnswer = 0;
         //
-        /*
-            coins = {1, 2, 3}
-        */
+        retAnswer += 1;
         //
         //
         if (k < 9) {
-            answer += calcAnswerAuxB2(k, N, answer, Sb1);
+            retAnswer += calcAnswerAuxB2(k, N, Sb1);
         }
-        return (answer);
+        return (retAnswer);
     }
     //
-    long long int calcAnswerAuxA1(long long int N, long long int answer) {
+    long long int calcAnswerAuxA1(long long int N) {
+        //
+        long long int retAnswer = 0;
         //
         long long int k;
         //
 
         //
         if (calcAnswerAuxB1(N)) {
-            answer += 1;
+            retAnswer += 1;
         }
         //
         
@@ -100,14 +99,16 @@ public:
         for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
             k = (*itr1);
             Sb1.insert(k);
-            answer += calcAnswerAuxA2(k, N, answer, Sb1);
+            retAnswer += calcAnswerAuxA2(k, N, Sb1);
         }
         //
-        return (answer);
+        return (retAnswer);
     }
     //
     //
     long long int calcAnswer(long long int N, long long int answer) {
+        //
+        long long retAnswer = 0; 
         //
         if (N == 0) {
             return 0;
@@ -119,7 +120,7 @@ public:
             return 2;
         }
         //
-        answer += calcAnswerAuxA1(N, answer);
+        retAnswer += calcAnswerAuxA1(N);
         //
         return (answer);
     }
