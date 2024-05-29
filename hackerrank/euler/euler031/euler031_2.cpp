@@ -69,12 +69,11 @@ public:
         return (retAnswer);
     }
     //
+    //
     long long int calcAnswerAuxA2(long long int k, long long int N, 
     set <long long int> Sb1){
         //
         long long int retAnswer = 0;
-        //
-        retAnswer += 1;
         //
         //
         if (k < 9) {
@@ -91,6 +90,7 @@ public:
         //
         //
         if (calcAnswerAuxB1(N)) {
+            Sa1.insert(N);
             retAnswer += 1;
         }
         //        
@@ -116,12 +116,14 @@ public:
         retAnswer += answer; 
         //
         if (N == 0) {
-            return 0;
+            return 1;
         }
         if (N == 1) {
+            Sa1.insert(N);
             return 1;
         }
         if (N == 2) {
+            Sa1.insert(N);
             return 2;
         }
         //
