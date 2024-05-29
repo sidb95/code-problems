@@ -31,7 +31,7 @@ public:
             itr = Sa1.find(N - k);
             if (itr == Sa1.end()) {
                 Sa1.insert(N - k);
-                retAnswer += calcAnswer(N - k, 1);
+                retAnswer += calcAnswer(N - k, 0);
             }
             else {
                 retAnswer += (*itr);
@@ -56,7 +56,7 @@ public:
         //
         if (itr == Sa1.end()) {
             Sa1.insert(m);
-            retAnswer += calcAnswer(m, 1);
+            retAnswer += calcAnswer(m, 0);
         }
         else { // if ```N % k``` calc, incerement
             retAnswer += (*itr);
