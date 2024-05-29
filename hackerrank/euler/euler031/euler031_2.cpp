@@ -7,10 +7,10 @@ using namespace std;
 class SolutionM1 {
 
 protected:
-    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    set <long long int> Sa1 = {};
-    long long int LIMIT = 100000007;
-    long long int MAX_LIMIT;
+    set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    set < int > Sa1 = {};
+    int LIMIT = 100000007;
+    int MAX_LIMIT;
 
 public:
     SolutionM1() {
@@ -22,46 +22,49 @@ public:
     }
     //
     // N in S1
-    bool calcAnswerAuxB1(long long int N) {
+    bool calcAnswerAuxB1(int N) {
         return (S1.find(N) == S1.end());
     }
     //
-    long long int calcAnswerAuxC1(long long int k, long long int N, 
-    set <long long int> Sb1) {
+    long long int calcAnswerAuxC1(int k, int N, set <int> Sb1) {
         //
-        long long int n1 = Sa1.size();
+        int n1 = Sa1.size();
         //
         long long int retAnswer = 0;
-        set < long long int >::iterator itr;
+        set < int >::iterator itr;
         //
-        long long int num1 = (N / k);
+        int i = 1;
+        int num1 = (N / k);
+        int numA1;
         //
         while (k < N) {
-            itr = Sa1.find(N - num1);
+            numA1 = N - (num1 * i);
+            //
+            itr = Sa1.find(numA1);
             if (itr == Sa1.end()) {
-                retAnswer += calcAnswer(N - (num1), 0);
+                retAnswer += calcAnswer(numA1, 0);
                 //
                 if (MAX_LIMIT > (n1)) {
-                    Sa1.insert(N - k);
+                    Sa1.insert(numA1);
                 }
             }
-            k += k;
+            i += 1;
         }
         return retAnswer;
     } 
     //
-    long long int calcAnswerAuxB2(long long int k, long long int N, 
-    set <long long int> Sb1) {
+    long long int calcAnswerAuxB2(int k, int N, 
+    set <int> Sb1) {
         long long int retAnswer = 0;
         //
         if (N > k) {
             retAnswer += calcAnswerAuxC1(k, N, Sb1);
         }
         //
-        long long int m = (N % k);
-        long long int n1 = Sa1.size();
+        int m = (N % k);
+        int n1 = Sa1.size();
         //
-        set <long long int>::iterator itr;
+        set <int>::iterator itr;
         //
         itr = Sa1.find(m);
         //
@@ -78,8 +81,8 @@ public:
     }
     //
     //
-    long long int calcAnswerAuxA2(long long int k, long long int N, 
-    set <long long int> Sb1){
+    int calcAnswerAuxA2(int k, int N, 
+    set <int> Sb1){
         //
         long long int retAnswer = 0;
         //
@@ -92,7 +95,7 @@ public:
         //
         long long int retAnswer = 0;
         //
-        long long int k;
+        int k;
         //
         //
         // if (calcAnswerAuxB1(N)) {
@@ -100,9 +103,9 @@ public:
         // }
         //        
         //
-        set <long long int>::iterator itr1;
+        set <int>::iterator itr1;
         //
-        set <long long int> Sb1;
+        set <int> Sb1;
         //
         // iterating over all coins changes
         for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
@@ -144,7 +147,7 @@ int main() {
         SolutionM1 Sol1;
         long long int answer = 0;
         //
-        long long int LIMIT = 100000007;
+        int LIMIT = 100000007;
         //
         answer = Sol1.calcAnswer(N, answer);
         //
