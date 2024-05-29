@@ -1,62 +1,125 @@
 #include <vector>
 #include <iostream>
+#include <set>
 
 using namespace std;
 
 class Solution {
+private:
+    set <int> C1 = {1, 2, 5, 10, 20, 50};
+    set <int> P1 = {100, 200};
+
 protected:
-    vector <int> pence = {1, 2, 5, 10, 20, 50};
-    vector <int> pound = {1, 2};
+    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    set <long long int> Sa1 = {};
+
+    long long int calcAnswerAuxC1(long long int k, long long int num1, 
+    long long int N, long long int answer, set <long long int>& Sb1);
 
 public:
     int LIMIT = 1000000007;
+
+    bool calcAnswerAuxB1(long long int N) {
+        return (S1.find(N) == S1.end());
+    }
+
+    long long int calcAnswerAuxB2(long long int k, long long int N, long long int answer, 
+    set <int>& Sb1) {
+        if (k == 2) {
+            // pass
+        }
+        else {
+            long long int num1 = (N / k);
+            // if all of one type
+            if (N % k == 0) {
+                answer += num1;
+                answer = calcAnswerAuxC1(k, num1, N, answer, Sb1);
+            }
+            else { // if there is offset
+                //
+                set <int>::iterator itr;
+                //
+                itr = Sa1.find(N % k);
+                //
+                // ```N % k``` calc since not in Sa1
+                // calcs if max k taken
+                if (itr == Sa1.end()) {
+                    Sa1.insert(N % k);
+                    this->calcAnswer(N % k, answer);
+                }
+                else { // if ```N % k``` calc, incerement
+                    answer += (*itr);
+                }
+                //
+            }
+        }
+        return answer;
+    }
     
-    void calcAnswer(int N, long long int& answer) {
+    void calcAnswer(long long int N, long long int& answer) {
         //
-        /*
-            pence 1(pence N C 1) + (pence N-1 C 1 + calc 1) + 
-            pence N-2 C 1
-        */
-       if (N == 1) {
-            answer = 1;
-       }
-       else if (N == 2) {
-            answer = 2;
-       }
-       else if (N == 5) {
-            answer = (calcAnswer(N - 2) + calcAnswer(N - 3)) +
-                    (calcAnswer(N - 1) + calcAnswer(1));
-            answer += 1;
-       }
-       else if (N == 10 || N == 20 || N == 50 || N == 100 || N == 200) {
-            answer = this->calcAnswerAuxA1(N);
-            answer += 1;
-       }
-       else {
-            answer = this->calcAnswerAuxA1(N);
-       }
+        if (N == 0) {
+            return;
+        }
+        //
+        this->calcAnswerAuxA1(N, answer);
+       //
         return;
     }
     
     void calcAnswerAuxA1(long long int N, long long int& answer) {
-        long long int answer = 0;
-        long long int sum1, sum2;
-        for (int i = 1; i < N - 1; i += 1) {
-            for (int j = i; j < N; j += 1) {
-                if ((i + j) == N) {
-                    sum1 = calcAnswer(i);
-                    if (i == j) {
-                        answer += sum1 * 2;
-                    }
-                    else {
-                        sum2 = calcAnswer(j);
-                        answer += sum1 + sum2;
-                    }
-                }
-            }
+        //
+        long long int k;
+        //
+        if (calcAnswerAuxB1(N)) {
+            answer += 1;
         }
+        //
+        set <long long int>::iterator itr1;
+        //
+        set <long long int>:: Sb1;
+        //
+        for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
+            k = (*itr1);
+            Sb1.insert(k);
+            this->calcAnswerAuxA2(k, N, answer, Sb1);
+        }
+        //
         return;
     }
+    
+    void calcAnswerAuxA2(long long int k, long long int N, long long int &answer, 
+    set <long long int>& Sb1){
+        if (k == 1) {
+            // pass
+        }
+        else {
+            answer += 1;
+        }
+        //
+        if (k == 1) {
+            return;
+        }
+        //
+        /*
+            coins = {1, 2, 3}
+        */
+        //
+        answer = this->calcAnswerAuxB2(k, N, answer, Sb1);
+        //
+        if (k == 8) {
+            return;
+        }
+    }
+};
+
+class SolutionHelper: public Solution {
+protected:
+        long long int calcAnswerAuxC1(long long int k, long long int num1, 
+        long long int N, long long int answer, set <long long int>& Sb1) {
+            
+        }
+
 };
 
 int main() {
@@ -66,7 +129,11 @@ int main() {
         int N;
         cin >> N;
         Solution Sol1;
-        cout << Sol1.calcAnswer(N, 0) << endl;
+        long long int answer = 0;
+        //
+        Sol1.calcAnswer(N, answer);
+        //
+        cout << (answer % LIMIT) << endl;
     }
     return 0;
 }
