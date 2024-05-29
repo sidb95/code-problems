@@ -133,8 +133,6 @@ public:
             return 2;
         }
         //
-        retAnswer += 1;
-        //
         retAnswer += calcAnswerAuxA1(N);
         //
         return (retAnswer);
