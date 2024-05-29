@@ -25,10 +25,16 @@ public:
     set <long long int> Sb1) {
         //
         long long int retAnswer = 0;
+        set < long long int >::iterator itr;
         //
         while (k < N) {
-            if (Sa1.find(N - k) != Sa1.end()) {
+            itr = Sa1.find(N - k);
+            if (itr == Sa1.end()) {
+                Sa1.insert(N - k);
                 retAnswer += calcAnswer(N - k, 1);
+            }
+            else {
+                retAnswer += (*itr);
             }
             k += k;
         }
@@ -83,13 +89,11 @@ public:
         //
         long long int k;
         //
-
         //
         if (calcAnswerAuxB1(N)) {
             retAnswer += 1;
         }
-        //
-        
+        //        
         //
         set <long long int>::iterator itr1;
         //
