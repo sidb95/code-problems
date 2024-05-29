@@ -33,9 +33,6 @@ public:
                 retAnswer += calcAnswer(N - k, 0);
                 Sa1.insert(N - k);
             }
-            else {
-                retAnswer += (*itr);
-            }
             k += k;
         }
         return retAnswer;
@@ -57,9 +54,6 @@ public:
         if (itr == Sa1.end()) {
             retAnswer += calcAnswer(m, 0);
             Sa1.insert(m);
-        }
-        else { // if ```N % k``` calc, incerement
-            retAnswer += (*itr);
         }
         //
         if (N > k) {
@@ -101,14 +95,9 @@ public:
         //
         set <long long int> Sb1;
         //
-        Sb1.insert(1);
-        //
         // iterating over all coins changes
         for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
             k = (*itr1);
-            if (k == 1) {
-                continue;
-            }
             Sb1.insert(k);
             retAnswer += calcAnswerAuxA2(k, N, Sb1);
         }
@@ -133,9 +122,6 @@ public:
             Sa1.insert(N);
             return 2;
         }
-        //
-        retAnswer += 1;
-        Sa1.insert(1);
         //
         retAnswer += calcAnswerAuxA1(N);
         //
