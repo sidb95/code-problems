@@ -9,7 +9,7 @@ class SolutionM1 {
 protected:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
     set <long long int> Sa1 = {};
-    LIMIT = 100000007;
+    long long int LIMIT = 100000007;
 
 public:
     long long int calcAnswerAuxC1(long long int k, long long int num1, 
@@ -48,7 +48,7 @@ public:
         //
         answer += calcAnswerAuxC1(k, num1, N, answer, Sb1);
         //
-        return (answer % LIMIT);
+        return (answer);
     }
     // N in S1
     bool calcAnswerAuxB1(long long int N) {
@@ -72,7 +72,7 @@ public:
         if (k != 8) {
             answer += this->calcAnswerAuxB2(k, N, answer, Sb1);
         }
-        return (answer % LIMIT);
+        return (answer);
     }
     //
     long long int calcAnswerAuxA1(long long int N, long long int answer) {
@@ -94,7 +94,7 @@ public:
             answer = this->calcAnswerAuxA2(k, N, answer, Sb1);
         }
         //
-        return (answer % LIMIT);
+        return (answer);
     }
     //
     //
@@ -106,7 +106,7 @@ public:
         //
         answer = this->calcAnswerAuxA1(N, answer);
         //
-        return (answer % LIMIT);
+        return (answer);
     }
 };
 
