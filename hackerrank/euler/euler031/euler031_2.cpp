@@ -90,7 +90,9 @@ public:
         //
         //
         if (calcAnswerAuxB1(N)) {
-            Sa1.insert(N);
+            if (Sa1.find(N) == Sa1.end()) {
+                Sa1.insert(N);
+            }
             retAnswer += 1;
         }
         //        
@@ -116,7 +118,7 @@ public:
         retAnswer += answer; 
         //
         if (N == 0) {
-            return 1;
+            return 0;
         }
         if (N == 1) {
             Sa1.insert(N);
@@ -141,7 +143,7 @@ int main() {
         long long int N;
         cin >> N;
         SolutionM1 Sol1;
-        long long int answer = 1;
+        long long int answer = 0;
         //
         long long int LIMIT = 100000007;
         //
