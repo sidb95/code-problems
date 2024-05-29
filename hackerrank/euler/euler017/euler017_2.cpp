@@ -57,6 +57,7 @@ public:
     */
     //
     void calcAnswerAuxA1(string& answer, vector <int>& digits, int m) {
+        calcAnswerIA(answer, answer.size());
         answer += words3[9 - digits[m - 1]];
         return;
     }
@@ -68,26 +69,29 @@ public:
     void calcAnswerAuxA2(string& answer, vector <int>& digits, int m) {
         //
         if (digits[m - 1] == 1) {
-            calcAnswerIA(answer, answer.size());
             if (digits[m - 2] == 0) {
+                calcAnswerIA(answer, answer.size());
                 answer += words2[8];
             }
             else {
+                calcAnswerIA(answer, answer.size());
                 answer += words4[9 - digits[m - 2]];
             }
         }
         else {
-            calcAnswerIA(answer, answer.size());
             if (digits[m - 1] == 0) {
+                calcAnswerIA(answer, answer.size());
                 answer += words3[9 - digits[m - 2]];
             }
             else { // ```digits``` at ```m - 1``` not {0, 1}
                 //
                 // ```digits``` at ```m - 2``` zero
                 if (digits[m - 2] == 0) {
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[9 - digits[m - 1]];
                 }
                 else { // ```digits``` at m - 2 non-zero 
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[9 - digits[m - 1]];
                     //
                     answer += " ";
@@ -103,33 +107,37 @@ public:
     void calcAnswerAuxA3(string& answer, vector <int>& digits, int m) {
         // when ```digits``` at ```m - 1``` is non-zero
         if (digits[m - 1] != 0) {
+            calcAnswerIA(answer, answer.size());
             answer += words3[9 - digits[m - 1]];
             answer += " ";
             answer += words1[4];
             //
             if (digits[m - 2] == 0) {
                 //
-                calcAnswerIA(answer, answer.size());
                 if (digits[m - 3] != 0) {
+                    calcAnswerIA(answer, answer.size());
                     answer += words3[9 - digits[m - 3]];
                 }
             }
             else { // ```digits``` at ```m - 2``` is non-zero
                 //
-                calcAnswerIA(answer, answer.size());
                 if (digits[m - 2] == 1) {
                     if (digits[m - 3] == 0) {
+                        calcAnswerIA(answer, answer.size());
                         answer += words2[8];
                     }
                     else {
+                        calcAnswerIA(answer, answer.size());
                         answer += words4[9 - digits[m - 3]];
                     }
                 }
                 else {
                     if (digits[m - 3] == 0) {
+                        calcAnswerIA(answer, answer.size());
                         answer += words2[9 - digits[m - 2]];
                     }
                     else {
+                        calcAnswerIA(answer, answer.size());
                         answer += words2[9 - digits[m - 2]];
                         //
                         answer += " ";
@@ -140,10 +148,11 @@ public:
             }
         }
         else { // // ```digits``` at ```m - 1``` is zero
-            calcAnswerIA(answer, answer.size());
+            
             // ```digits``` at ```m - 2``` is  zero
             if (digits[m - 2] == 0) {
                 if (digits[m - 3] != 0) {
+                    calcAnswerIA(answer, answer.size());
                     answer += words3[9 - digits[m - 3]];
                 }
             }
@@ -151,18 +160,22 @@ public:
                 //
                 if (digits[m - 2] == 1) {
                     if (digits[m - 3] == 0) {
+                        calcAnswerIA(answer, answer.size());
                         answer += words2[8];
                     }
                     else {
+                        calcAnswerIA(answer, answer.size());
                         answer += words4[9 - digits[m - 3]];
                     }
                 }
                 else { // ```digits``` at ```m - 2``` is not 1
+                    calcAnswerIA(answer, answer.size());
                     answer += words2[9 - digits[m - 2]];
                     //
-                    answer += " ";
+
                     //
                     if (digits[m - 3] != 0) {
+                        calcAnswerIA(answer, answer.size());
                         answer += words3[9 - digits[m - 3]];
                     }
                 }
@@ -289,8 +302,6 @@ public:
             }
         }
         //
-        
-        //
         if (FLAG) {
             calcAnswerIA(answer, answer.size());
             answer += words1[2];
@@ -320,8 +331,6 @@ public:
     }
     //
     void calcAnswerAux11(string& answer, vector <int>& digits) {
-        //
-        calcAnswerIA(answer, answer.size());
         //
         calcAnswerAuxA2(answer, digits, 11);
         //
