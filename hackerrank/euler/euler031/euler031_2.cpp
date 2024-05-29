@@ -30,8 +30,8 @@ public:
         while (k < N) {
             itr = Sa1.find(N - k);
             if (itr == Sa1.end()) {
-                Sa1.insert(N - k);
                 retAnswer += calcAnswer(N - k, 0);
+                Sa1.insert(N - k);
             }
             else {
                 retAnswer += (*itr);
@@ -55,8 +55,8 @@ public:
         // calcs if max k taken
         //
         if (itr == Sa1.end()) {
-            Sa1.insert(m);
             retAnswer += calcAnswer(m, 0);
+            Sa1.insert(m);
         }
         else { // if ```N % k``` calc, incerement
             retAnswer += (*itr);
