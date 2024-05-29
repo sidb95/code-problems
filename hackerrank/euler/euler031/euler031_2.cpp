@@ -43,7 +43,6 @@ public:
         // if all of one type
         if (N % k == 0) {
             answer += 1;
-            this->calcAnswer(N - k, answer);
         }
         else { // if there is offset
             //
@@ -60,10 +59,10 @@ public:
             else { // if ```N % k``` calc, incerement
                 answer += (*itr);
             }
-            //
-            answer = calcAnswerAuxC1(k, num1, N, answer, Sb1);
-            //
         }
+        //
+        answer = calcAnswerAuxC1(k, num1, N, answer, Sb1);
+        //
         return answer;
     }
     
