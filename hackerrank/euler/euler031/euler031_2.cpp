@@ -108,7 +108,8 @@ public:
     //
     long long int calcAnswer(long long int N, long long int answer) {
         //
-        long long retAnswer = 0; 
+        long long int retAnswer = 0;
+        retAnswer += answer; 
         //
         if (N == 0) {
             return 0;
@@ -122,7 +123,7 @@ public:
         //
         retAnswer += calcAnswerAuxA1(N);
         //
-        return (answer);
+        return (retAnswer);
     }
 };
 
