@@ -100,10 +100,14 @@ public:
         set <long long int>::iterator itr1;
         //
         set <long long int> Sb1;
+        Sb1.insert(1);
         //
         // iterating over all coins changes
         for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
             k = (*itr1);
+            if (k == 1) {
+                continue;
+            }
             Sb1.insert(k);
             retAnswer += calcAnswerAuxA2(k, N, Sb1);
         }
