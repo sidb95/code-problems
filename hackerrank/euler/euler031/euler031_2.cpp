@@ -31,17 +31,21 @@ public:
     long long int calcAnswerAuxA1(int N) {
         long long int retAnswer = 0;
         set <int>::iterator itr;
-        bool FLAG = true;
         if (calcAnswerAuxB1(N)) {
             retAnswer += 1;
         }
-        for (int pence = N - 1; pence >= 1; pence -= 1) {
+        for (int pence = N - 1; pence >= 2; pence -= 1) {
             if (Sa1.find(pence) == Sa1.end()) {
-                retAnswer += calcAnswer(pence, 0);
-                Sa1.insert(N - pence);
+                if (pence == N - pence) {
+                    retAnswer += 2 * calcAnswerAuxA1(pence);
+                }
+                else {
+                    retAnswer += calcAnswerAuxA1(pence);
+                }
+                Sa1.insert(pence);
             }
-            if ((pence == N / 2) || (Sa1.find(N - pence) == Sa1.end())) {
-                retAnswer += calcAnswer(N - pence);
+            if (Sa1.find(N - pence) == Sa1.end()) {
+                retAnswer += calcAnswerAuxA1(N - pence);
                 Sa1.insert(N - pence);
             }
         }
@@ -52,13 +56,8 @@ public:
     long long int calcAnswer(long long int N, long long int answer) {
         //
         long long int retAnswer = 0;
+        retAnswer += answer;
         //
-        if (N == 1) {
-            return 1;
-        }
-        else if (N == 2) {
-            return 2;
-        }
         //
         retAnswer += calcAnswerAuxA1(N);
         //
@@ -78,7 +77,7 @@ int main() {
         //
         int LIMIT = 100000007;
         //
-        answer = Sol1.calcAnswer(N, answer);
+        answer = Sol1.calcAnswer(N, 1);
         //
         cout << (answer % LIMIT) << endl;
     }
