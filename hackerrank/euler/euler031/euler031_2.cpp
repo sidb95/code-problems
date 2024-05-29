@@ -5,38 +5,22 @@
 
 using namespace std;
 
-class Solution {
+class SolutionM1 {
 protected:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
     set <long long int> Sa1 = {};
 
 public:
-       long long int calcAnswerAuxC1(long long int k, long long int num1, 
-        long long int N, long long int answer, set <long long int> Sb1) {
+    long long int calcAnswerAuxC1(long long int k, long long int num1, 
+    long long int N, long long int answer, set <long long int> Sb1) {
         //
         while (num1 != (0)) {
-            answer = this->calcAnswer(N - (k * num1), answer);
+            answer = this->calcAnswer(N - k, answer);
             num1 -= 1;
         }
         return answer;
     } 
-    
-    // N in S1
-    bool calcAnswerAuxB1(long long int N) {
-        return (S1.find(N) == S1.end());
-    }
-    
-    long long int calcAnswer(long long int N, long long int answer) {
-        //
-        if (N == 0) {
-            return 0;
-        }
-        //
-        answer = this->calcAnswerAuxA1(N, answer);
-        //
-        return answer;
-    }
-    
+    //
     long long int calcAnswerAuxB2(long long int k, long long int N, 
     long long int answer, set <long long int>& Sb1) {
         long long int num1 = (N / k);
@@ -65,7 +49,11 @@ public:
         //
         return answer;
     }
-    
+    // N in S1
+    bool calcAnswerAuxB1(long long int N) {
+        return (S1.find(N) == S1.end());
+    }
+    //
     long long int calcAnswerAuxA2(long long int k, long long int N, 
     long long int answer, set <long long int>& Sb1){
         if (k == 1) {
@@ -85,7 +73,7 @@ public:
         }
         return answer;
     }
-    
+    //
     long long int calcAnswerAuxA1(long long int N, long long int answer) {
         //
         long long int k;
@@ -107,6 +95,18 @@ public:
         //
         return answer;
     }
+    //
+    //
+    long long int calcAnswer(long long int N, long long int answer) {
+        //
+        if (N == 0) {
+            return 0;
+        }
+        //
+        answer = this->calcAnswerAuxA1(N, answer);
+        //
+        return answer;
+    }
 };
 
 //
@@ -116,7 +116,7 @@ int main() {
     for (t = 0; t < T; t += 1) {
         int N;
         cin >> N;
-        Solution Sol1;
+        SolutionM1 Sol1;
         long long int answer = 0;
         //
         long long int LIMIT = 100000007;
