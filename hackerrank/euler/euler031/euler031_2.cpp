@@ -15,7 +15,7 @@ public:
     long long int N, long long int answer, set <long long int> Sb1) {
         //
         while (num1 != (0)) {
-            answer = this->calcAnswer(N - k, answer);
+            answer += this->calcAnswer(N - k, answer);
             num1 -= 1;
         }
         return answer;
@@ -38,14 +38,14 @@ public:
             // calcs if max k taken
             if (itr == Sa1.end()) {
                 Sa1.insert(N % k);
-                this->calcAnswer(N % k, answer);
+                answer += this->calcAnswer(N % k, answer);
             }
             else { // if ```N % k``` calc, incerement
                 answer += (*itr);
             }
         }
         //
-        answer = calcAnswerAuxC1(k, num1, N, answer, Sb1);
+        answer += calcAnswerAuxC1(k, num1, N, answer, Sb1);
         //
         return answer;
     }
@@ -69,7 +69,7 @@ public:
         //
         //
         if (k != 8) {
-            answer = this->calcAnswerAuxB2(k, N, answer, Sb1);
+            answer += this->calcAnswerAuxB2(k, N, answer, Sb1);
         }
         return answer;
     }
@@ -90,7 +90,7 @@ public:
         for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
             k = (*itr1);
             Sb1.insert(k);
-            this->calcAnswerAuxA2(k, N, answer, Sb1);
+            answer = this->calcAnswerAuxA2(k, N, answer, Sb1);
         }
         //
         return answer;
