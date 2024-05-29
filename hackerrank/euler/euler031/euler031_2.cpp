@@ -76,7 +76,7 @@ public:
         long long int retAnswer = 0;
         //
         //
-        if (k < 9) {
+        if (k <= 200) {
             retAnswer += calcAnswerAuxB2(k, N, Sb1);
         }
         return (retAnswer);
@@ -93,13 +93,16 @@ public:
             if (Sa1.find(N) == Sa1.end()) {
                 Sa1.insert(N);
             }
-            retAnswer += 1;
+            else {
+                retAnswer += 1;
+            }
         }
         //        
         //
         set <long long int>::iterator itr1;
         //
         set <long long int> Sb1;
+        //
         Sb1.insert(1);
         //
         // iterating over all coins changes
@@ -132,6 +135,9 @@ public:
             Sa1.insert(N);
             return 2;
         }
+        //
+        retAnswer += 1;
+        Sa1.insert(1);
         //
         retAnswer += calcAnswerAuxA1(N);
         //
