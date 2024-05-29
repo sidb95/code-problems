@@ -92,8 +92,6 @@ public:
         if (calcAnswerAuxB1(N)) {
             if (Sa1.find(N) == Sa1.end()) {
                 Sa1.insert(N);
-            }
-            else {
                 retAnswer += 1;
             }
         }
