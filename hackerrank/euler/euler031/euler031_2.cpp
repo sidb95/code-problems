@@ -10,8 +10,13 @@ protected:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
     set <long long int> Sa1 = {};
     long long int LIMIT = 100000007;
+    long long int MAX_LIMIT;
 
 public:
+    SolutionM1() {
+        MAX_LIMIT = Sa1.max_size();
+    }
+    
     ~SolutionM1() {
         Sa1.clear();
     }
@@ -24,14 +29,21 @@ public:
     long long int calcAnswerAuxC1(long long int k, long long int N, 
     set <long long int> Sb1) {
         //
+        long long int n1 = Sa1.size();
+        //
         long long int retAnswer = 0;
         set < long long int >::iterator itr;
         //
+        long long int num1 = (N / k);
+        //
         while (k < N) {
-            itr = Sa1.find(N - k);
+            itr = Sa1.find(N - num1);
             if (itr == Sa1.end()) {
-                retAnswer += calcAnswer(N - k, 0);
-                Sa1.insert(N - k);
+                retAnswer += calcAnswer(N - (num1), 0);
+                //
+                if (MAX_LIMIT > (n1)) {
+                    Sa1.insert(N - k);
+                }
             }
             k += k;
         }
@@ -41,23 +53,25 @@ public:
     long long int calcAnswerAuxB2(long long int k, long long int N, 
     set <long long int> Sb1) {
         long long int retAnswer = 0;
-        // if all of one type
+        //
+        if (N > k) {
+            retAnswer += calcAnswerAuxC1(k, N, Sb1);
+        }
+        //
         long long int m = (N % k);
+        long long int n1 = Sa1.size();
         //
         set <long long int>::iterator itr;
         //
         itr = Sa1.find(m);
         //
         // ```N % k``` calc since not in Sa1
-        // calcs if max k taken
         //
         if (itr == Sa1.end()) {
             retAnswer += calcAnswer(m, 0);
-            Sa1.insert(m);
-        }
-        //
-        if (N > k) {
-            retAnswer += calcAnswerAuxC1(k, N, Sb1);
+            if (MAX_LIMIT > n1) {
+                Sa1.insert(m);
+            }
         }
         //
         return (retAnswer);
@@ -69,10 +83,8 @@ public:
         //
         long long int retAnswer = 0;
         //
+        retAnswer += calcAnswerAuxB2(k, N, Sb1);
         //
-        if (k <= 200) {
-            retAnswer += calcAnswerAuxB2(k, N, Sb1);
-        }
         return (retAnswer);
     }
     //
@@ -106,7 +118,6 @@ public:
     long long int calcAnswer(long long int N, long long int answer) {
         //
         long long int retAnswer = 0;
-        retAnswer += answer; 
         //
         if (N == 1) {
             Sa1.insert(N);
