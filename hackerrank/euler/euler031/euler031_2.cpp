@@ -83,12 +83,9 @@ public:
         long long int k;
         //
         //
-        if (calcAnswerAuxB1(N)) {
-            if (Sa1.find(N) == Sa1.end()) {
-                Sa1.insert(N);
-                retAnswer += 1;
-            }
-        }
+        // if (calcAnswerAuxB1(N)) {
+        //     retAnswer += 1;
+        // }
         //        
         //
         set <long long int>::iterator itr1;
@@ -111,9 +108,6 @@ public:
         long long int retAnswer = 0;
         retAnswer += answer; 
         //
-        if (N == 0) {
-            return 0;
-        }
         if (N == 1) {
             Sa1.insert(N);
             return 1;
