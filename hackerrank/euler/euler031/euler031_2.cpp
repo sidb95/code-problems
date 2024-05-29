@@ -24,7 +24,7 @@ public:
     }
 
     long long int calcAnswerAuxB2(long long int k, long long int N, long long int answer, 
-    set <int>& Sb1) {
+    set <long long int>& Sb1) {
         if (k == 2) {
             // pass
         }
@@ -32,8 +32,7 @@ public:
             long long int num1 = (N / k);
             // if all of one type
             if (N % k == 0) {
-                answer += num1;
-                answer = calcAnswerAuxC1(k, num1, N, answer, Sb1);
+                answer += 1;
             }
             else { // if there is offset
                 //
@@ -50,6 +49,9 @@ public:
                 else { // if ```N % k``` calc, incerement
                     answer += (*itr);
                 }
+                //
+                CalcAnswer CalcA1 = new CalcAnswer(k, num1, N, answer, Sb1);
+                answer = CalcA1.calculate();
                 //
             }
         }
@@ -115,11 +117,54 @@ public:
 
 class SolutionHelper: public Solution {
 protected:
-        long long int calcAnswerAuxC1(long long int k, long long int num1, 
-        long long int N, long long int answer, set <long long int>& Sb1) {
-            
-        }
+    long long int m = pow(2, 8);
+public:
 
+    SolutionHelper() {
+        // pass
+    }
+
+    ~SolutionHelper() {
+        // pass
+    }
+    /*
+    Calculates all the remaining possibilities with that k
+    */
+    // 
+    long long int calcAnswerAuxC1(long long int k, long long int num1, 
+    long long int N, long long int answer, set <long long int> Sb1) {
+        //
+        while (num1 != (0)) {
+            num1 -= 1;
+            answer += calcAnswer(N - (k * num1));
+        }
+        return answer;
+    }
+};
+
+class CalcAnswer {
+private:
+    long long int k;
+    long long int num1;
+    long long int N;
+    long long int answer;
+    set <long long int> Sb1;
+public:
+    CalcAnswer(long long int k, long long int num1, long long int N, 
+    long long int answer, set <long long int> Sb1) {
+        //
+        this->k = k;
+        this->num1 = num1;
+        this->N = N;
+        this->answer = answer;
+        this->Sb1 = Sb1;
+    }
+
+    long long int calculate() {
+        SolutionHelper SH1;
+        return SH1.calcAnswerAuxC1(long long int k, long long int num1, 
+        long long int N, long long int answer, set <long long int> Sb1);
+    }
 };
 
 int main() {
