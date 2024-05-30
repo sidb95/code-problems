@@ -8,7 +8,7 @@ using namespace std;
 class SolutionM1 {
 private:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    unordered_map <long long int, long long int> Sa1 = {};
+    unordered_map < pair<long long int, long long int> > Sa1 = {};
     long long int LIMIT = 100000007;
     long long int MAX_LIMIT;
 
@@ -36,7 +36,7 @@ public:
             return Sa1[1];
         }
         //
-        unordered_map <long long int, long long int>::iterator itr;
+        unordered_map < pair <long long int, long long int> >::iterator itr;
         itr = Sa1.find(N);
         //
         if (itr == Sa1.end()) {
@@ -56,16 +56,24 @@ public:
                 num4 = N % k;
                 i = 1;
                 numA1 = N;
+                //
+                unordered_map < pair<long long int> >::iterator itrA1;
+                //
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
                     if (numA1 > 0) {
-                        if (Sa1.find(numA1) == Sa1.end()) {
+                        itrA1 = Sa1.find(numA1);
+                        if (itrA1 == Sa1.end()) {
                             num1 = calcAnswer(numA1);
+                            //
+                            retAnswer += num1;
                             //
                             Sa1.insert(make_pair(numA1, num1));
                             //
                         }
-                        retAnswer += Sa1[numA1];
+                        else {
+                            retAnswer += (*itrA1).second;
+                        }   
                     }
                     i += 1;
                 }
@@ -81,7 +89,7 @@ public:
             }
             Sa1.insert(make_pair(N, retAnswer));
         }
-        return Sa1[N];
+        return (*itr).second;
     }
 };
 
