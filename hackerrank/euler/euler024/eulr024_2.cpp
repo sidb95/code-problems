@@ -2,11 +2,16 @@
 #include <string>
 #include <math.h>
 #include <set>
+#include <vector>
+#include <unordered_map>
 
 using namespace std;
 
+
 string S = "abcdefghijklm";
 string Y = "mlkjihgfedcba";
+
+unordered_map <long long int, string> STR1;
 /*
 12 <- m wandered 1, l wandered 1
 */
@@ -20,42 +25,29 @@ string swap(string s, int i, int j) {
 }
 
 //N greater lexicographical
-string greaterLexicographical1(string s, int m, long int N) {
+string greaterLexicographicalNext(string s, int m) {
     if (s == Y) {
         return s;
     }
     else {
-        long int count = 1;
-        bool FLAG = true;
+        long int count = 0;
         int n;
-        while (count != N) {
-            for (int i = m - 1; (i >= 1) && FLAG; i -= 1) {
-                while (s[i] < s[i - 1]) {
-                    continue;
-                }
-                s = swap(s, i, i - 1);
-                i = m;
-                count += 1;
-                if (count == N) {
-                    FLAG = false;
-                }
-            }
+        int i = m - 1;
+        while ((i >= 1) && (s[i] < s[i - 1])) {
+            i -= 1;
         }
+        // one swap
+        // i cannot be zero valued
+        s = swap(s, i, i - 1);
     }
     return s;
 }
 
-string calcAnswer(long int N, vector<string>& v1) {
+string calcAnswer(long long int N) {
     string s = S;
-    int n = v1.size();
-    if (N < n) {
-        return v1[N-1];
-    }
-    else {
-        int m = s.size();
-        // setting s
-        // taking ```N - 1``` lexicographical greater than s
-        s = greaterLexicographical1(s, m, N, v1);
+    int m = s.size();
+    for (int i = 0; i < N - 1; i += 1) {
+        greaterLexicographicalNext(s, m);
     }
     return s;
 }
@@ -67,9 +59,8 @@ int main() {
         long int N;
         cin >> N;
         //
-        vector<string> v1 = {S};
         // prints the answer
-        cout << calcAnswer(N, v1) << endl;
+        cout << calcAnswer(N) << endl;
     }
     return 0;
 }
