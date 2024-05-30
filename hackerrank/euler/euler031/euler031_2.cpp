@@ -58,10 +58,13 @@ public:
                 k = (*itr1);
                 num3 = (N / k);
                 i = 1;
-                while ((N >= k) && (i < k)) {
+                while ((N > k) && (i < k)) {
                     numA1 = N - (i * num3);
                     if (Sa1.find(numA1) == Sa1.end()) {
                         num1 = calcAnswer(numA1);
+                        //
+                        retAnswer += num1;
+                        //
                         Sa1.insert(make_pair(numA1, num1));
                     }
                     else {
@@ -72,7 +75,7 @@ public:
                 // calc N mod k
                 num4 = N % k;
                 if (num4 != 0) {
-                    if (Sa1.find(numA2) == Sa1.end()) {
+                    if (Sa1.find(num4) == Sa1.end()) {
                         num2 = calcAnswer(num4);
                         Sa1.insert(make_pair(num4, num2));
                     }
