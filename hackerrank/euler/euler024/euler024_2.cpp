@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-=======
+
 #include <iostream>
 #include <math.h>
 #include <string>
@@ -12,6 +11,7 @@ public:
     vector <char> charV1 = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'}; 
     vector <long long int> numV1 = {};
     vector <string> strV1 = {};
+    vector <long long int> offsetV1 = {};
     long long int numA1 = 13;
     string S = "abcdefghijklm";
     string Y = "mlkjihgfedcba";
@@ -24,6 +24,12 @@ public:
             return n * factorial(n - 1); 
         }
         return -1;
+    }
+    
+    void calcOffset(long long int N, int m) {
+        for (int i = 1; i <= m; i += 1) {
+            offsetV1.push_back(numV1[m] - N);
+        }
     }
 
     void calcNumS(long long int m) {
@@ -63,24 +69,13 @@ public:
         calcNumS(numA1);
         calcStrS(numA1);
     }
-    
-    long long int calcOffsetAux(long long int m) {
-        return numV1[m - 1];
-    }
-
-    long long int calcOffset(long long int N, int m) {
-        long long int offset;
-        offset = N - calcOffsetAux(m);
-        return offset;
-    }
-
-    long long int calcAnswerAux(long long int offset) {
-        for (long long int i = 1; i <= numA1; i += 1) {
-            if (factorial(i) > offset) {
-                return (i - 1);
-            }
-        }
-        return numA1;
+    //
+    // Calculate the string for offset;
+    string calcAnswerAuxA1(long long int N, long long int offset, long long int n1) {
+        // for (int i = 1; i <= n1; i += 1) {
+            
+        // }
+        return "1";
     }
 
     string calcAnswer(long long int N, long long int m) {
@@ -88,10 +83,11 @@ public:
             return S;
         }
         string str1;
-        long long int offset = calcOffset(N, m);
-        long long int n1 = calcAnswerAux(offset);
+        calcOffset(N, m);
         //
-        return to_string(offset);
+        str1 = calcAnswerAuxA1(N);
+        cout << offsetV1[m - 1] << endl;
+        return str1;
     }
 };
 
@@ -105,4 +101,3 @@ int main() {
         cout << SolA1.calcAnswer(N, 13) << endl;
     }
 }
->>>>>>> 6c2617befffd51e2361a678947fd518a270716a6
