@@ -1,8 +1,7 @@
 #include <iostream>
 #include <set>
 #include <math.h>
-// #include <unordered_map>
-#include <map>
+#include <unordered_map>
 
 using namespace std;
 
@@ -11,7 +10,7 @@ private:
     set <long long int> S = {1, 2, 5, 10, 20, 50, 100, 200};
 protected:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    map <long long int, long long int> Sa1;
+    unordered_map <long long int, long long int> Sa1 = {};
     long long int LIMIT = 100000007;
     long long int MAX_LIMIT;
 
@@ -37,10 +36,10 @@ public:
         Sa1.insert(make_pair(1, 1));
         //
         if (N == 1) {
-            return 1;
+            return Sa[1];
         }
         //
-        map <long long int, long long int>::iterator itr;
+        unordered_map <long long int, long long int>::iterator itr;
         itr = Sa1.find(N);
         //
         if (itr == Sa1.end()) {
@@ -63,13 +62,10 @@ public:
                     if (Sa1.find(numA1) == Sa1.end()) {
                         num1 = calcAnswer(numA1);
                         //
-                        retAnswer += num1;
-                        //
                         Sa1.insert(make_pair(numA1, num1));
+                        //
                     }
-                    else {
-                        retAnswer += Sa1[numA1];
-                    }
+                    retAnswer += Sa1[numA1];
                     i += 1;
                 }
                 // calc N mod k
@@ -79,22 +75,15 @@ public:
                         num2 = calcAnswer(num4);
                         Sa1.insert(make_pair(num4, num2));
                     }
-                    else {
-                        num2 = Sa1[num4];
-                    }
-                    retAnswer += num2;
+                    retAnswer += Sa1[num4];
                     Sa1.insert(make_pair(N, retAnswer));
                     if (k == 200) {
                         FLAG = false;
                     }
                 }
             }
-            return retAnswer;
         }
-        else {
-            retAnswer += Sa1[N];
-        }
-        return retAnswer;
+        return Sa1[N];
     }
 };
 
