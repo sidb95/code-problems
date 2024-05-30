@@ -31,7 +31,6 @@ public:
         //
         bool FLAG = true;
         //
-        long long int retAnswer = 0;
         long long int m1 = (*itrk1); 
         set < long long int >::iterator itrk4;
         itrk4 = Sk1.begin();
@@ -42,22 +41,19 @@ public:
                 break;
             }
             if ((*itrk4) == m1) {
-                retAnswer += (*itrv1);
-                break;
+                return (*itrv1);
             }
             itrk4++;
         }
-        return retAnswer;
     }
 
-    long long int calcAnswerAux(set < long long int >::iterator itrk2, long long int numA1, 
-    long long int num1) {
-        long long int retAnswer;
+    long long int calcAnswerAux(set < long long int >::iterator itrk2, long long int num) {
+        long long int retAnswer = 0, num1;
         if (itrk2 == Sk1.end()) {
             //
-            Sk1.insert(numA1);
+            Sk1.insert(num);
             //
-            num1 = calcAnswer(numA1);
+            num1 = calcAnswer(num);
             //
             retAnswer += num1;
             //
@@ -108,7 +104,7 @@ public:
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
                     itrk2 = Sk1.find(numA1);
-                    retAnswer += calcAnswerAux(itrk2, numA1, num1);
+                    retAnswer += calcAnswerAux(itrk2, numA1);
                     i += 1;
                 }
                 // calc N mod k
@@ -116,15 +112,7 @@ public:
                 //
                 if (num4 != 0) {
                     itrk3 = Sk1.find(num4);
-                    if (itrk3 == Sk1.end()) {
-                        Sk1.insert(num4);
-                        num2 = calcAnswer(num4);
-                        retAnswer += num2;
-                        Sv1.insert(num2);
-                    }
-                    else {
-                        retAnswer += keyToVal(itrk3);
-                    }
+                    retAnswer += calcAnswerAux(itrk3, num4);
                 }
             }
         }
