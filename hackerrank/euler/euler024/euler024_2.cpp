@@ -34,19 +34,14 @@ public:
     }
 
     string calcStrSAux(long long int m) { // m no of digits
-        string retStrA1 = "";
-        for (long long int i = 0; i < m; i += 1) {
-            retStrA1 = charV1[i] + retStrA1;
+        string answer = "";
+        for (int i = 1; i <= m; i += 1) {
+            answer += S[i - 1];
         }
-        if (m == numA1) {
-            return retStrA1;
+        for (int i = numA1; i > m; i -= 1) {
+            answer += S[i - 1];
         }
-        else {
-            for (long long int i = m; i <= numA1 - 1; i += 1) {
-                retStrA1 += charV1[numA1 - i];
-            }
-            return retStrA1;
-        }
+        return answer;
     }
 
     void calcStrS(long long int m) {
@@ -63,48 +58,10 @@ public:
         calcNumS(numA1);
         calcStrS(numA1);
     }
-    //
-    string calcAnswerAuxB1(long long int N, long long int m) {
-        bool FLAG = true;
-        //
-        long long int sum = 0, mVal;
-        for (int i = m; i >= 1; i -= 1) {
-            mVal = i;
-            while (offset >= 0) {
-                offset = numV1[i] - N;
-            }
-        }
-        offset = numV1[mVal + 1] - N;
-        //
-        string strM1 = strV1[mVal - 1];
-        string retSAux1 = "";
-        for (int i = 1; i <= mVal; i += 1) {
-            retSAux1 += strM1[i - 1];
-        }
-        return retSAux1;
-    }
-    //
-    // Calculate the string for offset;
-    string calcAnswerAuxA1(long long int N, long long int m) {
-        if (N == 1) {
-            return S;
-        }
-        string retStr1 = "";
-        //
-        string retSAux1 = calcAnswerAuxB1(N, m);
-        return retSAux1;
 
-    }
-    //
-    //
     string calcAnswer(long long int N, long long int m) {
-        //
-        calcOffset(N, m);
-        //
-        string str1;
-        //
-        str1 = calcAnswerAuxA1(N, m);
-        return str1;
+        cout << N << ' ' << m << endl;
+        return "1";
     }
 };
 
