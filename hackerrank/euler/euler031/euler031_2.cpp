@@ -36,7 +36,7 @@ public:
             return Sa1[1];
         }
         //
-        unordered_map <int, long long int>::iterator itr;
+        unordered_map <long long int, long long int>::iterator itr;
         itr = Sa1.find(N);
         //
         if (itr == Sa1.end()) {
