@@ -49,9 +49,8 @@ public:
             long long int k;
             long long int num1, num2, num3, num4;
             long long int numA1, numA2;
-            bool FLAG = true;
             //
-            for (itr1 = S1.begin(); FLAG; itr1++) {
+            for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
                 k = (*itr1);
                 num3 = (N / k);
                 num4 = N % k;
@@ -77,9 +76,6 @@ public:
                         Sa1.insert(make_pair(num4, num2));
                     }
                     retAnswer += Sa1[num4];
-                    if (S1.end() == (itr1 +1)) {
-                        FLAG = false;
-                    }
                 }
             }
             Sa1.insert(make_pair(N, retAnswer));
