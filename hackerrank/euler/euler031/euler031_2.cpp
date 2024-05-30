@@ -6,11 +6,9 @@
 using namespace std;
 
 class SolutionM1 {
-private:
-    set <long long int> S = {1, 2, 5, 10, 20, 50, 100, 200};
 protected:
-    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    unordered_map <long long int, long long int> Sa1 = {};
+    set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    unordered_map <int, long long int> Sa1 = {};
     long long int LIMIT = 100000007;
     long long int MAX_LIMIT;
 
@@ -39,7 +37,7 @@ public:
             return Sa[1];
         }
         //
-        unordered_map <long long int, long long int>::iterator itr;
+        unordered_map <int, long long int>::iterator itr;
         itr = Sa1.find(N);
         //
         if (itr == Sa1.end()) {
@@ -48,7 +46,7 @@ public:
             }
             set <long long int>::iterator itr1;
             //
-            long long int i;
+            long lon int i;
             long long int num1, num2, num3, num4;
             long long int numA1, numA2;
             bool FLAG = true;
@@ -56,31 +54,34 @@ public:
             for (itr1 = S1.begin(); FLAG; itr1++) {
                 k = (*itr1);
                 num3 = (N / k);
+                num4 = N % k;
                 i = 1;
-                while ((N > k) && (i < k)) {
-                    numA1 = N - (i * num3);
-                    if (Sa1.find(numA1) == Sa1.end()) {
-                        num1 = calcAnswer(numA1);
-                        //
-                        Sa1.insert(make_pair(numA1, num1));
-                        //
+                while ((N > k)) {
+                    if (i < k) {
+                        numA1 = N - (i * num3);
+                        if (Sa1.find(numA1) == Sa1.end()) {
+                            num1 = calcAnswer(numA1);
+                            //
+                            Sa1.insert(make_pair(numA1, num1));
+                            //
+                        }
+                        retAnswer += Sa1[numA1];
+                        i += 1;
                     }
-                    retAnswer += Sa1[numA1];
-                    i += 1;
                 }
                 // calc N mod k
-                num4 = N % k;
+                
                 if (num4 != 0) {
                     if (Sa1.find(num4) == Sa1.end()) {
                         num2 = calcAnswer(num4);
                         Sa1.insert(make_pair(num4, num2));
                     }
                     retAnswer += Sa1[num4];
-                    Sa1.insert(make_pair(N, retAnswer));
                     if (k == 200) {
                         FLAG = false;
                     }
                 }
+                Sa1.insert(make_pair(N, retAnswer));
             }
         }
         return Sa1[N];
