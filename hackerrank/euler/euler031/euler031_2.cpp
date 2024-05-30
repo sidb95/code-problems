@@ -77,7 +77,7 @@ public:
                         Sa1.insert(make_pair(num4, num2));
                     }
                     retAnswer += Sa1[num4];
-                    if (k == 200) {
+                    if (S1.end() == (itr1 +1)) {
                         FLAG = false;
                     }
                 }
