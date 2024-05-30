@@ -6,16 +6,16 @@
 using namespace std;
 
 class SolutionM1 {
-private:
-    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    set < long long int > Sv1 = {};
-    set < long long int > Sk1 = {};
-    long long int LIMIT = 100000007;
-    long long int MAX_LIMIT;
+public:
+    set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    set < int > Sv1 = {};
+    set < int > Sk1 = {};
+    int LIMIT = 100000007;
+    int MAX_LIMIT;
 
 public:
     SolutionM1() {
-        MAX_LIMIT = Sv1.max_size();
+        MAX_LIMIT = min(Sv1.max_size(), Sk1.max_size());
     }
     
     ~SolutionM1() {
@@ -23,18 +23,18 @@ public:
     }
     //
     // N in S1
-    bool calcAnswerAuxB1(long long int N) {
+    bool calcAnswerAuxB1(int N) {
         return (S1.find(N) == S1.end());
     }
 
-    long long int keyToVal(set <long long int>::iterator& itrk1) {
+    int keyToVal(set <int>::iterator& itrk1) {
         //
         bool FLAG = true;
         //
-        long long int m1 = (*itrk1); 
-        set < long long int >::iterator itrk4;
+        int m1 = (*itrk1); 
+        set < int >::iterator itrk4;
         itrk4 = Sk1.begin();
-        set <long long int >::iterator itrv1;
+        set <int >::iterator itrv1;
         //
         for (itrv1 = Sv1.begin(); FLAG; itrv1++) {
             if (itrk4 == Sk1.end()) {
@@ -48,7 +48,7 @@ public:
         return 0;
     }
 
-    long long int calcAnswerAux(set < long long int >::iterator itrk2, long long int num) {
+    long long int calcAnswerAux(set < int >::iterator& itrk2, int num) {
         long long int retAnswer = 0, num1;
         if (itrk2 == Sk1.end()) {
             //
@@ -67,7 +67,7 @@ public:
         return retAnswer;
     }
     
-    long long int calcAnswer(long long int N) {
+    long long int calcAnswer(int N) {
         //
         long long int retAnswer = 0;
         //
@@ -77,7 +77,7 @@ public:
             return 1;
         }
         //
-        set < long long int >::iterator itrk1;
+        set < int >::iterator itrk1;
         itrk1 = Sk1.find(N);
         //
         //
@@ -85,12 +85,12 @@ public:
             if (calcAnswerAuxB1(N)) {
                 retAnswer += 1;
             }
-            set <long long int>::iterator itrS1;
+            set <int>::iterator itrS1;
             //
-            long long int i;
-            long long int k;
-            long long int num3, num4;
-            long long int numA1;
+            int i;
+            int k;
+            int num3, num4;
+            int numA1;
             //
             // iterating over S1
             for (itrS1 = S1.begin(); itrS1 != S1.end(); itrS1++) {
@@ -99,7 +99,7 @@ public:
                 num4 = N % k;
                 i = 1;
                 //
-                set < long long int >::iterator itrk2;
+                set < int >::iterator itrk2;
                 numA1 = N;
                 //
                 while (numA1 > 0) {
@@ -109,7 +109,7 @@ public:
                     i += 1;
                 }
                 // calc N mod k
-                set < long long int >::iterator itrk3;
+                set < int >::iterator itrk3;
                 //
                 if (num4 != 0) {
                     itrk3 = Sk1.find(num4);
@@ -130,12 +130,12 @@ int main() {
     int t, T;
     cin >> T;
     for (t = 0; t < T; t += 1) {
-        long long int N;
+        int N;
         cin >> N;
         SolutionM1 Sol1;
         long long int answer;
         //
-        long long int LIMIT = 100000007;
+        int LIMIT = 100000007;
         //
         answer = Sol1.calcAnswer(N);
         //
