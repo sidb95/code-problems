@@ -56,7 +56,7 @@ public:
                 num4 = N % k;
                 i = 1;
                 numA1 = N;
-                while (numA1) {
+                while (numA1 > 0) {
                     numA1 = N - (i * num3);
                     if (numA1 > 0) {
                         if (Sa1.find(numA1) == Sa1.end()) {
