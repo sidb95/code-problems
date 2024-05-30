@@ -30,8 +30,6 @@ string greaterLexicographicalNext(string s, int m) {
         return s;
     }
     else {
-        long int count = 0;
-        int n;
         int i = m - 1;
         while ((i >= 1) && (s[i] < s[i - 1])) {
             i -= 1;
@@ -47,7 +45,7 @@ string calcAnswer(long long int N) {
     string s = S;
     int m = s.size();
     for (int i = 0; i < N - 1; i += 1) {
-        greaterLexicographicalNext(s, m);
+        s = greaterLexicographicalNext(s, m);
     }
     return s;
 }
