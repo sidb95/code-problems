@@ -72,6 +72,7 @@ public:
             //
             // iterating over S1
             for (itrS1 = S1.begin(); itrS1 != S1.end(); itrS1++) {
+                k = (*itrS1);
                 num3 = (N / k);
                 num4 = N % k;
                 i = 1;
@@ -81,23 +82,21 @@ public:
                 //
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
-                    if (numA1 > 0) {
-                        itrk2 = Sk1.find(numA1);
-                        if (itrk2 == Sv1.end()) {
-                            //
-                            Sk1.insert(numA1);
-                            //
-                            num1 = calcAnswer(numA1);
-                            //
-                            retAnswer += num1;
-                            //
-                            Sv1.insert(num1);
-                            //
-                        }
-                        else {
-                            retAnswer += keyToVal(itrk2);
-                        }   
+                    itrk2 = Sk1.find(numA1);
+                    if (itrk2 == Sk1.end()) {
+                        //
+                        Sk1.insert(numA1);
+                        //
+                        num1 = calcAnswer(numA1);
+                        //
+                        retAnswer += num1;
+                        //
+                        Sv1.insert(num1);
+                        //
                     }
+                    else {
+                        retAnswer += keyToVal(itrk2);
+                    }   
                     i += 1;
                 }
                 // calc N mod k
