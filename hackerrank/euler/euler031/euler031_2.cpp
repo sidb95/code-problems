@@ -122,6 +122,7 @@ public:
             //
         }
         return retAnswer;
+    }
 };
 
 //
