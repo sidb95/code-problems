@@ -71,22 +71,29 @@ public:
     }
     //
     // Calculate the string for offset;
-    string calcAnswerAuxA1(long long int N, long long int offset, long long int n1) {
-        // for (int i = 1; i <= n1; i += 1) {
-            
-        // }
-        return "1";
-    }
-
-    string calcAnswer(long long int N, long long int m) {
+    string calcAnswerAuxA1(long long int N, long long int m) {
         if (N == 1) {
             return S;
         }
-        string str1;
+        string retStr1 = S;
+        string strA1 = strV1[m];
+        long long int offset; // m! - N
+        long long int sum = 0;
+        for (int i = m; i >= 1; i -= 1) {
+            offset = offsetV1[m - 1];
+            if (offset == 0) {
+                return strV1[m - 1];
+            }
+        }
+    }
+
+    string calcAnswer(long long int N, long long int m) {
+        //
         calcOffset(N, m);
         //
-        str1 = calcAnswerAuxA1(N);
-        cout << offsetV1[m - 1] << endl;
+        string str1;
+        //
+        str1 = calcAnswerAuxA1(N, m);
         return str1;
     }
 };
