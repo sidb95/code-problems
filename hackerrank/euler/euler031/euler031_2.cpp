@@ -6,7 +6,7 @@
 using namespace std;
 
 class SolutionM1 {
-protected:
+private:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
     unordered_map <long long int, long long int> Sa1 = {};
     long long int LIMIT = 100000007;
@@ -98,7 +98,7 @@ int main() {
         SolutionM1 Sol1;
         long long int answer;
         //
-        int LIMIT = 100000007;
+        long long int LIMIT = 100000007;
         //
         answer = Sol1.calcAnswer(N);
         //
