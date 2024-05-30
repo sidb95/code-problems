@@ -7,7 +7,7 @@ using namespace std;
 
 class SolutionM1 {
 protected:
-    set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
     unordered_map <int, long long int> Sa1 = {};
     long long int LIMIT = 100000007;
     long long int MAX_LIMIT;
@@ -29,7 +29,6 @@ public:
     long long int calcAnswer(long long int N) {
         //
         long long int retAnswer = 0;
-        long long int k;
         //
         Sa1.insert(make_pair(1, 1));
         //
@@ -47,6 +46,7 @@ public:
             set <long long int>::iterator itr1;
             //
             long long int i;
+            long long int k;
             long long int num1, num2, num3, num4;
             long long int numA1, numA2;
             bool FLAG = true;
