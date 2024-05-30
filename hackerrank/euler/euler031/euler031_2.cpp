@@ -36,28 +36,28 @@ public:
             return Sa1[1];
         }
         //
-        unordered_map < pair <long long int, long long int> >::iterator itr;
-        itr = Sa1.find(N);
+        unordered_map < pair <long long int, long long int> >::iterator itrB1;
+        itrB1 = Sa1.find(N);
         //
-        if (itr == Sa1.end()) {
+        if (itrB1 == Sa1.end()) {
             if (calcAnswerAuxB1(N)) {
                 retAnswer += 1;
             }
-            set <long long int>::iterator itr1;
+            set <long long int>::iterator itrS1;
             //
             long long int i;
             long long int k;
             long long int num1, num2, num3, num4;
             long long int numA1, numA2;
             //
-            for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
-                k = (*itr1);
+            // iterating over S1
+            for (itrS1 = S1.begin(); itrS1 != S1.end(); itrS1++) {
                 num3 = (N / k);
                 num4 = N % k;
                 i = 1;
                 numA1 = N;
                 //
-                unordered_map < pair<long long int> >::iterator itrA1;
+                unordered_map < pair<long long int, long long int> >::iterator itrA1;
                 //
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
@@ -78,19 +78,23 @@ public:
                     i += 1;
                 }
                 // calc N mod k
-                
+                unordered_map < pair <long long int, long long int> > itrC1;
+                //
                 if (num4 != 0) {
-                    if (Sa1.find(num4) == Sa1.end()) {
+                    itrC1 = Sa1.find(num4);
+                    if (itrC1 == Sa1.end()) {
                         num2 = calcAnswer(num4);
+                        retAnswer += num2;
                         Sa1.insert(make_pair(num4, num2));
                     }
-                    retAnswer += Sa1[num4];
+                    else {
+                        retAnswer += (*itrC1).second;
+                    }
                 }
             }
             Sa1.insert(make_pair(N, retAnswer));
         }
-        return (*itr).second;
-    }
+        return retAnswer;
 };
 
 //
