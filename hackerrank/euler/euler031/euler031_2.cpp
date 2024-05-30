@@ -49,6 +49,26 @@ public:
         }
         return retAnswer;
     }
+
+    long long int calcAnswerAux(set < long long int >::iterator itrk2, long long int numA1, 
+    long long int num1) {
+        long long int retAnswer;
+        if (itrk2 == Sk1.end()) {
+            //
+            Sk1.insert(numA1);
+            //
+            num1 = calcAnswer(numA1);
+            //
+            retAnswer += num1;
+            //
+            Sv1.insert(num1);
+            //
+        }
+        else {
+            retAnswer += keyToVal(itrk2);
+        }
+        return retAnswer;
+    }
     
     long long int calcAnswer(long long int N) {
         //
@@ -88,20 +108,7 @@ public:
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
                     itrk2 = Sk1.find(numA1);
-                    if (itrk2 == Sk1.end()) {
-                        //
-                        Sk1.insert(numA1);
-                        //
-                        num1 = calcAnswer(numA1);
-                        //
-                        retAnswer += num1;
-                        //
-                        Sv1.insert(num1);
-                        //
-                    }
-                    else {
-                        retAnswer += keyToVal(itrk2);
-                    }   
+                    retAnswer += calcAnswerAux(itrk2, numA1, num1);
                     i += 1;
                 }
                 // calc N mod k
