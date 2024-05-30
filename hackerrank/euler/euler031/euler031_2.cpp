@@ -1,18 +1,19 @@
 #include <iostream>
 #include <set>
 #include <math.h>
-#include <unordered_map>
+// #include <unordered_map>
+#include <map>
 
 using namespace std;
 
 class SolutionM1 {
 private:
-    set <int> S = {1, 2, 5, 10, 20, 50, 100, 200};
+    set <long long int> S = {1, 2, 5, 10, 20, 50, 100, 200};
 protected:
-    set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    unordered_map <int, int> Sa1 = {};
-    int LIMIT = 100000007;
-    int MAX_LIMIT;
+    set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
+    map <long long int, long long int> Sa1;
+    long long int LIMIT = 100000007;
+    long long int MAX_LIMIT;
 
 public:
     SolutionM1() {
@@ -24,46 +25,71 @@ public:
     }
     //
     // N in S1
-    bool calcAnswerAuxB1(int N) {
+    bool calcAnswerAuxB1(long long int N) {
         return (S1.find(N) == S1.end());
     }
     
-    long long int calcAnswer(long long int N, long long int answer) {
+    long long int calcAnswer(long long int N) {
         //
-        long long int retAnswer = 0, k;
+        long long int retAnswer = 0;
+        long long int k;
         //
-        retAnswer += answer;
+        Sa1.insert(make_pair(1, 1));
         //
-        if (N == 0) {
+        if (N == 1) {
             return 1;
         }
-        else if (N == 1) {
-            retAnswer += 1;
-            Sa1[1] = retAnswer;
-            return retAnswer;
-        }
-        unordered_map <int, int>::iterator itr;
+        //
+        map <long long int, long long int>::iterator itr;
         itr = Sa1.find(N);
         //
-        if (itr != Sa1.end()) {
-            retAnswer += Sa1[N];
+        if (itr == Sa1.end()) {
+            if (calcAnswerAuxB1(N)) {
+                retAnswer += 1;
+            }
+            set <long long int>::iterator itr1;
+            //
+            long long int i;
+            long long int num1, num2, num3, num4;
+            long long int numA1, numA2;
+            bool FLAG = true;
+            //
+            for (itr1 = S1.begin(); FLAG; itr1++) {
+                k = (*itr1);
+                num3 = (N / k);
+                i = 1;
+                while ((N >= k) && (i < k)) {
+                    numA1 = N - (i * num3);
+                    if (Sa1.find(numA1) == Sa1.end()) {
+                        num1 = calcAnswer(numA1);
+                        Sa1.insert(make_pair(numA1, num1));
+                    }
+                    else {
+                        retAnswer += Sa1[numA1];
+                    }
+                    i += 1;
+                }
+                // calc N mod k
+                num4 = N % k;
+                if (num4 != 0) {
+                    if (Sa1.find(numA2) == Sa1.end()) {
+                        num2 = calcAnswer(num4);
+                        Sa1.insert(make_pair(num4, num2));
+                    }
+                    else {
+                        num2 = Sa1[num4];
+                    }
+                    retAnswer += num2;
+                    Sa1.insert(make_pair(N, retAnswer));
+                    if (k == 200) {
+                        FLAG = false;
+                    }
+                }
+            }
             return retAnswer;
         }
         else {
-            if (calcAnswerAuxB1(N)) {
-                retAnswer += (1 + calcAnswer(N - 1, 0));
-            }
-            else {
-                set <int>::iterator itr1;
-                //
-                int i = 1;
-                //
-                for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
-                    k = (*itr1);
-                    retAnswer += (calcAnswer(N - i * (N / k), 0));
-                    retAnswer += calcAnswer(N % k, 0);
-                }
-            }
+            retAnswer += Sa1[N];
         }
         return retAnswer;
     }
@@ -81,7 +107,7 @@ int main() {
         //
         int LIMIT = 100000007;
         //
-        answer = Sol1.calcAnswer(N, answer);
+        answer = Sol1.calcAnswer(N);
         //
         cout << (answer % LIMIT) << endl;
     }
