@@ -81,8 +81,8 @@ public:
                         FLAG = false;
                     }
                 }
-                Sa1.insert(make_pair(N, retAnswer));
             }
+            Sa1.insert(make_pair(N, retAnswer));
         }
         return Sa1[N];
     }
