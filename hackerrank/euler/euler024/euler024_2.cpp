@@ -32,16 +32,24 @@ public:
         return numV1[m];
     }
 
-    string calcStrAux(int m) {
+    string calcStrSAux(int m) {
         string retStrA1 = "";
-        for (int i = 12; i >= m; i -= 1) {
+        for (int i = 0; i < m; i += 1) {
             retStrA1 = charV1[i] + retStrA1;
         }
-        for (int i = m - 1; i >= 0; i -= 1)
+        if (m == numA1) {
+            return retStrA1;
+        }
+        else {
+            for (int i = m; i <= numA1 - 1; i += 1) {
+                retStrA1 += charV1[numA1 - i];
+            }
+            return retStrA1;
+        }
     }
 
-    void calcStrS(int m = 13) {
-        for (int i = 1; i <= 13; i += 1) {
+    void calcStrS(int m = numA1) {
+        for (int i = 1; i <= m; i += 1) {
             strV1.push_back(calcStrSAux(i));
         }
         return;
