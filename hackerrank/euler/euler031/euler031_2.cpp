@@ -8,7 +8,7 @@ using namespace std;
 class SolutionM1 {
 protected:
     set <long long int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    unordered_map <int, long long int> Sa1 = {};
+    unordered_map <long long int, long long int> Sa1 = {};
     long long int LIMIT = 100000007;
     long long int MAX_LIMIT;
 
