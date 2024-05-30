@@ -56,9 +56,9 @@ public:
                 num3 = (N / k);
                 num4 = N % k;
                 i = 1;
-                while ((N > k)) {
-                    if (i < k) {
-                        numA1 = N - (i * num3);
+                while (numA1) {
+                    numA1 = N - (i * num3);
+                    if (numA1 > 0) {
                         if (Sa1.find(numA1) == Sa1.end()) {
                             num1 = calcAnswer(numA1);
                             //
@@ -96,7 +96,7 @@ int main() {
         long long int N;
         cin >> N;
         SolutionM1 Sol1;
-        long long int answer = 0;
+        long long int answer;
         //
         int LIMIT = 100000007;
         //
