@@ -30,12 +30,11 @@ public:
     long long int keyToVal(set <long long int>::iterator itrk1) {
         long long int retAnswer = 0;
         long long int m1 = (*itrk1); 
-        int i = 0;
         set < long long int >::iterator itrk4;
         itrk4 = Sk1.begin();
         set <long long int >::iterator itrv1;
         //
-        for (itrv1 = Sv1.begin; itrv1 != itrv1.end(); itrv1++) {
+        for (itrv1 = Sv1.begin(); itrv1 != itrv1.end(); itrv1++) {
             // pass
             if ((*itrk4) == m1) {
                 retAnswer += (*itrv1);
