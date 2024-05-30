@@ -1,6 +1,7 @@
 #include <iostream>
 #include <set>
 #include <math.h>
+#include <unordered_map>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ private:
     set <int> S = {1, 2, 5, 10, 20, 50, 100, 200};
 protected:
     set <int> S1 = {1, 2, 5, 10, 20, 50, 100, 200};
-    set < int > Sa1 = {};
+    unordered_map <int, int> Sa1 = {};
     int LIMIT = 100000007;
     int MAX_LIMIT;
 
@@ -26,40 +27,34 @@ public:
     bool calcAnswerAuxB1(int N) {
         return (S1.find(N) == S1.end());
     }
-    //
-    //
-    long long int calcAnswerAuxA1(int N) {
-        long long int retAnswer = 0;
-        set <int>::iterator itr;
-        if (calcAnswerAuxB1(N)) {
-            retAnswer += 1;
-        }
-        for (int pence = N - 1; pence >= 2; pence -= 1) {
-            if (Sa1.find(pence) == Sa1.end()) {
-                if (pence == N - pence) {
-                    retAnswer += 2 * calcAnswerAuxA1(pence);
-                }
-                else {
-                    retAnswer += calcAnswerAuxA1(pence);
-                }
-                Sa1.insert(pence);
-            }
-            if (Sa1.find(N - pence) == Sa1.end()) {
-                retAnswer += calcAnswerAuxA1(N - pence);
-                Sa1.insert(N - pence);
-            }
-        }
-        return retAnswer;
-    }
-    //
-    //
-    long long int calcAnswer(long long int N, long long int answer) {
+    
+    long long int calcAnswer(long long int N, long long int& answer) {
         //
-        long long int retAnswer = 0;
+        if (N == 1) {
+            return 1;
+        }
+        //
+        long long int retAnswer = 0, num1;
         retAnswer += answer;
         //
+        unordered_map <int, int>::iterator itr;
+        itr = Sa1.find(N);
         //
-        retAnswer += calcAnswerAuxA1(N);
+        if (itr != Sa1.end()) {
+            retAnswer += Sa1[N];
+        }
+        else {
+            for (int i = 1; i < N; i += 1) {
+                for (int j = 1; j < N; j += 1) {
+                    num1 = calcAnswer(N - 1, answer) + 1;
+                }
+            }
+            
+            retAnswer += num1;
+            if (MAX_LIMIT > N - 1) {
+                Sa1[N - 1] = num1;
+            }
+        }
         //
         return (retAnswer);
     }
@@ -77,7 +72,7 @@ int main() {
         //
         int LIMIT = 100000007;
         //
-        answer = Sol1.calcAnswer(N, 1);
+        answer = Sol1.calcAnswer(N, answer);
         //
         cout << (answer % LIMIT) << endl;
     }
