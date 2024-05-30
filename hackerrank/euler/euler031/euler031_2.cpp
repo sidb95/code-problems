@@ -96,7 +96,7 @@ public:
                             //
                         }
                         else {
-
+                            retAnswer += keyToVal(itrk2);
                         }   
                     }
                     i += 1;
@@ -113,7 +113,7 @@ public:
                         Sv1.insert(num2);
                     }
                     else {
-                        
+                        retAnswer += keyToVal(itrk3);
                     }
                 }
             }
