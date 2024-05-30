@@ -34,7 +34,7 @@ public:
         Sa1.insert(make_pair(1, 1));
         //
         if (N == 1) {
-            return Sa[1];
+            return Sa1[1];
         }
         //
         unordered_map <int, long long int>::iterator itr;
@@ -46,7 +46,7 @@ public:
             }
             set <long long int>::iterator itr1;
             //
-            long lon int i;
+            long long int i;
             long long int num1, num2, num3, num4;
             long long int numA1, numA2;
             bool FLAG = true;
