@@ -28,14 +28,19 @@ public:
     }
 
     long long int keyToVal(set <long long int>::iterator& itrk1) {
+        //
+        bool FLAG = true;
+        //
         long long int retAnswer = 0;
         long long int m1 = (*itrk1); 
         set < long long int >::iterator itrk4;
         itrk4 = Sk1.begin();
         set <long long int >::iterator itrv1;
         //
-        for (itrv1 = Sv1.begin(); itrv1 != Sv1.end(); itrv1++) {
-            // pass
+        for (itrv1 = Sv1.begin(); FLAG; itrv1++) {
+            if (itrk4 == Sk1.end()) {
+                break;
+            }
             if ((*itrk4) == m1) {
                 retAnswer += (*itrv1);
                 break;
