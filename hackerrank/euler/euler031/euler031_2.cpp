@@ -45,6 +45,7 @@ public:
             }
             itrk4++;
         }
+        return 0;
     }
 
     long long int calcAnswerAux(set < long long int >::iterator itrk2, long long int num) {
@@ -88,8 +89,8 @@ public:
             //
             long long int i;
             long long int k;
-            long long int num1, num2, num3, num4;
-            long long int numA1, numA2;
+            long long int num3, num4;
+            long long int numA1;
             //
             // iterating over S1
             for (itrS1 = S1.begin(); itrS1 != S1.end(); itrS1++) {
@@ -97,9 +98,9 @@ public:
                 num3 = (N / k);
                 num4 = N % k;
                 i = 1;
-                numA1 = N;
                 //
                 set < long long int >::iterator itrk2;
+                numA1 = N;
                 //
                 while (numA1 > 0) {
                     numA1 = N - (i * num3);
