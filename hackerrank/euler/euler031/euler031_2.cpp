@@ -28,35 +28,44 @@ public:
         return (S1.find(N) == S1.end());
     }
     
-    long long int calcAnswer(long long int N, long long int& answer) {
+    long long int calcAnswer(long long int N, long long int answer) {
         //
-        if (N == 1) {
-            return 1;
-        }
+        long long int retAnswer = 0, k;
         //
-        long long int retAnswer = 0, num1;
         retAnswer += answer;
         //
+        if (N == 0) {
+            return 1;
+        }
+        else if (N == 1) {
+            retAnswer += 1;
+            Sa1[1] = retAnswer;
+            return retAnswer;
+        }
         unordered_map <int, int>::iterator itr;
         itr = Sa1.find(N);
         //
         if (itr != Sa1.end()) {
             retAnswer += Sa1[N];
+            return retAnswer;
         }
         else {
-            for (int i = 1; i < N; i += 1) {
-                for (int j = 1; j < N; j += 1) {
-                    num1 = calcAnswer(N - 1, answer) + 1;
+            if (calcAnswerAuxB1(N)) {
+                retAnswer += (1 + calcAnswer(N - 1, 0));
+            }
+            else {
+                set <int>::iterator itr1;
+                //
+                int i = 1;
+                //
+                for (itr1 = S1.begin(); itr1 != S1.end(); itr1++) {
+                    k = (*itr1);
+                    retAnswer += (calcAnswer(N - i * (N / k), 0));
+                    retAnswer += calcAnswer(N % k, 0);
                 }
             }
-            
-            retAnswer += num1;
-            if (MAX_LIMIT > N - 1) {
-                Sa1[N - 1] = num1;
-            }
         }
-        //
-        return (retAnswer);
+        return retAnswer;
     }
 };
 
