@@ -55,6 +55,7 @@ public:
                 num3 = (N / k);
                 num4 = N % k;
                 i = 1;
+                numA1 = N;
                 while (numA1) {
                     numA1 = N - (i * num3);
                     if (numA1 > 0) {
