@@ -27,7 +27,7 @@ public:
         return (S1.find(N) == S1.end());
     }
 
-    long long int keyToVal(set <long long int>::iterator itrk1) {
+    long long int keyToVal(set <long long int>::iterator& itrk1) {
         long long int retAnswer = 0;
         long long int m1 = (*itrk1); 
         set < long long int >::iterator itrk4;
