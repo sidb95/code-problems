@@ -66,8 +66,8 @@ public:
                             //
                         }
                         retAnswer += Sa1[numA1];
-                        i += 1;
                     }
+                    i += 1;
                 }
                 // calc N mod k
                 
