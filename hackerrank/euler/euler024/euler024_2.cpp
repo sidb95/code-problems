@@ -11,7 +11,7 @@ public:
     vector <char> charV1 = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'}; 
     vector <long long int> numV1 = {};
     vector <string> strV1 = {};
-    vector <long long int> offsetV1 = {};
+    long long int offset = 0;
     long long int numA1 = 13;
     string S = "abcdefghijklm";
     string Y = "mlkjihgfedcba";
@@ -24,12 +24,6 @@ public:
             return n * factorial(n - 1); 
         }
         return -1;
-    }
-    
-    void calcOffset(long long int N, int m) {
-        for (int i = 1; i <= m; i += 1) {
-            offsetV1.push_back(numV1[m] - N);
-        }
     }
 
     void calcNumS(long long int m) {
@@ -70,23 +64,39 @@ public:
         calcStrS(numA1);
     }
     //
+    string calcAnswerAuxB1(long long int N, long long int m) {
+        bool FLAG = true;
+        //
+        long long int sum = 0, mVal;
+        for (int i = m; i >= 1; i -= 1) {
+            mVal = i;
+            while (offset >= 0) {
+                offset = numV1[i] - N;
+            }
+        }
+        offset = numV1[mVal + 1] - N;
+        //
+        string strM1 = strV1[mVal - 1];
+        string retSAux1 = "";
+        for (int i = 1; i <= mVal; i += 1) {
+            retSAux1 += strM1[i - 1];
+        }
+        return retSAux1;
+    }
+    //
     // Calculate the string for offset;
     string calcAnswerAuxA1(long long int N, long long int m) {
         if (N == 1) {
             return S;
         }
-        string retStr1 = S;
-        string strA1 = strV1[m];
-        long long int offset; // m! - N
-        long long int sum = 0;
-        for (int i = m; i >= 1; i -= 1) {
-            offset = offsetV1[m - 1];
-            if (offset == 0) {
-                return strV1[m - 1];
-            }
-        }
-    }
+        string retStr1 = "";
+        //
+        string retSAux1 = calcAnswerAuxB1(N, m);
+        return retSAux1;
 
+    }
+    //
+    //
     string calcAnswer(long long int N, long long int m) {
         //
         calcOffset(N, m);
