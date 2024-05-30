@@ -34,7 +34,7 @@ public:
         itrk4 = Sk1.begin();
         set <long long int >::iterator itrv1;
         //
-        for (itrv1 = Sv1.begin(); itrv1 != itrv1.end(); itrv1++) {
+        for (itrv1 = Sv1.begin(); itrv1 != Sv1.end(); itrv1++) {
             // pass
             if ((*itrk4) == m1) {
                 retAnswer += (*itrv1);
@@ -116,7 +116,6 @@ public:
                     }
                 }
             }
-            Sv1.insert(make_pair(N, retAnswer));
         }
         else {
             retAnswer += keyToVal(itrk1);
