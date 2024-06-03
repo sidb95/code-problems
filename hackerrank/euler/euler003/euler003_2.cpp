@@ -1,7 +1,8 @@
 /*
 euler003
 bhatoresiddharth@gmail.com
-20, 21 May 2024
+ITER1: 20, 21 May 2024
+ITER2: 03 June 2024
 */
 
 #include <iostream>
@@ -11,8 +12,6 @@ bhatoresiddharth@gmail.com
 using namespace std;
 
 long long int SET_LIMIT_X = 100000;
-// long long int SET_LIMIT_Y = 10000;
-// long long int SET_LIMIT_Z = 1000;
 long long int X = 2;
 
 // check if num is prime
@@ -22,10 +21,11 @@ long long int lastPrime(long long int num);
 // calculate ```lastPrime```
 long long int calcAnswer(long long int num);
 
-bool isPrime(long long int num, long long int limit, set <long long int>& vis) {
+bool isPrime(long long int num, long long int limit) {
     bool retAnswer = true;
     limit = ((limit % X) == 0) ? (limit - 1) : limit;
     long long int m;
+    set <long long int> vis;
     // returns false if numeric is divisible by 2  
     if ((num == 0) || (num == 1) || ((num % X) == 0)) {
         retAnswer = false;
@@ -56,36 +56,29 @@ bool isPrime(long long int num, long long int limit, set <long long int>& vis) {
     return retAnswer;
 }
 
-long long int lastPrime(set <long long int>& primes) {
-    set <long long int>::iterator itr;
-    for (itr = primes.rbegin(); itr != primes.rend(); itr++) {
-        return (*itr);
-    }
-    return 0;
-}
-
 long long int calcAnswer(long long int num) {
-    set <long long int> primes;
-    primes.insert(2);
-    for (int i = 3; i < pow(num, 0.5); i += 2) {
-        if (isPrime(i) == 0) {
-            primes.insert(i);
+    long long int answer;
+    for (int i = num; i >= 0; i --) {
+        if (num % i == 0) {
+            if (isPrime(i, pow(i, 0.5))) {
+                answer = i;
+                break;
+            }
         }
     }
-    return lastPrime(primes);
+    return answer;
 }
 
 int main(){
     int t;
     cin >> t;
-    set <long long int> vis;
     for(int a0 = 0; a0 < t; a0++){
         long n;
         cin >> n;
         long long int x;
         x = n;
         // calculating answer
-        long long int answer = calcAnswer(x, vis, primes);
+        long long int answer = calcAnswer(x);
         // print answer
         cout << answer << endl;
     }
