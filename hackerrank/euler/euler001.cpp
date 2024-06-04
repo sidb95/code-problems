@@ -2,6 +2,7 @@
 euler001
 bhatoresiddharth@gmail.com
 20 May 2024
+03 June 2024
 */
 
 #include <iostream>

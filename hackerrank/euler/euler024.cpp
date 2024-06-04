@@ -3,6 +3,7 @@ euler024
 bhatoresiddharth@gmail.com
 sidb95
 27 May 2024
+04 June 2024
 */
 
 #include <iostream>

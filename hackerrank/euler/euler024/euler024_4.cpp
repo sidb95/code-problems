@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <vector>
 
 using namespace std;
 
-class SolutionM1:
+class SolutionM1 {
 public:
     string str = "abcdefghijklm";
     vector<long long int> numV1 = {0};
@@ -18,6 +20,14 @@ public:
     SolutionM1() {
         insertNumerics();
     }
+    
+    string swap(string str, int i, int j) {
+        char TEMP;
+        TEMP = str[i];
+        str[i] = str[j];
+        str[j] = TEMP;
+        return str;
+    }
 
     long long int factorial(long long int N)  {
         if (N == 0) {
@@ -31,9 +41,9 @@ public:
 
     pair< int, long long int > offsetCalc(long long int N) {
         int iVal = 0;
-        for (int i = 13; i >= 0; i += 1) {
+        for (int i = 13; i >= 1; i -= 1) {
             if (N >= numV1[i]) {
-                iVal = i;
+                iVal = 13 - i;
                 return make_pair(iVal, N - numV1[i]);
             }
         }
@@ -44,40 +54,31 @@ public:
     str = abc
     */
    //
-    long long int calcAnswer(long long int N) {
+    string calcAnswer(long long int N) {
         int m = 13;
         int count = 0;
         pair<int, long long int> p1 = offsetCalc(N);
         offset = p1.second;
-        answer = "";
-        for (int i = 0; i < p1.first - 1; i += 1) {
+        string answer = "";
+        for (int i = 0; i < p1.first; i += 1) {
             answer += str[i];
         }
         string strRem = "";
         for (int i = p1.first; i < 13; i += 1) {
             strRem += str[i];
         }
-        if (count == offset) {
-            return answer + reverse(strRem.begin(), strRem.end());
+        cout << offset << endl << endl << p1.first << endl;
+        if (offset == 0) {
+            reverse(strRem.begin(), strRem.end());
+            return answer + strRem;
         }
         bool FLAG = true;
-        while (FLAG) {
-            for (int i = m - 1; i >= 1; i -= 1) {
-                for (int j = i - 1; j >= 0; j -= 1) {
-                    swap(strRem, i, j);
-                    count += 1;
-                    if (count == offset) {
-                        FLAG = false;
-                        break;
-                    }
-                }
-                if (!FLAG) {
-                    break;
-                }
-            }
-        }
-        return answer + strRem;
+        
+        int i = 1;
+        
+        return (answer + strRem);
     }
+};
 
 int main() {
     int t, T;
@@ -89,4 +90,4 @@ int main() {
         cout << SolM1A.calcAnswer(N) << endl;
     }
     return 0;
-}   
+}
