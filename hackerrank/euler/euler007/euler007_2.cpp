@@ -1,11 +1,3 @@
-/*
-euler007
-bhatoresiddharth@gmail.com
-sidb95
-21 May 2024
-04 June 2024
-*/
-
 #include <iostream>
 #include <set>
 #include <map>

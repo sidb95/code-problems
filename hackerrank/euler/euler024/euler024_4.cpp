@@ -10,6 +10,7 @@ public:
     string str = "abcdefghijklm";
     vector<long long int> numV1 = {0};
     long long int offset;
+    set <string> S1 = {};
 
     void insertNumerics() {
         for (int i = 1; i <= 13; i += 1) {
@@ -38,17 +39,6 @@ public:
         }
         return 0;
     }
-
-    pair< int, long long int > offsetCalc(long long int N) {
-        int iVal = 0;
-        for (int i = 13; i >= 1; i -= 1) {
-            if (N >= numV1[i]) {
-                iVal = 13 - i;
-                return make_pair(iVal, N - numV1[i]);
-            }
-        }
-        return make_pair(0, 0);
-    }
     //
     /*
     str = abc
@@ -57,26 +47,31 @@ public:
     string calcAnswer(long long int N) {
         int m = 13;
         int count = 0;
-        pair<int, long long int> p1 = offsetCalc(N);
-        offset = p1.second;
-        string answer = "";
-        for (int i = 0; i < p1.first; i += 1) {
-            answer += str[i];
-        }
-        string strRem = "";
-        for (int i = p1.first; i < 13; i += 1) {
-            strRem += str[i];
-        }
-        cout << offset << endl << endl << p1.first << endl;
-        if (offset == 0) {
-            reverse(strRem.begin(), strRem.end());
-            return answer + strRem;
-        }
+        //
+        string answer = str;
+        //
         bool FLAG = true;
-        
-        int i = 1;
-        
-        return (answer + strRem);
+        while (FLAG) {
+            for (int i = 12; i >= 1;  i -= 1) {
+                for (int j = i - 1; j >= 0; j -= 1) {
+                    answer = swap(answer, i, j);
+                    if (answer != str) {
+                        count += 1;
+                        S1.insert(answer);
+                    }
+                    if (count == N) {
+                        FLAG = false;
+                        break;
+                    }
+                }
+                if (!FLAG) {
+                    break;
+                }
+            }
+        }
+        set <long long int>::reverse_iterator ritr;
+        ritr = S1.rbegin();
+        return (*ritr);
     }
 };
 
