@@ -2,7 +2,8 @@
 euler031
 bhtoresiddharth@gmail.com
 sidb95
-29 May 2024
+ITER1 29 May 2024
+ITER2 4 June 2024
 */
 
 #include <vector>
