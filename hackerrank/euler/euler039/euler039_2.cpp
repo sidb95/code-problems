@@ -3,8 +3,6 @@
 
 using namespace std;
 
-map <int, int> M1;
-
 bool isRTriangle(int i, int j, int k) {
     if((i + j) > k) {
         if ((j + k) > i) {
@@ -23,8 +21,12 @@ bool isRTriangle(int i, int j, int k) {
 int calcAnswer(int N) {
     int p, i, j, k;
     pair <int, int> maxSol = make_pair(1000000, 0);
+    //
+    map <int, int> M1;
     map <int, int>::iterator itr;
+    //
     int count = 0;
+    //
     while(count != (N + 1)) {
         M1[count] = 0;
         count += 1;
@@ -40,12 +42,14 @@ int calcAnswer(int N) {
             }
         }
     }
-    for (itr = M1.begin(); itr != M1.end(); itr++) {
-        if (itr->second > maxSol.second) {
-            maxSol = make_pair(itr->first, itr->second);
-        }
-        else if (itr->second == maxSol.second) {
-            maxSol = make_pair(max(itr->first, maxSol.first), itr->second);
+    for (int i = 3; i <= N; i += 1) {
+        if (M1[i] >= maxSol.second) {
+            if (M1[i] == maxSol.second) {
+                maxSol = make_pair(min(i, maxSol.first), M1[i]);
+            }
+            else {
+                maxSol = make_pair(i, M1[i]);
+            }
         }
     }
     return maxSol.first;
