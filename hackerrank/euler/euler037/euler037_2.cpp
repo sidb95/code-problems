@@ -1,4 +1,6 @@
 #include <iostream>
+#include <math.h>
+#include <vector>
 
 using namespace std;
 
@@ -7,7 +9,7 @@ bool isPrime(long long int n) {
     if (n == 1) {
         retPropn = false;
     }
-    for (long long int i = 3; i < pow(n, 0.5); i += 2) {
+    for (long long int i = 2; i <= pow(n, 0.5); i += 1) {
         if (n % i == 0) {
             retPropn = false;
         }
@@ -28,9 +30,9 @@ bool isTruncatable(long long int n) {
         num1 /= 10;
     }
     int m = digits.size();
-    int num2 = 0;
+    long long int num2 = 0;
     for (int j = 0; j < m; j += 1) {
-        num2 += pow(10, j) * digits[m - 1 - j];
+        num2 += digits[j] * pow(10, j);
         if (!isPrime(num2)) {
             retPropn = false;
             break;
