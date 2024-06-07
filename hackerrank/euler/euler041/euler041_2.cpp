@@ -6,11 +6,10 @@
 
 using namespace std;
 
-long long int MAX_LENGTH = 100000;
+long long int MAX_LENGTH;
 //
 set <long long int> vis;
 //
-bool isPandigitalPrime(long long int n);
 bool isPrime(long long int n);
 
 bool isPrime(long long int n) {
@@ -31,14 +30,14 @@ bool isPrime(long long int n) {
         else {
             long long int powerN1 = pow(n, 0.5);
             for (long long int i = 3; i <= powerN1; i += 2) {
-                int l = vis.size();
+                long long int l = vis.size();
                 if (n % i == 0) {
                     retPropn = false;
                     break;
                 }
                 else {
                     if (MAX_LENGTH > l) {
-                        for (long long int j = 2 * i; j < powerN1; j += i) {
+                        for (long long int j = (2 * i); j < powerN1; j += i) {
                             vis.insert(j);
                         }
                     }
@@ -50,7 +49,7 @@ bool isPrime(long long int n) {
 }
 class SolutionS1 {
 public:
-    vector<string> V;
+    vector <string> V;
 
     SolutionS1() {
         string str = "1";
@@ -58,6 +57,7 @@ public:
             str += to_string(i);
             V.push_back(str);
         }
+        MAX_LENGTH = vis.max_size() - 2;
     }
 
     bool isPandigitalPrime(long long int n) {
@@ -77,7 +77,7 @@ public:
     }
 
     long long int calcAnswer(long long int N) {
-        long long int answer;
+        long long int answer = -1;
         for (long long int i = N; i >= 10; i -= 1) {
             if (isPandigitalPrime(i)) {
                 answer = i;
