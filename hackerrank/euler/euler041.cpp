@@ -2,7 +2,7 @@
 euler041
 bhatoresiddharth@gmail.com
 sidb95
-07 June 2024
+07, 08 June 2024
 */
 
 #include <iostream>
@@ -54,44 +54,85 @@ bool isPrime(long long int n) {
     }
     return retPropn;
 }
+
+long long int isPrimeAux(string s) {
+    long long int answer = 0;
+    for (int i  = (s.size() - 1); i >= 0; i -= 1) {
+        answer += pow(10, s.size() - 1 - i) * (s[i] - '0');
+    }
+    if (isPrime(answer)) {
+        return answer;
+    }
+    return -1;
+}
+
 class SolutionS1 {
 public:
     vector <string> V;
-
+    vector <string> P;
+    set <char> C;
+    vector <int> Cv1 = {9, 7, 5, 3, 1};
+    long long int answer = -1;
+    
+    string swap(string s, int i, int j) {
+        char TEMP = s[i];
+        s[i] = s[j];
+        s[j] = TEMP;
+        return s;
+    }
+    
     SolutionS1() {
         string str = "1";
-        for(int i = 2; i <= 9; i += 1) {
+        for(int i = 2; i >= 9; i += 1) {
             str += to_string(i);
             V.push_back(str);
         }
         MAX_LENGTH = vis.max_size() - 2;
-    }
-
-    bool isPandigitalPrime(long long int n) {
-        string str = to_string(n);
-        int l = V.size();
-        bool retPropn = false;
-        sort(str.begin(), str.end());
-        for (int i = 0; i < l; i += 1) {
-            if (str == V[i]) {
-                if (isPrime(n)) {
-                    retPropn = true;
-                    break;
+        string s, r;
+        int m = V.size(), q, l;
+        //
+        for (int i = 0; i < m; i += 1) {
+            r = V[i];
+            l = r.size();
+            q = l / 2;
+            C = {9, 7, 5, 3, 1};
+            for (int j = 0; j <= q; j += 1) {
+                s = "";
+                s += Cv1[j];
+                C.erase(Cv1[j]);
+                //
+                for (int k = 2; k <= l; k += 2) {
+                    C.insert(k);
                 }
-            }
+                //
+                string str1 = "";
+                //
+                set <char>::reverse_iterator itr;
+                vector <char> V1;
+                //
+                for(itr = C.rbegin(); itr != C.rend(); itr++) {
+                    s = (*itr) + s;        
+                }
+                //
+                int n1 = s.size();
+                //
+                bool FLAG = true;
+                //
+                while (FLAG) {
+                    FLAG = false;
+                    for (int x = 0; x < n1 - 1; x += 1) {
+                        for (int y = x + 1; y < n1; y += 1) {
+                            answer = max(answer, isPrimeAux(s));
+                            if (s[y] > s[x]) {
+                                swap(s, x, y);
+                                FLAG = true;
+                            }
+                        }
+                    }
+                }
+                
+            }            
         }
-        return retPropn;
-    }
-
-    long long int calcAnswer(long long int N) {
-        long long int answer = -1;
-        for (long long int i = N; i >= 10; i -= 1) {
-            if (isPandigitalPrime(i)) {
-                answer = i;
-                break;
-            }
-        }
-        return answer;
     }
 };
 
