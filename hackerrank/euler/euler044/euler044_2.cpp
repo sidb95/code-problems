@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -29,14 +31,14 @@ vector <int> calcAnswer(int N, int K) {
     int M;
     //
     while (N >= (K + 1)) {
-        int pentgl1 = (((N) * (3 *(N - 1)))) / 2;
+        int pentgl1 = (((N) * ((3 * (N)) - 1))) / 2;
         M = N - K;
-        int pentgl2 = (((M) * (3 *(M - 1)))) / 2;
-        if (isPentagonal(pentgl1)) {
-            V1.push_back(pentgl1);
+        int pentgl2 = (((M) * ((3 * (M)) - 1))) / 2;
+        if (isPentagonal((pentgl1 - pentgl2))) {
+            V1.push_back(N);
         }
-        if (isPentagonal(pentgl2)) {
-            V1.push_back(pentgl2);
+        else if (isPentagonal(pentgl1 + pentgl2)) {
+            V1.push_back(N);
         }
         N -= 1;
     }
@@ -44,13 +46,13 @@ vector <int> calcAnswer(int N, int K) {
 }
 
 int main() {
-    int N, int K;
+    int N, K;
     cin >> N >> K;
     vector <int> V1;
     V1 = calcAnswer(N, K);
     int n = V1.size();
     for (int i = 0; i < n; i += 1) {
-        cout << V1[i] << endl;
+        cout << ((3 * V1[i] - 1) * V1[i]) / 2 << endl;
     }
     return 0;
 }
