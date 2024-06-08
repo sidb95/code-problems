@@ -31,8 +31,41 @@ public:
     bool divByFive(long long int n) {
         return ((n % 10) == 0) || ((n % 10) == 5);
     }
+
+    bool divByK(long long int n, int k) {
+        return (n % k == 0);
+    }
+
+    bool divByEight(long long int n) {
+        answer = 0;
+        for (int i = 0; (n != 0) && (i < 4); i += 1) {
+            answer += (pow(10, i)) * (n % 10);
+            n /= 10;
+        }
+        return (answer % 8 == 0);
+    }
+};
+
+class SolutionS1 {
+public:
+    vector <string> V;
+
+    SolutionS1() {
+        str = "12"
+        for (int i = 3; i <= 9; i += 1) {
+            str += to_string(i);
+            V.push_back(str);
+        }
+    }
+
+    long long int calcAnswer(long long int N) {
+        return 0;
+    }
 };
 
 int main() {
+    long long int N;
+    cin >> N;
+    cout << calcAnswer(N) << endl;
     return 0;
 }
