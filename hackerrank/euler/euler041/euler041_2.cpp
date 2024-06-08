@@ -62,8 +62,6 @@ long long int isPrimeAux(string s) {
 class SolutionS1 {
 public:
     vector <string> V;
-    vector <string> P;
-    set <char> C;
     vector <int> Cv1 = {9, 7, 5, 3, 1};
     long long int answer = -1;
     
@@ -73,57 +71,61 @@ public:
         s[j] = TEMP;
         return s;
     }
+
+    string calcAnswer(string s, int n1) {
+        bool FLAG = true;
+        //
+        while (FLAG) {
+            FLAG = false;
+            //
+            for (int x = 0; x < n1 - 1; x += 1) {
+                //
+                for (int y = x + 1; y < n1; y += 1) {
+                    answer = max(answer, isPrimeAux(s));
+                    //
+                    if (s[y] > s[x]) {
+                        s = swap(s, x, y);
+                        FLAG = true;
+                    }
+                }
+            }
+            if (!FLAG) {
+                answer = max(answer, isPrimeAux(s));
+            }
+        }
+        //
+        return s;
+    }
     
     SolutionS1() {
         string str = "1";
+        //
         for(int i = 2; i >= 9; i += 1) {
             str += to_string(i);
             V.push_back(str);
         }
+        //
         MAX_LENGTH = vis.max_size() - 2;
         string s, r;
         int m = V.size(), q, l;
         //
-        for (int i = 0; i < m; i += 1) {
+        for (int i = m - 1; i >= 0; i += 1) {
             r = V[i];
             l = r.size();
             q = l / 2;
-            C = {9, 7, 5, 3, 1};
-            for (int j = 0; j <= q; j += 1) {
+            //
+            for (int j = 1; j <= (q + 1); j += 1) {
+                //
+                r.erase(l - ((2 * j) - 1));
+                //
                 s = "";
-                s += Cv1[j];
-                C.erase(Cv1[j]);
+                s = r + to_string(Cv1[j - 1]);
                 //
-                for (int k = 2; k <= l; k += 2) {
-                    C.insert(k);
-                }
-                //
-                string str1 = "";
-                //
-                set <char>::reverse_iterator itr;
-                vector <char> V1;
-                //
-                for(itr = C.rbegin(); itr != C.rend(); itr++) {
-                    s = (*itr) + s;        
-                }
+                r = V[i];
                 //
                 int n1 = s.size();
                 //
-                bool FLAG = true;
-                //
-                while (FLAG) {
-                    FLAG = false;
-                    for (int x = 0; x < n1 - 1; x += 1) {
-                        for (int y = x + 1; y < n1; y += 1) {
-                            answer = max(answer, isPrimeAux(s));
-                            if (s[y] > s[x]) {
-                                swap(s, x, y);
-                                FLAG = true;
-                            }
-                        }
-                    }
-                }
-                
+                s = calcAnswer(s, n1);
             }            
         }
     }
@@ -136,7 +138,7 @@ int main() {
         long long int N;
         cin >> N;
         SolutionS1 Sol1;
-        cout << Sol1.calcAnswer(N) << endl;
+        cout << Sol1.answer << endl;
     }
     return 0;
 }
