@@ -1,11 +1,3 @@
-/*
-euler004
-bhatoresiddharth@gmail.com
-sidb95
-25 May 2024
-12 June 2024
-*/
-
 #include <iostream>
 #include <math.h>
 #include <algorithm>

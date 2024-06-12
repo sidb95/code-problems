@@ -1,86 +1,63 @@
-/*
-euler003
-bhatoresiddharth@gmail.com
-ITER1: 20, 21 May 2024
-ITER2: 03 June 2024
-*/
-
 #include <iostream>
-#include <math.h>
-#include <set>
 
 using namespace std;
 
-long long int SET_LIMIT_X = 100000;
-long long int X = 2;
-
-// check if num is prime
-bool isPrime(long long int num, long long int limit);
-// return lastPrime
-long long int lastPrime(long long int num);
-// calculate ```lastPrime```
-long long int calcAnswer(long long int num);
-
-bool isPrime(long long int num, long long int limit) {
-    bool retAnswer = true;
-    limit = ((limit % X) == 0) ? (limit - 1) : limit;
-    long long int m;
-    set <long long int> vis;
-    // returns false if numeric is divisible by 2  
-    if ((num == 0) || (num == 1) || ((num % X) == 0)) {
-        retAnswer = false;
+long long int gcd(long long int a, long long int b) {
+    long long int t, r;
+    if (a < b) {
+        t = a;
+        a = b;
+        b = t;
     }
-    else if (num == X) {
-        retAnswer = true;
+    r = (a % b);
+    if (r == 0) {
+        return b;
     }
     else {
-        for (long long int i = 3; i <= limit; i += X) {
-            if ((num % i) == 0) {
-                retAnswer = false;
+        a = b;
+        b = r;
+    }
+    return gcd(a, b);
+}
+
+bool isPrime(int n) {
+    bool retPropn = true;
+    if (n == 1) {
+        retPropn = false;
+    }
+    else if (n == 2) {
+        retPropn = true;
+    }
+    else if ((n % 2) == 0) {
+        retPropn = false;
+    }
+    else {
+        for (int i = 3; i <= pow(n, 0.5); i += 2) {
+            if ((n % i) == 0) {
+                retPropn = false;
                 break;
             }
-            //
-            m = vis.size();
-            //
-            if (m < SET_LIMIT_X) {
-                // if true, visit and mark nodes by multiples
-                if (vis.find(i) == (vis.end())) {
-                    for (long long int l = i; l <= limit; l += i) {
-                        vis.insert(l);
-                    }
+        }
+    }
+    return retPropn;
+}
+
+int main() {
+    int t, T;
+    cin >> T;
+    for (t = 0; t < T; t += 1) {
+        long long int N;
+        cin >> N;
+        long long int answer, num1;
+        for (long long int i = N; i >= 1; i -= 1) {
+            num1 = gcd(N, i);
+            if (num1 == i) {
+                if (isPrime(num1)) {
+                    answer = i;
+                    break;
                 }
             }
         }
-    }
-    //
-    return retAnswer;
-}
-
-long long int calcAnswer(long long int num) {
-    long long int answer;
-    for (int i = num; i >= 0; i --) {
-        if (num % i == 0) {
-            if (isPrime(i, pow(i, 0.5))) {
-                answer = i;
-                break;
-            }
-        }
-    }
-    return answer;
-}
-
-int main(){
-    int t;
-    cin >> t;
-    for(int a0 = 0; a0 < t; a0++){
-        long n;
-        cin >> n;
-        long long int x;
-        x = n;
-        // calculating answer
-        long long int answer = calcAnswer(x);
-        // print answer
         cout << answer << endl;
     }
-    return 0;
 }
