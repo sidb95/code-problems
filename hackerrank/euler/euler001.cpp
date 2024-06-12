@@ -2,49 +2,43 @@
 euler001
 bhatoresiddharth@gmail.com
 20 May 2024
-03 June 2024
+03, 12 June 2024
+*/
+
+/*
+euler001
+bhatoresiddharth@gmail.com
+20 May 2024
+03, 12 June 2024
 */
 
 #include <iostream>
 
 using namespace std;
 
-class Solution {
-protected:
-    bool retProp = false;
-    int a = 3, b = 5;
 
-    void print(int num1) {
-        cout << num1 << endl;
-        return;
-    }
+bool divBy5(int n) {
+    return ((n % 10) == 0) || ((n % 10) == 5);
+}
 
-public:
-    Solution() {
-        retProp = true;
-    }
 
-    long long int sumMultiples(int n) {
-        long long int answerSum = 0;
-        for (int i = 3; i < n; i += 3) {
-            if ((i % 5) == 0) {
-                continue;
+long long int sumMultiples(int n) {
+    long long int answerSum = 0;
+    for (int i = 3; i < n; i += 3) {
+        answerSum += i;
+        if (divBy5(i + 1)) {
+            if ((i + 1) < n) {
+                answerSum += (i + 1);
             }
-            answerSum += i;
         }
-        for (int i = 5; i < n; i += 5) {
-            answerSum += i;
+        else if (divBy5(i + 2)) {
+            if ((i + 2) < n) {
+                answerSum += (i + 2);
+            }
         }
-        return answerSum;
     }
-
-    void printFunc(int num1) {
-        if (retProp) {
-            print(num1);
-        }
-        return;
-    }
-};
+    return answerSum;
+}
 
 int main(){
     int t;
@@ -52,8 +46,7 @@ int main(){
     for(int a0 = 0; a0 < t; a0++){
         int n;
         cin >> n;
-        Solution mySol;
-        mySol.printFunc(mySol.sumMultiples(n));
+        cout << sumMultiples(n) << endl;
     }
     return 0;
 }
