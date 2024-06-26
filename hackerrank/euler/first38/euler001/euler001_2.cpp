@@ -1,10 +1,3 @@
-/*
-euler001
-bhatoresiddharth@gmail.com
-20 May 2024
-03, 12 June 2024
-*/
-
 #include <iostream>
 #include <unordered_map>
 
