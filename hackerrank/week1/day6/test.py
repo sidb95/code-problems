@@ -46,48 +46,52 @@ class Queue1:
 def bfs(n, m, edges, s):
     dic1 = {}
     keys = []
+    #
     for edge in edges:
         if (edge[0] not in keys):
             dic1[edge[0]] = []
             dic1[edge[0]].append(edge[1])
             keys.append(edge[0])
+            if (edge[1] not in keys):
+                dic1[edge[1]] = []
+                dic1[edge[1]].append(edge[0])
+                keys.append(edge[1])
+            else:
+                dic1[edge[1]].append(edge[0])
         else:
             dic1[edge[0]].append(edge[1])
+            if (edge[1] not in keys):
+                dic1[edge[1]] = []
+                dic1[edge[1]].append(edge[0])
+                keys.append(edge[1])
+            else:
+                dic1[edge[1]].append(edge[0])
+    #
+    lis1 = list(dic1.keys())
+    for i in range(1, n + 1):
+        if i not in lis1:
+           dic1[i] = []
     Q = Queue1()
     Q.insert((s, 0))
     answer = []
     #
+    vis = []
+    #
     while (not Q.empty()):
         q = Q.back()
+        if (q in vis):
+           Q.remove()
+           continue
+        vis.append(q)
         if (q[1] != 0):
             answer.append(q[1] * 6)
-        for val in dic1[q[0]]:
-            Q.insert((val, q[1] + 1))
+        if q[0] in lis1:
+            for val in dic1[q[0]]:
+                Q.insert((val, q[1] + 1))
+        else:
+            answer.append(-1)
         Q.remove()
     return answer
 
 if __name__ == '__main__':
-    fptr = open(os.environ['OUTPUT_PATH'], 'w')
-
-    q = int(input().strip())
-
-    for q_itr in range(q):
-        first_multiple_input = input().rstrip().split()
-
-        n = int(first_multiple_input[0])
-
-        m = int(first_multiple_input[1])
-
-        edges = []
-
-        for _ in range(m):
-            edges.append(list(map(int, input().rstrip().split())))
-
-        s = int(input().strip())
-
-        result = bfs(n, m, edges, s)
-
-        fptr.write(' '.join(map(str, result)))
-        fptr.write('\n')
-
-    fptr.close()
+    print(bfs(4, 3, [[1, 2], [1, 3], [3, 4]], 1))
