@@ -21,9 +21,9 @@ def longestCommonSubsequence(s1, s2):
     ss2 = []
     n = len(s2)
     #
-    ss1 = subsequences(s1, ss1, 0, m)
+    ss1 = tuple(subsequences(s1, ss1, 0, m))
     #
-    ss2 = subsequences(s2, ss2, 0, n)
+    ss2 = tuple(subsequences(s2, ss2, 0, n))
     return longestCommonSubsequenceAux(ss1, ss2)
 
 def __main__():
