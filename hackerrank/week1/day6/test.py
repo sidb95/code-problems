@@ -31,7 +31,8 @@ class Queue1:
     self.Q = L
   
   def remove(self):
-    self.Q.pop()
+    if (not self.empty()):
+      self.Q.pop()
   
   def front(self):
     return self.Q[0]
@@ -73,7 +74,7 @@ def bfs(n, m, edges, s):
            dic1[i] = []
     Q = Queue1()
     Q.insert((s, 0))
-    answer = []
+    answer = {}
     #
     vis = []
     #
@@ -83,13 +84,11 @@ def bfs(n, m, edges, s):
            Q.remove()
            continue
         vis.append(q)
+        FLAG = False
         if (q[1] != 0):
-            answer.append(q[1] * 6)
-        if q[0] in lis1:
-            for val in dic1[q[0]]:
-                Q.insert((val, q[1] + 1))
-        else:
-            answer.append(-1)
+            answer[q[0]] = (q[1] * 6)
+        for val in dic1[q[0]]:
+            Q.insert((val, q[1] + 1))
         Q.remove()
     return answer
 
