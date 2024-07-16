@@ -9,6 +9,11 @@ sbhatore95@gmail.com
 
 using namespace std;
 
+int myFunc(int a, int b, int c, int p, int q, int r) {
+    return ((a + p) * (b + q) * (c + r));
+}
+
+
 int main() {
     int a, b, c; 
     int T; 
