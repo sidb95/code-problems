@@ -24,9 +24,8 @@ class __main__():
       print(1)
     else:
       print(2)
-    for i in range(0, len(A) - 1):
-      print(A[i], end = " ")
-    print(A[len(A) - 1])    
+    for i in range(0, len(A)):
+      print(A[i], end = " ")   
 
 
 __main__()
