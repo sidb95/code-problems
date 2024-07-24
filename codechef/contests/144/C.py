@@ -1,6 +1,3 @@
-class Solution:
-    pass
-
 def __main__():
     T = int(input())
     for t in range(0, T):
