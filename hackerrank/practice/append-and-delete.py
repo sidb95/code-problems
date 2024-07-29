@@ -21,6 +21,11 @@ else:
 def appendAndDelete(s, t, k):
     if (s == t):
         return "Yes"
+    if (n > m):
+        if ((n - m) <= k):
+            return "Yes"
+        else:
+            return "No"
     m = len(s)
     n = len(t)
     p = 0
