@@ -19,7 +19,7 @@ def dayOfProgrammer(year):
             year = str(year)
             return ("12.09." + year)
     elif (year == 1918):
-        return ("28.09.1918")
+        return ("26.09.1918")
     elif (not gregorianLeapYear(year)):
         year = str(year)
         return ("13.09." + year)
