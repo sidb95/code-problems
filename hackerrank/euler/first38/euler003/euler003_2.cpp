@@ -1,11 +1,10 @@
 #include <iostream>
 #include <math.h>
-#include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
-unordered_set <long long int> S = {};
-bool SET_LIMIT = false;
+unordered_map <long long int> S;
 
 
 bool isPrime(long long int n) {
@@ -28,9 +27,8 @@ bool isPrime(long long int n) {
                     break;
                 }
                 long long int j = 2 * i;
-                
                 while (j <= num1) {
-                    S.insert(j);
+                    S[j] = true;
                     j += i;
                 }
             }
