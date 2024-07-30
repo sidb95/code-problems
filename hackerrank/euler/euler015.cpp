@@ -2,23 +2,20 @@
 euler015
 bhatoresiddharth@gmail.com
 sidb95
-25 May 2024
+25 May, 30 July 2024
 */
 
 #include <iostream>
-#include <set>
-#include <map>
 #include <unordered_map>
 
 using namespace std;
 
+unordered_map<string, int> S1;
 int SET_INT = 1000000007;
 int numWays;
-int MAP_LIMIT = 10000;
 
 // recursive solution
-int calcAnswer(unordered_map< string, int >& S1, 
-short int n, short int m, int i, int j) {
+int calcAnswer(short int n, short int m, int i, int j) {
     int a, b;
     //
     if ((i == n) && (j == m)) {
@@ -45,18 +42,18 @@ short int n, short int m, int i, int j) {
         unordered_map < string, int >::iterator itr1;
         itr1 = S1.find(to_string(i + 1) + " " + to_string(j));
         if (itr1 != S1.end()) {
-            a = (*itr1).second;
+            a = itr1->second;
         }
         else {
-            a = calcAnswer(S1, n, m, i + 1, j);
+            a = calcAnswer(n, m, i + 1, j);
             S1[to_string(i + 1) + " " + to_string(j)] = a;
         }
         itr1 = S1.find(to_string(i) + " " + to_string(j+1));
         if (itr1 != S1.end()) {
-            b = (*itr1).second;
+            b = itr1->second;
         }
         else {
-            b = calcAnswer(S1, n, m, i, j + 1);
+            b = calcAnswer(n, m, i, j + 1);
             S1[to_string(i) + " " + to_string(j + 1)] = b;
 
         }        
@@ -67,7 +64,6 @@ short int n, short int m, int i, int j) {
 int main() {
     int T, t;
     cin >> T;
-    unordered_map < string, int > S1;
     for (int i = 1; i < 500; i++) {
         S1[to_string(i) + " " + to_string(1)] = (i + 1);
     }
@@ -82,10 +78,8 @@ int main() {
         numWays = 0;
         //
         //
-        int answer = calcAnswer(S1, N, M, 0, 0);
-        if (S1.size() < MAP_LIMIT) {
-            S1[to_string(N) + " " + to_string(M)] = answer;
-        }
+        int answer = calcAnswer(N, M, 0, 0);
+        S1[to_string(N) + " " + to_string(M)] = answer;
         cout << answer << endl;
     }
     return 0;
