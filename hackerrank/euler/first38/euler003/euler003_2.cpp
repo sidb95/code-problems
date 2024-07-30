@@ -4,26 +4,9 @@
 
 using namespace std;
 
-unordered_set <int> S = {};
+unordered_set <long long int> S = {};
 bool SET_LIMIT = false;
 
-long long int gcd(long long int a, long long int b) {
-    long long int t, r;
-    if (a < b) {
-        t = a;
-        a = b;
-        b = t;
-    }
-    r = (a % b);
-    if (r == 0) {
-        return b;
-    }
-    else {
-        a = b;
-        b = r;
-    }
-    return gcd(a, b);
-}
 
 bool isPrime(long long int n) {
     bool retPropn = true;
@@ -38,20 +21,15 @@ bool isPrime(long long int n) {
     }
     else {
         long long int num1 = pow(n, 0.5);
-        if (S.size() == 1000000000000) {
-            SET_LIMIT = true;
-        }
         for (long long int i = 3; i <= num1; i += 2) {
             if (S.find(i) == S.end()) {
                 if ((n % i) == 0) {
                     retPropn = false;
                     break;
                 }
-            }
-            else {
                 long long int j = 2 * i;
                 
-                while ((!SET_LIMIT) && j <= num1) {
+                while (j <= num1) {
                     S.insert(j);
                     j += i;
                 }
@@ -69,7 +47,7 @@ int main() {
         cin >> N;
         long long int answer;
         for (long long int i = (N % 2 == 0) ? (N - 1):N; i >= 1; i -= 2) {
-            if (N % i == 0) {
+            if ((N % i) == 0) {
                 if (isPrime(i)) {
                     answer = i;
                     break;
