@@ -34,10 +34,11 @@ def alternate(s):
         return 0
     s1 = ""
     count = 0
+    VIS = {}
     #
     for i in range(0, n - 1):
         for j in range(i + 1, n):
-            if (s[i] != s[j]):
+            if (s[i] != s[j] and ((s[i], s[j]) not in VIS)):
                 s1 = s
                 for k in range(0, n):
                     if (not ((s[k] == s[i]) or (s[k] == s[j]))):
@@ -61,6 +62,8 @@ def alternate(s):
                     count = max(count, len(s1))
                 #
             #
+            VIS[(s[i], s[j])] = True
+            VIS[(s[j], s[i])] = True
         #
     #
     return count
