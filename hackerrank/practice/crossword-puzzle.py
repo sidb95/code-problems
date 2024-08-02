@@ -9,15 +9,11 @@ def crosswordPuzzle(crossword, words):
         crossword1.append(arr)
     dict1 = {}
     for i in range(0, n):
-        for j in range(1, 11):
-            if (len(words[i]) == j):
-                if j in dict1:
-                    dict1[j].append(words[i])
-                else:
-                    dict1[j] = [words[i]]
-                #
-                break
-            #
+        j = len(words[i])
+        if j in dict1:
+            dict1[j].append(words[i])
+        else:
+            dict1[j] = [words[i]]
         #
     #
     for i in range(0, m):
@@ -25,7 +21,7 @@ def crosswordPuzzle(crossword, words):
         for j in range(0, m):
             if (crossword1[i][j] == '-'):
                 str1 += '-'
-            if ((crossword1[i][j] != '-') or ((j == (m - 1)) and crossword1[i][j] == '-')):
+            if (((j == (m - 1)) and crossword1[i][j] == '-') or (crossword[i][j] != '-')):
                 n1 = len(str1)
                 if (n1 > 0):
                     if (n1 in dict1):
@@ -34,6 +30,8 @@ def crosswordPuzzle(crossword, words):
                             dict1[n1] = dict1[n1][1:]
                         #
                     #
+                    print(str1)
+                    #
                     k = j
                     #
                     if (crossword1[i][j] != '-'):
@@ -41,12 +39,15 @@ def crosswordPuzzle(crossword, words):
                     for l1 in range(n1 - 1, -1, -1):
                         crossword1[i][k] = str1[l1]
                         k -= 1
+                    #
                 #
-                str1 = ""
+            #
+            str1 = ""
             #
         #
     #
     for i in range(0, m):
+        str1 = ""
         for j in range(0, m):
             if (crossword1[j][i] == '-'):
                 str1 += '-'
