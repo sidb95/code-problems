@@ -1,0 +1,42 @@
+def maximumPerimeterTriangle(sticks):
+    n = len(sticks)
+    arr = sorted(sticks)
+    A = [0, 0, 0]
+    B = [0, 0, 0]
+    maxVal = 0
+    for i in range(0, n - 1):
+        for j in range(i + 1, n):
+            nums = []
+            FLAG = False
+            sumAB = sticks[i] + sticks[j]
+            nums += [sticks[i], sticks[j]]
+            for k in range(n - 1, -1, -1):
+                if (((k != i) and (k != j)) and (arr[k] < sumAB) and (arr[k] + sticks[i] > sticks[j]) and (arr[k] + sticks[j] > sticks[i])):
+                    v1 = sumAB + arr[k]
+                    if (maxVal <= v1):
+                        maxVal = v1
+                        nums.append(arr[k])
+                        FLAG = True
+                        break
+                #
+            #
+            if (FLAG):
+                if (sum(nums) > sum(A)):
+                    A = sorted(nums)
+                elif (sum(nums) == sum(A)):
+                    nums = sorted(nums)
+                    if (nums[2] > A[2]):
+                        A = nums
+                    elif (nums[2] == A[2]):
+                        if (nums[0] > A[0]):
+                            A = nums
+                        #
+                    #
+                #
+            #
+        #
+    #
+    if ((A == B) or (len(A) < 3)):
+        return [-1]
+    else:
+        return A
