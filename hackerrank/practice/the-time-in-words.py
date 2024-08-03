@@ -8,6 +8,8 @@ def timeInWords(h, m):
     S1 += S2
     if (m == 0):
         return S1[h - 1] + " " + "o' clock"
+    elif (m == 1):
+        return "one minute past " + S1[h - 1]
     elif (m == 15):
         return ("quarter past ") + S1[h - 1]
     elif (m == 45):
@@ -16,5 +18,7 @@ def timeInWords(h, m):
         return ("half past ") + S1[h - 1]
     elif (m < 30):
         return S1[m - 1] + " minutes past " + S1[h - 1]
+    elif (m == 59):
+        return "one minute to " + S1[h % 12]
     elif (m > 30):
         return S1[60 - m - 1] + " minutes to " + S1[h % 12]
