@@ -40,16 +40,15 @@ def __main__():
             dict1 = {}
             for i in range(0, num1):
                 if t1[i] in dict1:
-                    dict1[t1[i]].append(i)
+                    dict1[t1[i]] += 1
                 else:
-                    dict1[t1[i]] = [i]
+                    dict1[t1[i]] = 1
             #
             for elmt in t2:
-                if elmt in dict1:
-                    if (dict1[elmt] != []):
-                        dict1[elmt] = dict1[elmt][1:]
-                    else:
-                        count += 1
+                if elmt not in dict1:
+                    count += 1
+                elif (dict1[elmt] != 0):
+                    dict1[elmt] -= 1
                 else:
                     count += 1
             #
