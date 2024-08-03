@@ -34,26 +34,24 @@ def __main__():
             l = nums[l1][0]
             r = nums[l1][1]
             t1 = ''.join((s1[l - 1:r]))
-            t2 = ''.join((s2[l - 1:r]))
+            t2 = tuple(''.join((s2[l - 1:r])))
             num1 = len(t1)
             count = 0
-            #
+            dict1 = {}
             for i in range(0, num1):
-                j = 0
-                FLAG = True
-                #
-                while (j < num1):
-                    #
-                    if ((t2[i] == t1[j])):
-                        t1 = t1[:j] + "-1" + t1[j + 1:]
-                        FLAG = False
-                        break
-                    j += 1
-                    #
-                #
-                if (FLAG):
+                if t1[i] in dict1:
+                    dict1[t1[i]].append(i)
+                else:
+                    dict1[t1[i]] = [i]
+            #
+            for elmt in t2:
+                if elmt in dict1:
+                    if (dict1[elmt] != []):
+                        dict1[elmt] = dict1[elmt][1:]
+                    else:
+                        count += 1
+                else:
                     count += 1
-                #
             #
             print(count)
             #
