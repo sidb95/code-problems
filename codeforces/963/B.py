@@ -35,37 +35,28 @@ def __main__():
         S = {}
         n, k = map(int, input().split())
         a = list(map(int, input().split()))
-        a1 = []
-        for i in range(0, n):
-            a1.append(a[i])
         dict1 = {}
         for i in range(0, n):
             dict1[i] = False
-            S[a[i]] = True
-        for i in range(0, 1000):
-            for j in range(0, n):
-                a[j] += k
-                S[a[j]] = True
         t = 0
-        FLAG1 = True
-        FLAG2 = False
+        FLAG = True
         keys = tuple(dict1.keys())
-        while (FLAG1):
-            if (FLAG2):
-                if(calcAnswer(dict1, keys)):
-                    break
+        count = 0
+        while (FLAG and (count < n)):
+            FLAG1 = False
             for key in keys:
-                if ((t - a1[key]) in S):
+                if ((t - a[key]) >= 0 and ((t - a[key]) % k == 0)):
                     if (dict1[key]):
+                        count -= 1
                         dict1[key] = False
+                        t += k
                     else:
-                        FLAG2 = True
+                        count += 1
                         dict1[key] = True
-            if (t == 50000):
-                FLAG1 = False
-            t += 1
-        if (FLAG1):
-            print(t - 1)
+            if (t > 100000):
+                FLAG = False
+        if (FLAG):
+            print(t)
         else:
             print(-1)
         #
