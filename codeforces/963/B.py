@@ -50,6 +50,13 @@ def __main__():
                         count -= 1
                         dict1[key] = False
                         t += k
+                        for k in keys:
+                            if (k != key):
+                                if (dict1[k]):
+                                    dict1[k] = False
+                                else:
+                                    dict1[k] = True
+                        break
                     else:
                         count += 1
                         dict1[key] = True
