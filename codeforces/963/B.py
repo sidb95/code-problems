@@ -47,21 +47,24 @@ def __main__():
             for key in keys:
                 if ((t - a[key]) >= 0 and ((t - a[key]) % k == 0)):
                     if (dict1[key]):
-                        count -= 1
                         dict1[key] = False
                         t += k
                         for k in keys:
-                            if (k != key):
-                                if (dict1[k]):
-                                    dict1[k] = False
-                                else:
-                                    dict1[k] = True
+                            if (dict1[k]):
+                                count -= 1
+                                dict1[k] = False
+                            else:
+                                count += 1
+                                dict1[k] = True
                         break
                     else:
                         count += 1
                         dict1[key] = True
             if (t > 100000):
                 FLAG = False
+            t += 1
+            #
+        #
         if (FLAG):
             print(t)
         else:
