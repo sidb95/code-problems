@@ -38,17 +38,19 @@ def __main__():
         A = list(map(int, input().split()))
         sum = 0
         count = 0
-        B = copy.deepcopy(A)
+        B = tuple(A)
         for i in range(1, n):
             A[i] += A[i - 1]
         #
+        maxVal = -1
+        minVal = 1000000001
+        #
+        arr = []
         for i in range(0, n):
-            for j in range(i + 1, n):
-                if (B[i] == B[j]):
-                    B[j] = -1
-        for i in range(0, n):
-            for j in range(0, i + 1):
-                if ((A[i] - B[j]) == B[j]):
+            maxVal = max(maxVal, B[i])
+            if (A[i] % 2 == 0):
+                num1 = int(A[i] / 2)
+                if (A[i] - maxVal == maxVal):
                     count += 1
         #
         print(count)
