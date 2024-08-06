@@ -22,8 +22,6 @@ sbhatore
 # pseudocode:
 """
 
-nums = {}
-
 def isLarge(n):
     while (n != 0):
         if (chr(n % 10) < '5'):
@@ -48,14 +46,21 @@ def __main__():
             print("NO")
         else:
             FLAG = False
-            for i in range(n2, n1 - 1, -1):
+            for i in range(n1, n2 + 1):
                 j = (x - i)
-                if (j not in nums):
-                    if (isLarge(i) and isLarge(j)):
-                        FLAG = True
-                        break
-                    else:
-                        nums[j] = True
+                if ((j % 10) == 4):
+                    i -= 4
+                elif ((j % 10) == 3):
+                    i -= 3
+                elif ((j % 10) == 2):
+                    i -= 2
+                elif ((j % 10) == 1):
+                    i -= 1
+                if ((j < n2) or (j > n1)):
+                    continue
+                if (isLarge(i) and isLarge(j)):
+                    FLAG = True
+                    break
                     #
                 #
             #
