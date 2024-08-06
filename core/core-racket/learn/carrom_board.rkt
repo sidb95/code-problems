@@ -36,7 +36,7 @@
 (send dc draw-ellipse 5 20 5 5)
 (send dc draw-ellipse 20 20 5 5)
 ; lines
-(send dc set-pen "black" 0.01 'solid)
+(send dc set-pen "black" 1 'solid)
 (send dc draw-line
       11 15
       19 15)
