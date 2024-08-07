@@ -62,9 +62,8 @@ def __main__():
                     if (num1 < maxOdd):
                         count1 += 1
                         a[i] += maxOdd
-                        if (maxOdd < a[i]):
-                            maxOdd = a[i]
-                            i1 = i
+                        maxOdd = a[i]
+                        i1 = i
                     else:
                         if (maxOdd < a[i]):
                             a[i1] += a[i]

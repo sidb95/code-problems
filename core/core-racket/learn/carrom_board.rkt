@@ -12,45 +12,62 @@
       0 0   ; Top-left at (0, 10), 10 pixels down from top-left
       30 30) ; 30 pixels wide and 10 pixels high
 (send dc draw-line
-      5 5
-      23 5)
+      3 3
+      27 3)
 (send dc draw-line
-      5 5
-      5 23)
+      3 3
+      3 27)
 (send dc draw-line
-      5 23
-      23 23)
+      3 27
+      27 27)
 (send dc draw-line
-      23 5
-      23 23)
+      27 3
+      27 27)
 ; circles
 (send dc set-brush "brown" 'solid)
-(send dc set-pen "black" 1 'solid)
-(send dc draw-ellipse 0 0 7 7)
-(send dc draw-ellipse 0 23 7 7)
-(send dc draw-ellipse 23 0 7 7)
-(send dc draw-ellipse 23 23 7 7)
+(send dc draw-ellipse 0 0 3 3)
+(send dc draw-ellipse 0 27 3 3)
+(send dc draw-ellipse 27 0 3 3)
+(send dc draw-ellipse 27 27 3 3)
 (send dc set-brush "red" 'solid)
-(send dc draw-ellipse 5 5 5 5)
-(send dc draw-ellipse 20 5 5 5)
-(send dc draw-ellipse 5 20 5 5)
-(send dc draw-ellipse 20 20 5 5)
+(send dc draw-ellipse 2 2 2 2)
+(send dc draw-ellipse 28 2 2 2)
+(send dc draw-ellipse 2 28 2 2)
+(send dc draw-ellipse 28 28 2 2)
 ; lines
-(send dc set-pen "black" 1 'solid)
-(send dc draw-line
-      11 15
-      19 15)
-(send dc draw-line
-      15 11
-      15 19)
-(send dc draw-line
-      12 12
-      18 18)
-(send dc draw-line
-      12 18
-      18 12)
+(send dc set-pen "black" 0.5 'solid)
+( send dc draw-line
+       15 9
+       15 15)
+
+( send dc draw-line
+       15 21
+       15 15)
+
+( send dc draw-line
+       21 15
+       15 15)
+
+( send dc draw-line
+       9 15
+       15 15)
+( send dc draw-line
+       17 9
+       15 15)
+
+( send dc draw-line
+       17 21
+       15 15)
+
+( send dc draw-line
+       21 17
+       15 15)
+
+( send dc draw-line
+       9 17
+       15 15)
 ; center
-(send dc draw-ellipse 13 13 5 5)
+(send dc draw-ellipse 14 14 3 3)
 
 ; save in file
 (send target save-file "box.png" 'png)
