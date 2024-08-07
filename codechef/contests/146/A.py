@@ -35,7 +35,14 @@ def calcAnswer():
 
 
 def __main__():
-    pass
-
+    G, S, B = map(int, input().split())
+    count = 0
+    if (G < 5):
+        count += 5 - G
+    if (S < 5):
+        count += 5 - S
+    if (B < 5):
+        count += 5 - B
+    print(count)
 
 __main__()
