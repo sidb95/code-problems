@@ -7,16 +7,16 @@ sbhatore
 #
 #
 # In:
-#
-#
+# 1. n
+# 2. r
 #
 #
 # Out:
-#
+# 1. s
 #
 #
 # Solution:
-#
+# 1. find out what matches what
 #
 #
 # pseudocode:
