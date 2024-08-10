@@ -21,7 +21,9 @@ sbhatore
 #
 # pseudocode:
 """
- 
+
+import bisect
+
 def calcAnswer():
     pass
 
@@ -32,7 +34,6 @@ def __main__():
     for t in range(0, T):
         n = int(input())
         answer = 0
-        keys = sorted(keys)
         num1 = -1
         sum2 = 0
         j = 1
@@ -49,7 +50,7 @@ def __main__():
             sum1 = sum(map(ord, r)) - (len(r) * ord('0'))
             answer += sum1
         S[n] = answer
-        keys.append(n)
+        bisect.insort(keys, n)
         print(answer)
     #
     return
