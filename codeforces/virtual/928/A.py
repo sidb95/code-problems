@@ -29,7 +29,13 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        s = input()
+        if (s.count('A') > s.count('B')):
+            print("A")
+        else:
+            print("B")
+        #
+    return
 
 
 __main__()
