@@ -27,9 +27,15 @@ def calcAnswer():
 
 
 def __main__():
-    T = int(input())
-    for t in range(0, T):
-        pass
+    n, a, b = map(int, input().split())
+    nums = sorted([a, b])
+    if ((nums[0] + (n - (nums[1] + nums[0]))) > nums[1]):
+        print("No")
+    else:
+        print("Yes")
+    #
+    return
+
 
 
 __main__()
