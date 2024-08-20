@@ -43,25 +43,31 @@ def __main__():
             num1 = 0
             count = 0
             if (b > n):
-                if (b > a):
-                    if (n > (b - a)):
-                        num1 = int(b * (b - a) - ((b - a - 1) * (b - a)) / 2)
-                        num1 += (n - (b - a)) * a
+                kMax = n
+                if (b >= a):
+                    if (kMax <= (b - a)):
+                        num1 += int(b * (kMax) - ((kMax - 1) * (kMax)) / 2)
+                        num1 += (n - kMax) * a
                     else:
-                        num1 = int(b * (n) - ((n - 1) * (n)) / 2)
+                        num1 += int(b * (b - a) - ((b - a - 1) * (b - a)) / 2)
+                        num1 += (n - (b - a)) * a
+                    #
                 else:
-                    num1 += a * n
+                    num1 += (n * a)
+                #
             else:
-                k = b
-                if (b > a):
-                    if (k > (b - a)):
-                        num1 = int(b * (b - a) - (((b - a) - 1) * (b - a)) / 2)
-                        num1 += (n - (b - a)) * a
+                kMax = b
+                if (b >= a):
+                    if (kMax <= (b - a)):
+                        num1 += int(b * (kMax) - ((kMax - 1) * (kMax)) / 2)
+                        num1 += (n - kMax) * a
                     else:
-                        num1 += int(b * k - ((k - 1) * (k)) / 2)
-                        num1 += a * (n - k)
+                        num1 += int(b * (b - a) - ((b - a - 1) * (b - a)) / 2)
+                        num1 += (n - (b - a)) * a
+                    #
                 else:
-                    num1 = n * a
+                    num1 += (n * a)
+                #
             print(num1)
         #
     #
