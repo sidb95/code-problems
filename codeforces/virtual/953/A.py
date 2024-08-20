@@ -7,12 +7,12 @@ sbhatore
 # 2. The solution is definite, finite and correct,
 # 3. The solution can be coded in Python3.
 # In:
-# 1. 
-#
+# 1. n
+# 2. a_i, 0 <= i < n
 #
 #
 # Out:
-# 1. 
+# 1. num1
 #
 #
 # Solution:
@@ -29,7 +29,13 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        n = int(input())
+        a = list(map(int, input().split()))
+        num1 = a[n - 1]
+        a = a[:n - 1]
+        num1 += max(a)
+        print(num1)
+    return
 
 
 __main__()
