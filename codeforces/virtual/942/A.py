@@ -32,7 +32,23 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        n = int(input())
+        a = list(map(int, input().split()))
+        b = list(map(int, input().split()))
+        i = 0
+        j = 0
+        count = 0
+        while (j != n):
+            if (b[j] < a[i]):
+                j += 1
+                count += 1
+            else:
+                i += 1
+                j += 1
+            #
+        print(count)
+    #
+    return
 
 
 __main__()
