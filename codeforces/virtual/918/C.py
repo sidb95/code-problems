@@ -29,7 +29,17 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        n = int(input())
+        a = list(map(int, input().split()))
+        num1 = sum(a)
+        num2 = int(num1 ** 0.5)
+        if (num2 * num2 == num1):
+            print("YES")
+        else:
+            print("NO")
+        #
+    #
+    return
 
 
 __main__()

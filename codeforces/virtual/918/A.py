@@ -31,7 +31,16 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        a, b, c = map(int, input().split())
+        if (a == b):
+            print(c)
+        elif (b == c):
+            print(a)
+        else:
+            print(b)
+        #
+    #
+    return
 
 
 __main__()
