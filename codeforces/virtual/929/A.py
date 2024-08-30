@@ -29,7 +29,15 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        n = int(input())
+        a = list(map(int, input().split()))
+        answer = 0
+        for i in range(0, n):
+            answer += abs(a[i])
+        #
+        print(answer)
+    #
+    return
         
 
 
