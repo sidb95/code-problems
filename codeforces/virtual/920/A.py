@@ -42,7 +42,7 @@ def __main__():
             num1 = abs(b1 - b4)
         print(num1 * num1)
     #
-    return
+    return 
 
 
 __main__()
