@@ -31,7 +31,22 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        a, b = map(int, input().split())
+        if (a % 2 == 0):
+            if (b % 2 == 0):
+                print("YES")
+            else:
+                if (a >= 2):
+                    print("YES")
+                else:
+                    print("NO")
+                #
+            #
+        else:
+            print("NO")
+        #
+    #
+    return
 
 
 __main__()
