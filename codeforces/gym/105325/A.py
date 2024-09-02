@@ -29,9 +29,18 @@ def calcAnswer():
 
 
 def __main__():
-    T = int(input())
-    for t in range(0, T):
-        pass
+    n = int(input())
+    count = 1
+    num1 = n - 1
+    while (count < (int((n * (n - 1)) / 2) + 1)):
+        for i in range(0, num1 - 1):
+            print(count, end=" ")
+            count += 1
+        print(count)
+        count += 1
+        num1 -= 1
+    #
+    return
 
 
 __main__()
