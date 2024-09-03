@@ -31,5 +31,4 @@ def __main__():
     for t in range(0, T):
         pass
 
-
 __main__()
