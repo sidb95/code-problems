@@ -29,7 +29,10 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        a, b = map(int, input().split())
+        print(b - a)
+    #
+    return
 
 
 __main__()
