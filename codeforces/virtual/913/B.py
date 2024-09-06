@@ -34,27 +34,32 @@ def __main__():
         a = []
         A = []
         for i in range(0, n):
-            if (ord(s[i]) >= ord('a') and ord(s[i]) <= ord('z')):
-                if (s[i] == 'b'):
-                    num1 = len(a)
-                    if (num1 != 0):
-                        num2 = a[num1 - 1]
-                        s = s[:num2] + "-" + s[num2 + 1:]
-                        a.pop(num1 - 1)
-                    #
-                else:
-                    a.append(i)
+            if (s[i] == 'b'):
+                num1 = -1
+                j = i - 1
+                while ((j >= 0) and ((ord(s[j]) >= ord('A') and ord(s[j]) <= ord('Z')) or (s[j] == '-' or s[j] == 'b' or s[j] == 'B'))):
+                    j -= 1
+                if (j != -1):
+                    num1 = j
+                if (num1 != -1):
+                    if (num1 == 0):
+                        s = "-" + s[1:]
+                    else:
+                        s = s[:num1] + "-" + s[num1 + 1:]
                 #
-            else:
-                if (s[i] == 'B'):
-                    num3 = len(A)
-                    if (num3 != 0):
-                        num4 = A[num3 - 1]
-                        s = s[:num4] + "-" + s[num4 + 1:]
-                        A.pop(num3 - 1)
-                    #
-                else:
-                    A.append(i)
+            #
+            elif (s[i] == 'B'):
+                num1 = -1
+                j = i - 1
+                while ((j >= 0) and ((ord(s[j]) >= ord('a') and ord(s[j]) <= ord('z')) or (s[j] == '-') or s[j] == 'b' or s[j] == 'B')):
+                    j -= 1
+                if (j != -1):
+                    num1 = j
+                if (num1 != -1):
+                    if (num1 == 0):
+                        s = "-" + s[1:]
+                    else:
+                        s = s[:num1] + "-" + s[num1 + 1:]
                 #
             #
         #
