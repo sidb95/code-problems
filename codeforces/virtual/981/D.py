@@ -22,15 +22,21 @@ sbhatore
 # pseudocode:
 """
 
-def calcAnswer(a, dp, i, n):
+def calcAnswer(a, dp, i, n, A):
     if (i >= n):
         return 0
     else:
         count = 0
+        if (i in A.keys()):
+            return A[i]
         for p in range(i, n):
             for q in range(0, len(dp[p])):
                 if (dp[p][q] == 0):
-                    count = max(count, 1 + calcAnswer(a, dp, p + 1 + q, n))
+                    if ((p + 1 + q) in A.keys()):
+                        count = max(count, A[p + 1 + q])
+                    else:
+                        count = max(count, 1 + calcAnswer(a, dp, p + 1 + q, n, A))
+                        A[p + 1 + q] = count
                 #
             #
         #
@@ -52,8 +58,10 @@ def __main__():
             #
         #
         count = 0
+        A = {}
         for i in range(0, n):
-            count = max(count, calcAnswer(a, dp, i, n))
+            count = max(count, calcAnswer(a, dp, i, n, A))
+            A[i] = count
         print(count)
     #
     return
