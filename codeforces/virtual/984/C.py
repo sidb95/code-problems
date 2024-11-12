@@ -24,7 +24,7 @@ sbhatore
 
 def calcAnswer(s, n, b, k, a, m, i, FLAG):
     if (FLAG):
-        for j in range (i - 3, i + 4):
+        for j in range (i - 3, i + 1):
             if (j in b):
                 b.remove(j)
             #
@@ -44,7 +44,7 @@ def calcAnswer(s, n, b, k, a, m, i, FLAG):
         #
     if ((i - 2 >= 0) and (i + 1 < n)):
         if (s[i - 2:i + 2] == "1100"):
-            if ((i -2) not in b):
+            if ((i - 2) not in b):
                 b.append(i - 2)
             #
         #
@@ -70,7 +70,7 @@ def __main__():
         #
         b = []
         n = len(s)
-        for i in range(0, n - 4):
+        for i in range(0, n - 3):
             if (s[i:i + 4] == "1100"):
                 b.append(i)
             #
@@ -80,7 +80,8 @@ def __main__():
         for i in range(0, m):
             FLAG1 = (a[i][1] != s[a[i][0] - 1])
             s = s[:a[i][0] - 1] + str(a[i][1]) + s[a[i][0]:]
-            b = calcAnswer(s, n, b, k, a, m, i, FLAG1)
+            if (FLAG1):
+                b = calcAnswer(s, n, b, k, a, m, i, FLAG1)
             if (len(b) > 0):
                 print("YES")
             else:
