@@ -29,7 +29,19 @@ def calcAnswer():
 def __main__():
     T = int(input())
     for t in range(0, T):
-        pass
+        s = input()
+        q = int(input())
+        for i in range(0, q):
+            x, v = map(int, input().split())
+            s = s[:x - 1] + str(v) + s[x:]
+            if ("1100" in s):
+                print("YES")
+            else:
+                print("NO")
+            #
+        #
+    #
+    return
 
 
 __main__()
