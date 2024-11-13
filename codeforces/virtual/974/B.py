@@ -30,8 +30,10 @@ def __main__():
         n, k = map(int, input().split())
         if (n < k):
             count = 0
-            for i in range(1, n + 1):
-                count += (i ** i)
+            if ((n % 2) == 1):
+                count += (n // 2) + 1
+            else:
+                count += (n // 2)
             #
             if ((count % 2) == 0):
                 print("YES")
@@ -40,8 +42,14 @@ def __main__():
             #
         else:
             count = 0
-            for i in range(n - k + 1, n + 1):
-                count += (i ** i)
+            if ((n - k + 1) % 2 == 1):
+                if ((n % 2) == 1):
+                    count += (k // 2) + 1
+                else:
+                    count += (k // 2)
+                #
+            else:                    
+                count += (k // 2)
             #
             if ((count % 2) == 0):
                 print("YES")
