@@ -1,6 +1,6 @@
 """
 sbhatore
-3 Sep 2024
+12, 13 Nov 2024
 
 # Assumptions:
 #
@@ -22,7 +22,7 @@ sbhatore
 # pseudocode:
 """
 
-def calcAnswer(s, n, b, k, a, m, i, FLAG):
+def calcAnswer(s, n, b, i, FLAG):
     if (FLAG):
         for j in range (i - 3, i + 1):
             if (j in b):
@@ -50,7 +50,7 @@ def calcAnswer(s, n, b, k, a, m, i, FLAG):
         #
     if ((i - 3 >= 0) and (i < n)):
         if (s[i - 3:i + 1] == "1100"):
-            if (i - 3 not in b):
+            if ((i - 3) not in b):
                 b.append(i - 3)
             #
         #
@@ -75,13 +75,11 @@ def __main__():
                 b.append(i)
             #
         #
-        m = len(a)
-        k = len(b)
-        for i in range(0, m):
+        for i in range(0, q):
             FLAG1 = (a[i][1] != s[a[i][0] - 1])
-            s = s[:a[i][0] - 1] + str(a[i][1]) + s[a[i][0]:]
             if (FLAG1):
-                b = calcAnswer(s, n, b, k, a, m, i, FLAG1)
+                s = s[:a[i][0] - 1] + str(a[i][1]) + s[a[i][0]:]
+                b = calcAnswer(s, n, b, a[i][0] - 1, FLAG1)
             if (len(b) > 0):
                 print("YES")
             else:
