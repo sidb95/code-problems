@@ -34,28 +34,28 @@ def calcAnswer(s, n, b, i, count, FLAG):
         #
     #
     if ((i + 3) < n):
-        if (s[i:i + 4] == "1100"):
+        if (''.join(s[i:i + 4]) == "1100"):
             if not b[i]:
                 b[i] = True
                 count += 1
             #
         #
     if ((i - 1 >= 0) and (i + 2 < n)):
-        if (s[i - 1:i + 3] == "1100"):
+        if (''.join(s[i - 1:i + 3]) == "1100"):
             if not b[i - 1]:
                 b[i - 1] = True
                 count += 1
             #
         #
     if ((i - 2 >= 0) and (i + 1 < n)):
-        if (s[i - 2:i + 2] == "1100"):
+        if (''.join(s[i - 2:i + 2]) == "1100"):
             if (not b[i - 2]):
                 b[i - 2] = True
                 count += 1
             #
         #
     if ((i - 3 >= 0) and (i < n)):
-        if (s[i - 3:i + 1] == "1100"):
+        if (''.join(s[i - 3:i + 1]) == "1100"):
             if (not b[i - 3]):
                 b[i - 3] = True
                 count += 1
@@ -78,10 +78,12 @@ def __main__():
         n = len(s)
         b = [True] * n
         count = 0
+        s = list(s)
         for i in range(0, n - 3):
-            if (s[i:i + 4] == "1100"):
+            if (''.join(s[i:i + 4]) == "1100"):
                 b[i] = True
                 count += 1
+                i += 3
             else:
                 b[i] = False
             #
@@ -91,7 +93,7 @@ def __main__():
         for i in range(0, q):
             FLAG1 = (a[i][1] != s[a[i][0] - 1])
             if (FLAG1):
-                s = s[:a[i][0] - 1] + str(a[i][1]) + s[a[i][0]:]
+                s[a[i][0] - 1] = str(a[i][1])
                 b, count = calcAnswer(s, n, b, a[i][0] - 1, count, FLAG1)
             if (count > 0):
                 print("YES")
