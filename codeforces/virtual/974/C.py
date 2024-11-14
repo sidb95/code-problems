@@ -25,7 +25,7 @@ sbhatore
 import math
 
 def calcAnswer(a, n, a_i, numA, num1):
-    if (a_i < num1):
+    if (a_i < (num1 / 2)):
         print("0")
         return
     x = 1
