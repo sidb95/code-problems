@@ -24,8 +24,28 @@ sbhatore
 
 import math
 
-def calcAnswer():
-    pass
+def calcAnswer(a, n, i, numA, num1):
+    x = 1
+    while (num1 <= a[n // 2]):
+        num1 = (numA + x) / 2
+        x *= 2
+    x = x // 2
+    y = x // 2
+    itr1 = y
+    itr2 = x
+    while (itr1 <= itr2):
+        mid = itr1 + (itr2 - itr1) // 2
+        num1 = (numA + mid) / n
+        num2 = (numA + mid - 1) / n
+        if (num2 <= a[n // 2] and num1 > a[n // 2]):
+            print(mid)
+            break
+        elif (num2 <= a[n // 2]):
+            itr2 = mid - 1
+        else:
+            itr1 = mid + 1
+        #
+    #
 
 
 def __main__():
@@ -36,22 +56,13 @@ def __main__():
         if (n < 3):
             print("-1")
         else:
-            num1 = sum(a) / n
+            numA = sum(a)
+            num1 = numA / n
             a = sorted(a)
             if (n % 2 == 0):
-                if (a[n // 2] < num1):
-                    print("0")
-                else:
-                    x = math.ceil((n * (a[n // 2] - sum(a))))
-                    print(x)
-                #
+                calcAnswer(a, n, n // 2, numA, num1)
             else:
-                if (a[n // 2 + 1] < num1):
-                    print("0")
-                else:
-                    x = math.ceil((n * (a[n // 2 + 1] - sum(a))))
-                    print(x)
-                #
+                calcAnswer(a, n, n // 2 + 1, numA, num1)
             #
         #
     #
