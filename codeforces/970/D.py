@@ -37,9 +37,12 @@ def __main__():
             if (s[i] == '0' and a[i] == (i + 1)):
                 count += 1
             else:
+                b = {}
                 itr1 = i
+                b[itr1] = True
                 itr2 = a[itr1] - 1
-                while (itr2 != itr1 and (a[itr2] != (itr2 + 1))):
+                while (itr2 != itr1 and (itr2 not in b)):
+                    b[itr2] = True
                     if (s[itr2] == '0'):
                         count += 1
                     itr2 = a[itr2] - 1
