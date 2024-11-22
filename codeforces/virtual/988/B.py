@@ -32,19 +32,18 @@ def __main__():
         k = int(input())
         b = list(map(int, input().split()))
         a = set(b)
-        A = {}
-        for elmt in a:
-            A[elmt] = True
-        FLAG = True
+        c = [0] * (2 * (100000))
+        for elmt in b:
+            c[elmt] += 1
         for elmt in a:
             if (elmt != 0):
                 if ((k - 2) % elmt == 0):
                     if ((k - 2) // elmt == elmt):
-                        if (b.count(elmt) > 1):
+                        if (c[elmt] > 1):
                             print(elmt, elmt)
                             break
                     else:
-                        if (((k - 2) // elmt) in A):
+                        if (c[(k - 2) // elmt] > 0):
                             print(elmt, (k - 2) // elmt)
                             break
                     #
