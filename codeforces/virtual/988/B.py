@@ -31,21 +31,20 @@ def __main__():
     for t in range(0, T):
         k = int(input())
         b = list(map(int, input().split()))
-        a = set(b)
-        c = [0] * (2 * (100000))
+        c = [0] * (k + 1)
         for elmt in b:
             c[elmt] += 1
-        for elmt in a:
-            if (elmt != 0):
-                if ((k - 2) % elmt == 0):
-                    if ((k - 2) // elmt == elmt):
-                        if (c[elmt] > 1):
-                            print(elmt, elmt)
-                            break
-                    else:
-                        if (c[(k - 2) // elmt] > 0):
-                            print(elmt, (k - 2) // elmt)
-                            break
+        for i in range(1, k + 1):
+            if ((i * i) == (k - 2)):
+                if (c[i] > 1):
+                    print(i, i)
+                    break
+                #
+            else:
+                if ((k - 2) % i == 0):
+                    if (c[i] > 0 and c[(k - 2) // i] > 0):
+                        print(i, (k - 2) // i)
+                        break
                     #
                 #
             #
