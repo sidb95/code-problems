@@ -1,11 +1,17 @@
-class Solution:
-  def __init__(self):
-    pass
-
-  def mainA1(self):
-    pass
-
 def __main__():
-  pass
+    T = int(input())
+    for t in range(0, T):
+        X, Y, Z = map(int, input().split())
+        #
+        sum = Y
+        count = 1
+        #
+        while (count < X and sum < Z):
+            count += 1
+            sum += Y
+        if (sum < Z):
+            print(0)
+        else:
+            print(count - 1)
 
 __main__()

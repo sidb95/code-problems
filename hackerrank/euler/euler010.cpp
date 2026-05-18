@@ -2,60 +2,50 @@
 euler010
 bhatoresiddharth@gmail.com
 sidb95
-21 May 2024
+21 May, 30 July 2024
 */
 
-#include <set>
 #include <iostream>
 #include <math.h>
+#include <unordered_map>
 
 using namespace std;
 
-long long int X = 2;
-long long int SET_LIMIT_X = 100000
+unordered_map <int, bool> S;
+unordered_map<int, bool> P;
 
-bool isPrime(long long int num, long long int limit);
-long long int calcAnswer(long long int n);
-
-bool isPrime(long long int num, long long int limit) {
-    bool retAnswer = true;
-    limit = ((limit % X) == 0) ? (limit - 1) : limit;
-    set <long long int> vis;
-    long long int m;
-    // returns false if numeric is divisible by 2  
-    if ((num == 0) || (num == 1) || ((num % X) == 0)) {
-        retAnswer = false;
+bool isPrime(int n) {
+    bool retPropn = true;
+    if (n == 1) {
+        retPropn = false;
     }
-    else if (num == X) {
-        retAnswer = true;
+    else if (n == 2) {
+        retPropn = true;
+    }
+    else if ((n % 2) == 0) {
+        retPropn = false;
     }
     else {
-        for (long long int i = 3; i <= limit; i += X) {
-            if ((num % i) == 0) {
-                retAnswer = false;
-                break;
-            }
-            //
-            m = vis.size();
-            //
-            if (m < SET_LIMIT_X) {
-                // if true, visit and mark nodes by multiples
-                if (vis.find(i) == (vis.end())) {
-                    for (long long int l = i; l <= limit; l += i) {
-                        vis.insert(l);
-                    }
+        int num1 = pow(n, 0.5);
+        for (int i = 3; i <= num1; i += 2) {
+            if (S.find(i) == S.end()) {
+                if ((n % i) == 0) {
+                    retPropn = false;
+                    break;
+                }
+                int j = 2 * i;
+                while (j <= num1) {
+                    S[j] = true;
+                    j += i;
                 }
             }
         }
     }
-    //
-    return retAnswer;
+    return retPropn;
 }
 
-long long int calcAnswer(long long int n) {
+int calcAnswer(int n) {
     long long int retAnswer = 0;
-    set <long long int> vis;
-    long long int m = 0;
     if (n == 1) {
         retAnswer = 0;
     }
@@ -63,23 +53,20 @@ long long int calcAnswer(long long int n) {
         retAnswer = 2;
     }
     else {
-        for (long long int i = 3; i < n; i++) {
-            if (vis.find(i) == vis.end()) {
-                if (isPrime(i, pow(i, 0.5))) {
+        retAnswer += 2;
+        for (int i = 3; i <= n; i += 2) {
+            if (P.find(i) == P.end()) {
+                if (isPrime(i)) {
                     retAnswer += i;
-                }
+                    P[i] = true;
+                }    
             }
             else {
-                if (m < SET_LIMIT_X) {
-                    for (long long int l = i; l < n; l += i) {
-                        vis.insert(l);
-                        m++;
-                    }
-                }
+                retAnswer += i;
             }
         }
-        return retAnswer;
     }
+    return retAnswer;
 }
 
 

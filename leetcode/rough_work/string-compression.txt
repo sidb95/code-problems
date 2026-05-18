@@ -1,0 +1,14 @@
+in: vector<char>& chars
+out: int
+
+Approach:
+
+1. Keep a counter: lenString1
+
+2. read the chars till the end,
+	- in the above loop, store character in index in data type 'char' and name it c,
+	- loop again until the end (n == chars.size()) or when we encounter any other character than c,
+	- keep this loop length in count,
+	- append to chars
+
+3. pop_back() until the lenString1 end is string

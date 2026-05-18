@@ -22,8 +22,17 @@ def simplifyPath(path):
                 else:
                     a.append(t)
             else:
+<<<<<<< HEAD
                 for j in range(0, m - 1):
                     a.pop(len(a) - 1)
+=======
+                if (len(a) > m - 2):
+                    for j in range(0, m - 1):
+                        a.pop(len(a) - 1)
+                    #
+                else:
+                    a.append(t)
+>>>>>>> c672e95dee50bbb2fc21aab8b02e768f155dbbe5
                 #
             #
         else:

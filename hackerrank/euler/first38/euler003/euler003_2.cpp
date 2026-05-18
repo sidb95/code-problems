@@ -1,26 +1,13 @@
 #include <iostream>
+#include <math.h>
+#include <unordered_map>
 
 using namespace std;
 
-long long int gcd(long long int a, long long int b) {
-    long long int t, r;
-    if (a < b) {
-        t = a;
-        a = b;
-        b = t;
-    }
-    r = (a % b);
-    if (r == 0) {
-        return b;
-    }
-    else {
-        a = b;
-        b = r;
-    }
-    return gcd(a, b);
-}
+unordered_map <long long int> S;
 
-bool isPrime(int n) {
+
+bool isPrime(long long int n) {
     bool retPropn = true;
     if (n == 1) {
         retPropn = false;
@@ -32,10 +19,18 @@ bool isPrime(int n) {
         retPropn = false;
     }
     else {
-        for (int i = 3; i <= pow(n, 0.5); i += 2) {
-            if ((n % i) == 0) {
-                retPropn = false;
-                break;
+        long long int num1 = pow(n, 0.5);
+        for (long long int i = 3; i <= num1; i += 2) {
+            if (S.find(i) == S.end()) {
+                if ((n % i) == 0) {
+                    retPropn = false;
+                    break;
+                }
+                long long int j = 2 * i;
+                while (j <= num1) {
+                    S[j] = true;
+                    j += i;
+                }
             }
         }
     }
@@ -48,11 +43,10 @@ int main() {
     for (t = 0; t < T; t += 1) {
         long long int N;
         cin >> N;
-        long long int answer, num1;
-        for (long long int i = N; i >= 1; i -= 1) {
-            num1 = gcd(N, i);
-            if (num1 == i) {
-                if (isPrime(num1)) {
+        long long int answer;
+        for (long long int i = (N % 2 == 0) ? (N - 1):N; i >= 1; i -= 2) {
+            if ((N % i) == 0) {
+                if (isPrime(i)) {
                     answer = i;
                     break;
                 }

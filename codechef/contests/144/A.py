@@ -1,11 +1,10 @@
-class Solution:
-  def __init__(self):
-    pass
-
-  def mainA1(self):
-    pass
-
 def __main__():
-  pass
+    X, Y = map(int, input().split())
+    if (X == Y):
+        print("SAME")
+    elif (Y > X):
+        print("INCREASED")
+    else:
+        print("DECREASED")
 
 __main__()
